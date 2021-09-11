@@ -39,7 +39,7 @@ const RegisterStwo = props => (
                               labelStyle={tw`p-2 bg-green-600 text-blue-800`}
 
                               keyboardType="number-pad" /> */}
-                        <Button onPress={handleSubmit} title="Submit" />
+                        <Button onPress={() => navigation.navigate('LoginS')} title="Submit" />
                   </View>
             )}
       </Formik>

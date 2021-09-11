@@ -2,7 +2,7 @@ import React from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+// import store from './store'
 
 
 
@@ -21,6 +21,7 @@ import NewWorkCame from './screensS/NewWorkCame';
 import RegisterStwo from './screensS/RegisterStwo';
 import RegisterSone from './screensS/RegisterSone';
 import WDomainSm from './screensS/WDomainSm';
+import ProfileScreen from './screensS/ProfileScreen';
 
 import WriteNum from './screensS/OtpScreens/WriteNum';
 import VerfiOTP from './screensS/OtpScreens/VerfiOTP';
@@ -41,7 +42,7 @@ export default function App() {
             style={{ flex: 1 }}
           >
         
-            <Stack.Navigator initialRouteName="VerfiOTP" screenOptions={{headerShown: false}} >
+            <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{headerShown: false}} >
 
               <Stack.Screen  name="HomeScreen" component={HomeScreen}  />
               <Stack.Screen  name="WriteNum" component={WriteNum}  />
@@ -49,6 +50,7 @@ export default function App() {
 
       
               <Stack.Screen  name="LoginS" component={LoginS}  />
+              <Stack.Screen  name="ProfileScreen" component={ProfileScreen}  />
               <Stack.Screen  name="RegisterStwo" component={RegisterStwo}  />
               <Stack.Screen  name="RegisterSone" component={RegisterSone}  />
               <Stack.Screen  name="WDomain" component={WDomain}  />

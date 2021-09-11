@@ -7,10 +7,39 @@ import { Button } from 'react-native-elements/dist/buttons/Button';
 const VerfiOTP = ({ navigation }) => {
 
       let textInput = useRef(null)
+      let clockCall = null
       const [otpvalue, setOtpvalue] = useState("")
       const lengthInput = 6;
-      const defaultCountdown =30;
-      const [countdown, setCountdown] = useState(initialState)
+      const defaultCountdown = 5;
+      const [countdown, setCountdown] = useState(defaultCountdown)
+      const [enableResend, setenableResend] = useState(initialState)
+
+      useEffect(() => {
+            clockCall = setInterval(() => {
+                  decrementClock();
+            }, 1000)
+
+            return () => {
+                  clearInterval(clockCall)
+            }
+      })
+
+      const decrementClock = () => {
+            if (countdown === 0) {
+                  setenableResend(true)
+                  setCountdown(0)
+                  clearInterval(clockCall)
+            }
+            else {
+                  setCountdown(countdown - 1)
+            }
+      }
+
+      const onChangeNum = () => {
+            setOtpvalue("")
+
+      }
+
 
 
       function handleSubmiiit() {
@@ -19,6 +48,20 @@ const VerfiOTP = ({ navigation }) => {
 
       const onTextChange = (val) => {
             setOtpvalue(val)
+            if(val.length===lenght){
+                  
+            }
+      }
+
+      const onResendOTPbTn = () => {
+            if (enableResend) {
+                  setCountdown(defaultCountdown)
+                  setenableResend(false)
+                  clearInterval(clockCall)
+                  clockCall = setInterval(() => {
+                        decrementClock(0)
+                  }, 1000)
+            }
       }
 
       useEffect(() => {
@@ -65,14 +108,14 @@ const VerfiOTP = ({ navigation }) => {
                               </View>
                               <View style={tw`mt-36 px-0 mx-0 w-screen bg-black`}>
                                     <View style={tw`flex-row  h-20 w-10/12 flex-1 mt-0  items-center`}>
-                                          <TouchableOpacity style={tw`   h-12 bg-blue-200`}>
+                                          <TouchableOpacity style={tw`   h-12 bg-blue-200`} onPress={onChangeNum}>
                                                 <View style={tw` border-1 rounded-xl items-center justify-start `}>
                                                       <Text style={tw`items-center text-base text-blue-400`}> Change Number</Text>
                                                 </View>
                                           </TouchableOpacity>
-                                          <TouchableOpacity style={tw`  h-12  bg-green-300`}>
+                                          <TouchableOpacity style={tw`  h-12  bg-green-300`} onPress={onResendOTPbTn}>
                                                 <View style={tw` border-1 rounded-xl items-center justify-center `}>
-                                                      <Text style={tw`items-center text-base text-gray-400`}>Resend OTP</Text>
+                                                      <Text style={[tw`items-center text-base text-gray-400`, { color: enableResend ? '#234DB7' : 'gray' }]}>Resend OTP</Text>
                                                 </View>
                                           </TouchableOpacity>
 
