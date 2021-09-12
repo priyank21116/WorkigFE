@@ -3,10 +3,10 @@ import { StyleSheet, Text, View, TouchableOpacity, Modal, SafeAreaView, Touchabl
 import tw from 'tailwind-react-native-classnames';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { Input } from 'react-native-elements/dist/input/Input';
-import { NavigationContainer } from '@react-navigation/native';
+
 
 import { Countries } from './CountryCode';
-import { justifyContent } from 'styled-system';
+
 
 const WriteNum = ({ navigation }) => {
       let textInput = useRef(null)
@@ -107,7 +107,7 @@ const WriteNum = ({ navigation }) => {
                         <Text style={tw`text-2xl pb-4  text-black`}>Please Enter mobile no </Text>
                         <Text style={tw`italic text-center text-gray-500 text-base font-normal`}> An OTP would be send on that mobile no for veification purpose.</Text>
 
-                        <View style={tw`my-12 flex-row px-8 pb-2`}>
+                        <View style={tw`my-12 flex-row px-8 `}>
                               {/* constainer input */}
                               <TouchableOpacity onPress={onShowhidehandle}>
                                     <View style={tw`flex-row  items-center justify-center `}>
@@ -118,7 +118,7 @@ const WriteNum = ({ navigation }) => {
 
                               <Input
                                     ref={(input) => textInput = input}
-                                    style={tw`mx-4 w-10/12`}
+                                    style={tw`mx-4 my-12 w-10/12`}
                                     placeholder={placeHolder}
                                     disabledInputStyle={{ border: 0 }}
                                     placeholderTextColor="#A8A8A8"

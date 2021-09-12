@@ -1,65 +1,56 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import { View, TextInput, Text } from 'react-native'
 import * as yup from 'yup';
 import tw from 'tailwind-react-native-classnames';
-
 import { Formik } from 'formik';
-import { ScrollView, Dimensions } from 'react-native';
-
+import { ScrollView } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
 
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { Input } from 'react-native-elements/dist/input/Input';
 
-import { KeyboardAvoidingView } from 'react-native';
 
-const arr = {
+
+const arr1 = {
       name: "",
       email: "",
-      phone: Number,
-      emergencyNo: Number,
+      // phone: null,
+      emergencyNo: 0,
       description: "",
+      ad1w: "",
+      landmarkw: "",
+      pincodew: 0,
       // image: "",
-      setpassword: String,
-      confirmPass: String,
-      Rad1: String,
-      Rad2: String,
-      Rlandmark: String,
-      Rcity: String,
-      Rpin: Number,
-      Rstate: String,
-      adharNo: Number,
-      // adharPhoto: String,
-      ad1w: String,
-      landmarkw: String,
-      pincodew: Number
 
 }
 
-const RegisterValidationSchema = yup.object().shape({
+const RegisterValidationSchema = yup.object({
 
-      phone: yup.number().required('Mobile No is required').positive().integer().min(10).max(10),
-      email: yup.string().required('Email is required'),
-      emergencyNo: yup.number().required('Mobile No is required').positive().integer().min(10).max(10),
-
+      
+      email: yup.string().required('Email is required').email(),
+      emergencyNo: yup.number().required('Mobile No is required').positive().integer().min(5),
+      pincodew: yup.number().positive().required('This field is required'),
+      name: yup.string().required('Enter Name'),
+      ad1w: yup.string().required('This field is required'),
+      landmarkw: yup.string().required('This field is required')
 
 });
-
-const handleSubmit = () => {
-      console.log(arr)
-      navigation.navigate('LoginS')
-}
 
 
 
 const RegisterSone = ({ navigation }) => (
 
       <Formik
-            initialValues={arr}
+            initialValues={arr1}
             validateOnMount={true}
-            onSubmit={handleSubmit}
+            onSubmit={values => {
+                  console.log(values)
+                  navigation.navigate('RegisterStwo')
+            }}
             validationSchema={RegisterValidationSchema}
       >
-            {({ handleChange, handleBlur, values }) => (
+            {({ handleChange, handleBlur, handleSubmit, values, touched, errors }) => (
+
                   <View style={tw`bg-indigo-400 w-full h-full`}>
 
                         <ScrollView style={tw`bg-gray-200 border rounded-t-xl   mt-20 mx-auto  w-11/12 h-full`}>
@@ -67,8 +58,8 @@ const RegisterSone = ({ navigation }) => (
 
                                     keyboardVerticalOffset={50}
                                     behavior={'padding'}>
-                                    <View style={tw` my-20 px-6`}>
-                                          {/* <Text style={tw`mb-1 ml-3 text-base font-medium italic`}> Mobile no.</Text> */}
+                                    <View style={tw` mt-20 px-6`}>
+                                         
 
                                           <Input
                                                 label="Name"
@@ -78,14 +69,17 @@ const RegisterSone = ({ navigation }) => (
                                                 onBlur={handleBlur('name')}
                                                 value={values.name}
                                           />
+                                          {(errors.name && touched.name) ? <Text style={tw`text-sm text-red-500 mt-1  italic font-semibold`}>{errors.name}</Text> : null}
                                           <Input
                                                 label="Email"
                                                 labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="default"
+                                                keyboardType="email-address"
                                                 onChangeText={handleChange('email')}
                                                 onBlur={handleBlur('email')}
                                                 value={values.email}
                                           />
+                                          {(errors.email && touched.email) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.email}</Text> : null}
+
                                           <Input
                                                 label="Alternate mobile no."
                                                 labelStyle={[tw``, { color: "#8f00ff" }]}
@@ -94,95 +88,30 @@ const RegisterSone = ({ navigation }) => (
                                                 onBlur={handleBlur('emergencyNo')}
                                                 value={values.emergencyNo}
                                           />
-                                          <Input
-                                                label="Enter password"
-                                                labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="default"
-                                                onChangeText={handleChange('setpassword')}
-                                                onBlur={handleBlur('setpassword')}
-                                                value={values.setpassword}
-                                          />
-                                          <Input
-                                                label="Confirm Password"
-                                                labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="default"
-                                                onChangeText={handleChange('confirmPass')}
-                                                onBlur={handleBlur('confirmPass')}
-                                                value={values.confirmPass}
-                                          />
-                                          <Input
-                                                label="Address line 1"
-                                                labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="default"
-                                                onChangeText={handleChange('ad1')}
-                                                onBlur={handleBlur('ad1')}
-                                                value={values.ad1}
-                                          />
-                                          <Input
-                                                label="Address line 2"
-                                                labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="default"
-                                                onChangeText={handleChange('ad2')}
-                                                onBlur={handleBlur('ad2')}
-                                                value={values.ad2}
-                                          />
+                                          {(errors.emergencyNo && touched.emergencyNo) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.emergencyNo}</Text> : null}
 
-                                          <Input
-                                                label="Landmark"
-                                                labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="default"
-                                                onChangeText={handleChange('landmark')}
-                                                onBlur={handleBlur('landmark')}
-                                                value={values.landmark}
-                                          />
-                                          <Input
-                                                label="City"
-                                                labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="default"
-                                                onChangeText={handleChange('city')}
-                                                onBlur={handleBlur('city')}
-                                                value={values.city}
-                                          />
-                                          <Input
-                                                label="Zip Code"
-                                                labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="default"
-                                                onChangeText={handleChange('pin')}
-                                                onBlur={handleBlur('pin')}
-                                                value={values.pin}
-                                          />
-                                          <Input
-                                                label="State"
-                                                labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="default"
-                                                onChangeText={handleChange('state')}
-                                                onBlur={handleBlur('state')}
-                                                value={values.state}
-                                          />
-                                          <Input
-                                                label=" Enter Adhar no."
-                                                labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="number-pad"
-                                                onChangeText={handleChange('adharNo')}
-                                                onBlur={handleBlur('adharNo')}
-                                                value={values.adharNo}
-                                          />
+                                          <Text style={tw`font-semibold text-xl`}> Work Place Address</Text>
+                                          <Text style={tw`font-normal text-base pb-6 border-b w-full mb-6`}>Write residential if dont have one</Text>
                                           <Input
                                                 label="Workplace address"
                                                 labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="number-pad"
+                                                keyboardType="default"
                                                 onChangeText={handleChange('ad1w')}
                                                 onBlur={handleBlur('ad1w')}
                                                 value={values.ad1w}
                                           />
+                                          {(errors.ad1w && touched.ad1w) ? <Text style={tw`text-sm text-red-500  mt-1 italic font-semibold`}>{errors.ad1w}</Text> : null}
+
                                           <Input
                                                 label="WP landmark"
                                                 labelStyle={[tw``, { color: "#8f00ff" }]}
-                                                keyboardType="number-pad"
+                                                keyboardType="default"
                                                 onChangeText={handleChange('landmarkw')}
                                                 onBlur={handleBlur('landmarkw')}
                                                 value={values.landmarkw}
                                           />
+                                          {(errors.landmarkw && touched.landmarkw) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.landmarkw}</Text> : null}
+
                                           <Input
                                                 label="WP Zip code"
                                                 labelStyle={[tw``, { color: "#8f00ff" }]}
@@ -191,10 +120,13 @@ const RegisterSone = ({ navigation }) => (
                                                 onBlur={handleBlur('pincodew')}
                                                 value={values.pincodew}
                                           />
+                                          {(errors.pincodew && touched.pincodew) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.pincodew}</Text> : null}
+
 
 
 
                                           <TextInput
+
                                                 style={tw`border mt-6 text-base rounded-xl w-full h-20 py-3 px-4`}
                                                 onChangeText={handleChange('description')}
                                                 value={values.description}

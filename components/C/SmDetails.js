@@ -1,4 +1,4 @@
-import { useAccessibleColors } from 'native-base'
+
 import React, { useState } from 'react'
 import { Image } from 'react-native';
 import { ScrollView,StyleSheet, Text, View } from 'react-native'

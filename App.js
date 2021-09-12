@@ -23,6 +23,7 @@ import RegisterSone from './screensS/RegisterSone';
 import WDomainSm from './screensS/WDomainSm';
 import ProfileScreen from './screensS/ProfileScreen';
 
+
 import WriteNum from './screensS/OtpScreens/WriteNum';
 import VerfiOTP from './screensS/OtpScreens/VerfiOTP';
 
@@ -42,8 +43,8 @@ export default function App() {
             style={{ flex: 1 }}
           >
         
-            <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{headerShown: false}} >
-
+            <Stack.Navigator initialRouteName="WDomain" screenOptions={{headerShown: false}} >
+  
               <Stack.Screen  name="HomeScreen" component={HomeScreen}  />
               <Stack.Screen  name="WriteNum" component={WriteNum}  />
               <Stack.Screen  name="VerfiOTP" component={VerfiOTP}  />
@@ -56,11 +57,10 @@ export default function App() {
               <Stack.Screen  name="WDomain" component={WDomain}  />
               <Stack.Screen  name="MapScreenS" component={MapScreenS}  />
               <Stack.Screen  name="WDomainSm" component={WDomainSm}  />
-
+              <Stack.Screen  name="NewWorkCame" component={NewWorkCame}  />
          
 
               <Stack.Screen  name="LoginC" component={LoginC}  />
-              <Stack.Screen  name="NewWorkCame" component={NewWorkCame}  />
               <Stack.Screen  name="MapScreenC" component={MapScreenC}  />
 
             </Stack.Navigator>

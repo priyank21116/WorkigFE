@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import tw from 'tailwind-react-native-classnames';    
+import tw from 'tailwind-react-native-classnames';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { ScrollView, ImageBackground, Dimensions, Text, View, TouchableOpacity } from 'react-native';
@@ -23,11 +23,6 @@ const loginValidationSchema = yup.object().shape({
 });
 
 
-const handleOnSubimtt = () => {
-      console.log(arr)
-      navigation.navigate('ProfileScreen')
-}
-
 
 const LoginS = ({ navigation }) => {
 
@@ -40,7 +35,10 @@ const LoginS = ({ navigation }) => {
             <Formik
                   initialValues={arr}
                   validateOnMount={true}
-                  onSubmit={handleOnSubimtt}
+                  onSubmit={values => {
+                        console.log(values)
+                        navigation.navigate('ProfileScreen')
+                  }}
                   validationSchema={loginValidationSchema}
             >
                   {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => {
@@ -103,11 +101,11 @@ const LoginS = ({ navigation }) => {
                                                                   </TouchableOpacity>
 
                                                                   {(errors.phone && touched.phone) &&
-                                                                        <Text style={tw`text-sm text-red-500 mt-5 italic font-semibold`}>{errors.phone}</Text>
+                                                                        <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.phone}</Text>
                                                                   }
 
                                                             </View>
-                                                            <View floatinglabel style={tw` mt-10 justify-space-between flex-row`}>
+                                                            <View floatinglabel style={tw` mt-10 justify-between flex-row`}>
 
 
                                                                   <Input
@@ -154,7 +152,7 @@ const LoginS = ({ navigation }) => {
                                                                         <CheckBox
                                                                               checked={RememberMe}
                                                                               style={tw`border-none bg-white`}
-                                                                              uncheckedColor="4632A1"
+                                                                              uncheckedColor="#4632A1"
                                                                               color='#8F9195'
                                                                               title=" Remember Me"
                                                                               onPress={() => setRememberMe(!RememberMe)}
@@ -177,12 +175,12 @@ const LoginS = ({ navigation }) => {
 
                                                             {/* <View style={tw`h-auto justify-center items-center`}> */}
 
-                                                            
+
                                                             <Button
                                                                   style={[tw`w-6/12 shadow-lg`, { shadowColor: '#00ACEE', width: Dimensions.get('window').width / 2 }]}
                                                                   buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
                                                                   title="Next"
-                                                                  onPress={handleOnSubimtt}
+                                                                  onPress={handleSubmit}
 
                                                             />
 

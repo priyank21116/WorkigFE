@@ -2,7 +2,7 @@ import React from 'react'
 import { Input, Button, Icon, Text, Badge } from 'react-native-elements';
 import tw from 'tailwind-react-native-classnames';
 
-import { Alert } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
 import { StyleSheet, View } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { ScrollView } from 'react-native'
@@ -15,20 +15,28 @@ import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
 // import { Input } from 'react-native-elements';
 
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
       const navigate = useNavigation();
 
 
       return (
-            <ScrollView >
 
-                  <View style={[tw`items-center justify-items-center`,{ justifyContent: "center", alignContent: "center", alignItems: "center" }]}>
 
-                        <Text>You are ?</Text>
-                        <Button title="Looking for Work" onPress={() => navigation.navigate('LoginS')}></Button>
-                        <Button title="Want help for Some Work?" onPress={() =>navigation.navigate('LoginC') }></Button>
-                  </View>
-            </ScrollView>
+            <View style={[tw`items-center justify-center bg-gray-100`]}>
+
+                  <TouchableOpacity onPress={() => navigation.navigate('LoginC')}>
+                        <View style={[tw`w-10/12 px-4 py-6 mt-20 my-8 mx-auto h-auto border rounded-2xl`,{backgroundColor: "#8f00ff"}]}>
+                              <Text style={tw`text-2xl tracking-normal font-bold text-white`} >Want Some workto be done ?</Text>
+                        </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() =>navigation.navigate('LoginS')}>
+                        <View style={[tw`w-10/12 px-4 py-6 my-8 mx-auto h-auto border rounded-2xl`,{backgroundColor: "#8f00ff"}]}>
+                              <Text style={tw`text-2xl tracking-normal font-bold text-white`} >Start Work as Serviceman</Text>
+                        </View>
+                  </TouchableOpacity>
+                 
+            </View>
+
       )
 }
 

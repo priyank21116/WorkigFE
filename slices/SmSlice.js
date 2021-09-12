@@ -26,7 +26,7 @@ export const ARTpostphone=createAsyncThunk('/',)
 
 export const ARTpatchFullregister=createAsyncThunk('/',)
 
-export const ARTpostLogin=createAsyncThunk('/',)
+export const ARTpostLoginNgrtToken=createAsyncThunk('/',)
 
 export const ARTgetMyDetail=createAsyncThunk('/',)
 
@@ -36,8 +36,17 @@ export const SmSlice = createSlice({
       name: 'Sm',
       SmPerState,
       reducers: {
-          
+        addRegisteroneDetails: ()=>{},
+        addRegistertwoDetails: ()=>{},
+
+      },
+      extraReducers:{
+            // set token
+            //set phone in state
+            // set full state in successful login
+
       }
+      
 })
 
 

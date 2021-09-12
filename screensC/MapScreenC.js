@@ -6,7 +6,7 @@ import tw from 'tailwind-react-native-classnames';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NativeBaseProvider } from 'native-base';
+
 
 
 // import MapC from '../components/C/MapC';
