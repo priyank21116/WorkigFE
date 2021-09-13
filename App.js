@@ -11,21 +11,23 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeBaseProvider } from 'native-base';
 
 
-import LoginC from './screensC/LoginC';
+
 import HomeScreen from './CommonScreens/HomeScreen';
+import Login from './CommonScreens/Login';
+
 import MapScreenC from './screensC/MapScreenC';
 import MapScreenS from './screensS/MapScreenS';
-import LoginS from './screensS/Login';
+
 import WDomain from './components/C/WDomain';
 import NewWorkCame from './screensS/NewWorkCame';
 import RegisterStwo from './screensS/RegisterStwo';
 import RegisterSone from './screensS/RegisterSone';
 import WDomainSm from './screensS/WDomainSm';
 import ProfileScreen from './screensS/ProfileScreen';
+import RegisterScreenC from './screensC/RegisterScreenC';
 
-
-import WriteNum from './screensS/OtpScreens/WriteNum';
-import VerfiOTP from './screensS/OtpScreens/VerfiOTP';
+import WriteNum from './CommonScreens/OtpScreens/WriteNum';
+import VerfiOTP from './CommonScreens/OtpScreens/VerfiOTP';
 
 
 export default function App() {
@@ -34,41 +36,44 @@ export default function App() {
   return (
 
     <Provider store={store} >
-    <NativeBaseProvider >
-      <NavigationContainer >
-        <SafeAreaProvider>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
-            style={{ flex: 1 }}
-          >
-        
-            <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{headerShown: false}} >
-  
-              <Stack.Screen  name="HomeScreen" component={HomeScreen}  />
-              <Stack.Screen  name="WriteNum" component={WriteNum}  />
-              <Stack.Screen  name="VerfiOTP" component={VerfiOTP}  />
+      <NativeBaseProvider >
+        <NavigationContainer >
+          <SafeAreaProvider>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
+              style={{ flex: 1 }}
+            >
 
-      
-              <Stack.Screen  name="LoginS" component={LoginS} options={{headerShown: true}} />
-              <Stack.Screen  name="ProfileScreen" component={ProfileScreen}  options={{headerShown: true}} />
-              <Stack.Screen  name="RegisterStwo" component={RegisterStwo}  />
-              <Stack.Screen  name="RegisterSone" component={RegisterSone}  />
-              <Stack.Screen  name="MapScreenS" component={MapScreenS}  />
-              <Stack.Screen  name="WDomainSm" component={WDomainSm}  />
-              <Stack.Screen  name="NewWorkCame" component={NewWorkCame}  />
-         
+              <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{ headerShown: true }} >
 
-              <Stack.Screen  name="LoginC" component={LoginC}  />
-              <Stack.Screen  name="MapScreenC" component={MapScreenC}  />
+                <Stack.Screen name="HomeScreen" component={HomeScreen} />
+                <Stack.Screen name="Login" component={Login} options={{ headerShown: true }} />
+                <Stack.Screen name="WriteNum" component={WriteNum} />
+                <Stack.Screen name="VerfiOTP" component={VerfiOTP} />
 
-            </Stack.Navigator>
-            
-          </KeyboardAvoidingView>
-        </SafeAreaProvider>
-      </NavigationContainer>
-    </NativeBaseProvider>
-   </Provider>
+
+
+                <Stack.Screen name="RegisterSone" component={RegisterSone} />
+                <Stack.Screen name="RegisterStwo" component={RegisterStwo} />
+                <Stack.Screen name="MapScreenS" component={MapScreenS} />
+                <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: true }} />
+                <Stack.Screen name="NewWorkCame" component={NewWorkCame} />
+                {/* <Stack.Screen  name="WDomainSm" component={WDomainSm}  /> */}
+
+
+
+                <Stack.Screen name="RegisterScreenC" component={RegisterScreenC} />
+                <Stack.Screen name="MapScreenC" component={MapScreenC} />
+
+
+              </Stack.Navigator>
+
+            </KeyboardAvoidingView>
+          </SafeAreaProvider>
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </Provider>
 
   );
 }

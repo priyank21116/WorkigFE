@@ -11,11 +11,12 @@ import { ListItem } from 'react-native-elements';
 const loginValidationSchema = yup.object().shape({
 
       phone: yup.number().required('Mobile No is required').positive().integer().min(10).max(10),
-      password: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required')
-            .matches(
-                  "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
-                  "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-            ),
+      password: yup.string().required('Password is required')
+            // .min(8, ({ min }) => `Password must be atleast ${min} characters`)
+            // .matches(
+            //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+            //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+            // ),
 
 });
 

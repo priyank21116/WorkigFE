@@ -16,7 +16,7 @@ const arr = {
 
 const loginValidationSchema = yup.object().shape({
 
-      phone: yup.number().required('Mobile No is required').positive().integer().min(10).max(10),
+      phone: yup.number().required('Mobile No is required').positive().integer(),
       password: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required')
             .matches(
                   "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
@@ -27,7 +27,7 @@ const loginValidationSchema = yup.object().shape({
 
 
 
-const LoginS = ({ navigation }) => {
+const Login = ({ navigation }) => {
 
       const userType = useSelector(state => state.Genral.typeOUs)
 
@@ -36,42 +36,44 @@ const LoginS = ({ navigation }) => {
       const [Showpass, setShowpass] = useState(true)
       const [RememberMe, setRememberMe] = useState(false)
 
+
+    const SMlogin=(values)=>{
+          console.log("SMlOgin" ,values)
+      navigation.navigate('MapScreenS')
+    }
+    const CMLogin =(values)=>{
+      console.log("CMlOgin" ,values)
+      navigation.navigate('MapScreenC')
+    }
+
       return (
 
-
-            <Formik
-                  initialValues={arr}
-                  validateOnMount={true}
-                  onSubmit={values => {
-                        console.log("vgvjbjhb",values)
-                        userType === "Serviceman" ?
-                              navigation.navigate('MapScreenS')
-                              : navigation.navigate('MapScreenC')
-                  }}
-                  validationSchema={loginValidationSchema}
-            >
-                  {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => {
-
-                        {/* top Starts */ }
-                        return (
-
-                              <ScrollView
-                                    style={tw` flex-1 w-full `}
-                                    showsVerticalScrollIndicator={false}>
-                                    <View style={[tw` h-2/6`, { backgroundColor: "#8f00ff" }]}>
-                                          {/* <ImageBackground style={[{ height: Dimensions.get('window').height / 2.5 }, tw`bg-opacity-5 bg-cover bg-none bg-blue-100 backdrop-filter overflow-hidden z-0`]}  source={require('../images/HomeBackground.jpg')}>*/}
-                                          <View style={tw`flex-1 justify-center items-center`} >
-                                                {/* <Icon name="location-sharp" style={{ color: "", fontSize: 5 }} /> */}
-                                                <Text style={tw`text-4xl font-bold text-white uppercase`}>Workfig</Text>
-                                          </View>
-                                          {/* </ImageBackground> */}
-                                    </View>
+            <View
+                  style={tw` flex-1 w-full `}
+                  showsVerticalScrollIndicator={false}>
+                  <View style={[tw` h-2/6`, { backgroundColor: "#8f00ff" }]}>
+                        {/* <ImageBackground style={[{ height: Dimensions.get('window').height / 2.5 }, tw`bg-opacity-5 bg-cover bg-none bg-blue-100 backdrop-filter overflow-hidden z-0`]}  source={require('../images/HomeBackground.jpg')}>*/}
+                        <View style={tw`flex-1 justify-center items-center`} >
+                              {/* <Icon name="location-sharp" style={{ color: "", fontSize: 5 }} /> */}
+                              <Text style={tw`text-4xl font-bold text-white uppercase`}>Workfig</Text>
+                        </View>
+                        {/* </ImageBackground> */}
+                  </View>
 
 
-                                    {/* top ends */}
+                  <Formik
+                        initialValues={arr}
+                        validateOnMount={true}
+                        onSubmit={values => {navigation.navigate('MapScreenS')}}
+                              // userType === "Serviceman" ? SMlogin(values) : CMLogin(values) }}
+                        validationSchema={loginValidationSchema}
+                  >
 
-                                    {/* bottomView */}
-                                    <View style={[tw`w-full bg-white rounded-t-3xl`]}>
+                        {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => {
+
+                              return (
+
+                                    <ScrollView style={[tw` h-4/6 w-full bg-white rounded-t-3xl`]}>
                                           {/* { flex: 1.5 } */}
                                           <View style={[tw`w-full px-12`]}>
                                                 <View style={tw`mt-8`}>
@@ -191,9 +193,14 @@ const LoginS = ({ navigation }) => {
                                                                   style={[tw`w-6/12 shadow-lg`, { shadowColor: '#00ACEE' }]}
                                                                   buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
                                                                   title="Login"
-                                                                  onPress={handleSubmit}
+                                                                  onPress={()=>navigation.navigate('MapScreenS')}
 
                                                             />
+                                                            {/* <TouchableOpacity onPress={handleSubmit}>
+                                                                  <View style={[tw`w-5/12 px-4 py-3 mt-20 my-8 mx-auto h-auto border rounded-xl`, { backgroundColor: "#8f00ff" }]}>
+                                                                        <Text style={tw`text-2xl tracking-normal font-bold text-white`} >Login</Text>
+                                                                  </View>
+                                                            </TouchableOpacity> */}
 
 
 
@@ -202,17 +209,17 @@ const LoginS = ({ navigation }) => {
                                                 </View>
 
                                           </View>
-                                    </View>
+                                    </ScrollView>
+                              )
+                        }}
+                  </Formik>
 
-                              </ScrollView>
-                        )
-
-
-                  }}
-            </Formik>
+            </View>
       )
+    
+     
 }
 
 
 
-export default LoginS
+export default Login

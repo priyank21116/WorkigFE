@@ -7,8 +7,20 @@ import { Input } from 'react-native-elements/dist/input/Input';
 
 import { Countries } from './CountryCode';
 
+import { useSelector,useDispatch } from 'react-redux';
+import { CwritePhone } from '../../slices/CmPerSlice';
+import { SmwritePhone } from '../../slices/SmPerSlice';
+
+
 
 const WriteNum = ({ navigation }) => {
+
+      const dispatch = useDispatch()
+      const userType = useSelector(state => state.Genral.typeOUs)
+      const phoneSm = useSelector(state => state.Sm.phone)
+      const phoneCm = useSelector(state => state.Cm.phone)
+
+
       let textInput = useRef(null)
       const [phone, setphone] = useState()
       const [countrycode, setcountrycode] = useState(91)
@@ -21,12 +33,12 @@ const WriteNum = ({ navigation }) => {
             setModalVisible(!modalVisible)
       }
 
-      function handleSubmiiit() {
-            if (phone) {
-                  console.log(phone)
-                  navigation.navigate('RegisterSone')
-            }
-      }
+      // function handleSubmiiit() {
+      //       if (phone) {
+      //             console.log(phone)
+      //             navigation.navigate('RegisterSone')
+      //       }
+      // }
 
       const onChangeFocus = () => {
             setfocusInput(true)
@@ -63,7 +75,7 @@ const WriteNum = ({ navigation }) => {
                                                 onChangeText={filterCountries}
                                                 placeholder={'Filter'}
                                                 focusable
-                                                style={[tw`flex-1 py-8 bg-white`, { color:"#424242" }]}
+                                                style={[tw`flex-1 py-8 bg-white`, { color: "#424242" }]}
                                           />
                                     </View>
 
@@ -101,7 +113,21 @@ const WriteNum = ({ navigation }) => {
             textInput.focus()
       }, [])
 
-      return (
+
+      const OnSMlogin=(phone)=> {
+            dispatch(SmwritePhone(phone))
+            // console.log(useSelector(state => state.Sm.phone))
+            navigation.navigate('RegisterSone')
+            
+      }
+
+      const OnCmlogin=(phone)=>{
+             dispatch(CwritePhone(phone))
+            //  console.log(useSelector(state => state.Cm.phone))
+            navigation.navigate('RegisterScreenC')
+      }
+
+      return (   
             <View style={tw`w-full h-full items-center bg-white border-4 border-purple-600`}>
                   <View style={tw`w-11/12 h-96 mt-32 leading-5  items-center justify-center  `}>
                         <Text style={tw`text-2xl pb-4  text-black`}>Please Enter mobile no </Text>
@@ -134,7 +160,12 @@ const WriteNum = ({ navigation }) => {
                         <Button
                               style={tw`w-6/12  items-center justify-center  `}
                               buttonStyle={tw`w-60 bg-purple-600 mx-auto`}
-                              onPress={handleSubmiiit}
+                              onPress={phone => {
+                                    if (phone) {
+                                          console.log(phone)
+                                          userType === "Serviceman" ?  OnSMlogin(phone) : OnCmlogin(phone)
+                                    }
+                              }}
                               title="Contiune"
                         />
 

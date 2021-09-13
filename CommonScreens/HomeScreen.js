@@ -23,7 +23,7 @@ const HomeScreen = ({ navigation }) => {
 
                   <TouchableOpacity onPress={() => {
                         dispatch(TypeofUSer("Client"))
-                        navigation.navigate('LoginS')
+                        navigation.navigate('Login')
                   }}
                   >
                         <View style={[tw`w-10/12 px-4 py-6 mt-20 my-8 mx-auto h-auto border rounded-2xl`, { backgroundColor: "#8f00ff" }]}>
@@ -32,7 +32,7 @@ const HomeScreen = ({ navigation }) => {
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => {
                         dispatch(TypeofUSer("Serviceman"))
-                        navigation.navigate('LoginS')
+                        navigation.navigate('Login')
                   }}
                   >
                         <View style={[tw`w-10/12 px-4 py-6 my-8 mx-auto h-auto border rounded-2xl`, { backgroundColor: "#8f00ff" }]}>

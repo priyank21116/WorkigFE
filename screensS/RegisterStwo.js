@@ -9,7 +9,8 @@ import { KeyboardAvoidingView } from 'react-native';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { Input } from 'react-native-elements/dist/input/Input';
 
-
+import { useSelector, useDispatch } from 'react-redux';
+import { SMaddRegistertwoDetails } from '../slices/SmPerSlice';
 const arr2 = {
       setpassword: "",
       confirmPass: "",
@@ -17,9 +18,9 @@ const arr2 = {
       Rad2: "",
       Rlandmark: "",
       Rcity: "",
-      Rpin: 0,
+      Rpin: Number,
       Rstate: "",
-      adharNo: 0,
+      adharNo: Number,
       // adharPhoto: String,
 
 }
@@ -27,8 +28,12 @@ const arr2 = {
 const RegisterValidationSchema = yup.object({
 
       adharNo: yup.number().required('Aadhar details are required ').positive().integer(),
-      setpassword: yup.string().required('This field is required'),
-      confirmPass: yup.string().required('This field is required'),
+      setpassword: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required')
+            .matches(
+                  "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+                  "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+            ),
+      confirmPass: yup.string().required('Confirm your password'),
       Rad1: yup.string().required('This field is required'),
       Rad2: yup.string().required('This field is required'),
       Rlandmark: yup.string().required('This field is required'),
@@ -42,15 +47,23 @@ const RegisterValidationSchema = yup.object({
 
 
 const RegisterStwo = ({ navigation }) => {
-      const [helloname, sethelloname] = useState("priyank")
+
+      const dispatch = useDispatch()
+
+      const helloname = useSelector(state => state.Sm.name)
+
+      const OnsubmitFormtwo = (values) => {
+            dispatch(SMaddRegistertwoDetails(values))
+            console.log(values)
+            console.log("DISSSPPPPPATCH  DDDONEEEEEEEEEE")
+            navigation.navigate('Login')
+
+      }
       return (
 
             <Formik
                   initialValues={arr2}
-                  onSubmit={(values) => {
-                        console.log(values)
-                        navigation.navigate('LoginS')
-                  }}
+                  onSubmit={values => OnsubmitFormtwo(values)}
                   validateOnMount={true}
                   validationSchema={RegisterValidationSchema}
             >
@@ -75,7 +88,7 @@ const RegisterStwo = ({ navigation }) => {
                                                       onBlur={handleBlur('adharNo')}
                                                       value={values.adharNo}
                                                 />
-                                                 {(errors.adharNo && touched.adharNo) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.adharNo}</Text> : null }
+                                                {(errors.adharNo && touched.adharNo) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.adharNo}</Text> : null}
 
 
                                                 <Input
@@ -86,7 +99,7 @@ const RegisterStwo = ({ navigation }) => {
                                                       onBlur={handleBlur('setpassword')}
                                                       value={values.setpassword}
                                                 />
-                                                 {(errors.setpassword && touched.setpassword) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.setpassword}</Text> : null }
+                                                {(errors.setpassword && touched.setpassword) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.setpassword}</Text> : null}
 
                                                 <Input
                                                       label="Confirm Password"
@@ -97,8 +110,8 @@ const RegisterStwo = ({ navigation }) => {
                                                       value={values.confirmPass}
 
                                                 />
-                                                 {(errors.confirmPass && touched.confirmPass) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.confirmPass}</Text> : null }
-                                                
+                                                {(errors.confirmPass && touched.confirmPass) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.confirmPass}</Text> : null}
+
 
                                                 <Text style={tw`font-semibold text-xl mt-8 pb-8`}> Residencial Address</Text>
 
@@ -110,7 +123,7 @@ const RegisterStwo = ({ navigation }) => {
                                                       onBlur={handleBlur('Rad1')}
                                                       value={values.Rad1}
                                                 />
-                                                 {(errors.Rad1 && touched.Rad1) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rad1}</Text> : null }
+                                                {(errors.Rad1 && touched.Rad1) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rad1}</Text> : null}
 
                                                 <Input
                                                       label="Address line 2"
@@ -120,7 +133,7 @@ const RegisterStwo = ({ navigation }) => {
                                                       onBlur={handleBlur('Rad2')}
                                                       value={values.Rad2}
                                                 />
-                                                 {(errors.Rad2 && touched.Rad2) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rad2}</Text> : null }
+                                                {(errors.Rad2 && touched.Rad2) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rad2}</Text> : null}
 
 
                                                 <Input
@@ -131,7 +144,7 @@ const RegisterStwo = ({ navigation }) => {
                                                       onBlur={handleBlur('Rlandmark')}
                                                       value={values.Rlandmark}
                                                 />
-                                                 {(errors.Rlandmark && touched.Rlandmark) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rlandmark}</Text> : null }
+                                                {(errors.Rlandmark && touched.Rlandmark) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rlandmark}</Text> : null}
 
                                                 <Input
                                                       label="City"
@@ -141,7 +154,7 @@ const RegisterStwo = ({ navigation }) => {
                                                       onBlur={handleBlur('Rcity')}
                                                       value={values.Rcity}
                                                 />
-                                                 {(errors.Rcity && touched.Rcity) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rcity}</Text> : null }
+                                                {(errors.Rcity && touched.Rcity) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rcity}</Text> : null}
 
                                                 <Input
                                                       label="Zip Code"
@@ -151,7 +164,7 @@ const RegisterStwo = ({ navigation }) => {
                                                       onBlur={handleBlur('Rpin')}
                                                       value={values.Rpin}
                                                 />
-                                                 {(errors.Rpin && touched.Rpin) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rpin}</Text> : null }
+                                                {(errors.Rpin && touched.Rpin) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rpin}</Text> : null}
 
                                                 <Input
                                                       label="State"
@@ -161,7 +174,7 @@ const RegisterStwo = ({ navigation }) => {
                                                       onBlur={handleBlur('Rstate')}
                                                       value={values.Rstate}
                                                 />
-                                                 {(errors.Rstate && touched.Rstate) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rstate}</Text> : null }
+                                                {(errors.Rstate && touched.Rstate) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rstate}</Text> : null}
 
 
 
@@ -172,7 +185,7 @@ const RegisterStwo = ({ navigation }) => {
                                           <Button
                                                 style={tw`w-6/12 `}
                                                 buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
-                                                title="Next"
+                                                title="Register"
                                                 onPress={handleSubmit}
 
                                           />
