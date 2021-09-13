@@ -20,7 +20,7 @@ const loginValidationSchema = yup.object().shape({
 });
 
 
-const LoginC = () => {
+const LoginC = ({navigation}) => {
 
 
       return (

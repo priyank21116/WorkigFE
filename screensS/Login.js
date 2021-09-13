@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import tw from 'tailwind-react-native-classnames';
 import * as yup from 'yup';
 import { Formik } from 'formik';
-import { ScrollView, ImageBackground, Dimensions, Text, View, TouchableOpacity } from 'react-native';
-import { Input, TextInput, Button, Icon } from 'react-native-elements';
+import { ScrollView, Dimensions, Text, View, TouchableOpacity } from 'react-native';
+import { Input, Button, Icon } from 'react-native-elements';
 
-import { ListItem } from 'react-native-elements';
+import { useSelector } from 'react-redux';
 import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
 
 
@@ -14,17 +14,24 @@ const arr = {
       password: String,
 }
 
-
 const loginValidationSchema = yup.object().shape({
 
       phone: yup.number().required('Mobile No is required').positive().integer().min(10).max(10),
-      password: yup.string().required('Password is required')
+      password: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required')
+            .matches(
+                  "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+                  "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+            ),
 
 });
 
 
 
 const LoginS = ({ navigation }) => {
+
+      const userType = useSelector(state => state.Genral.typeOUs)
+
+      console.log("userTYpe,,,userType", userType)
 
       const [Showpass, setShowpass] = useState(true)
       const [RememberMe, setRememberMe] = useState(false)
@@ -36,8 +43,10 @@ const LoginS = ({ navigation }) => {
                   initialValues={arr}
                   validateOnMount={true}
                   onSubmit={values => {
-                        console.log(values)
-                        navigation.navigate('ProfileScreen')
+                        console.log("vgvjbjhb",values)
+                        userType === "Serviceman" ?
+                              navigation.navigate('MapScreenS')
+                              : navigation.navigate('MapScreenC')
                   }}
                   validationSchema={loginValidationSchema}
             >
@@ -46,7 +55,7 @@ const LoginS = ({ navigation }) => {
                         {/* top Starts */ }
                         return (
 
-                              <View
+                              <ScrollView
                                     style={tw` flex-1 w-full `}
                                     showsVerticalScrollIndicator={false}>
                                     <View style={[tw` h-2/6`, { backgroundColor: "#8f00ff" }]}>
@@ -94,8 +103,10 @@ const LoginS = ({ navigation }) => {
 
                                                                         <Icon
                                                                               raised
-                                                                              name='checkmark-done-outline'
-                                                                              type='ionicon'
+                                                                              name='done'
+                                                                              type='material-icons'
+                                                                              // name='checkmark-done-outline'
+                                                                              // type='ionicon'
                                                                               color='#0096FF'
                                                                         />
                                                                   </TouchableOpacity>
@@ -173,18 +184,19 @@ const LoginS = ({ navigation }) => {
                                                             </View>
 
 
-                                                            {/* <View style={tw`h-auto justify-center items-center`}> */}
+
 
 
                                                             <Button
-                                                                  style={[tw`w-6/12 shadow-lg`, { shadowColor: '#00ACEE', width: Dimensions.get('window').width / 2 }]}
+                                                                  style={[tw`w-6/12 shadow-lg`, { shadowColor: '#00ACEE' }]}
                                                                   buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
-                                                                  title="Next"
+                                                                  title="Login"
                                                                   onPress={handleSubmit}
 
                                                             />
 
-                                                            {/* </View> */}
+
+
                                                       </View>
 
                                                 </View>
@@ -192,7 +204,7 @@ const LoginS = ({ navigation }) => {
                                           </View>
                                     </View>
 
-                              </View>
+                              </ScrollView>
                         )
 
 

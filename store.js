@@ -1,11 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
-import  CmSlice from './slices/CmSlice'
-import  SmSlice from './slices/SmSlice'
+// import  CmSlice from './slices/CmSlice'
+// import  SmSlice from './slices/SmSlice'
+import GenralSlice from './slices/GenralSlice'
 
-
-export const store = configureStore({
+const store = configureStore({
   reducer: {
         // Cm: CmSlice,
-        Sm: SmSlice,
+        // Sm: SmSlice,
+        Genral : GenralSlice
   },
 })
+
+export default store;

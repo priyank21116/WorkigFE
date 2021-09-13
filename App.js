@@ -2,7 +2,7 @@ import React from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-// import store from './store'
+import store from './store'
 
 
 
@@ -15,7 +15,7 @@ import LoginC from './screensC/LoginC';
 import HomeScreen from './CommonScreens/HomeScreen';
 import MapScreenC from './screensC/MapScreenC';
 import MapScreenS from './screensS/MapScreenS';
-import LoginS from './screensS/LoginS';
+import LoginS from './screensS/Login';
 import WDomain from './components/C/WDomain';
 import NewWorkCame from './screensS/NewWorkCame';
 import RegisterStwo from './screensS/RegisterStwo';
@@ -33,7 +33,7 @@ export default function App() {
 
   return (
 
-    // <Provider store={store} >
+    <Provider store={store} >
     <NativeBaseProvider >
       <NavigationContainer >
         <SafeAreaProvider>
@@ -43,18 +43,17 @@ export default function App() {
             style={{ flex: 1 }}
           >
         
-            <Stack.Navigator initialRouteName="WDomain" screenOptions={{headerShown: false}} >
+            <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{headerShown: false}} >
   
               <Stack.Screen  name="HomeScreen" component={HomeScreen}  />
               <Stack.Screen  name="WriteNum" component={WriteNum}  />
               <Stack.Screen  name="VerfiOTP" component={VerfiOTP}  />
 
       
-              <Stack.Screen  name="LoginS" component={LoginS}  />
-              <Stack.Screen  name="ProfileScreen" component={ProfileScreen}  />
+              <Stack.Screen  name="LoginS" component={LoginS} options={{headerShown: true}} />
+              <Stack.Screen  name="ProfileScreen" component={ProfileScreen}  options={{headerShown: true}} />
               <Stack.Screen  name="RegisterStwo" component={RegisterStwo}  />
               <Stack.Screen  name="RegisterSone" component={RegisterSone}  />
-              <Stack.Screen  name="WDomain" component={WDomain}  />
               <Stack.Screen  name="MapScreenS" component={MapScreenS}  />
               <Stack.Screen  name="WDomainSm" component={WDomainSm}  />
               <Stack.Screen  name="NewWorkCame" component={NewWorkCame}  />
@@ -69,7 +68,7 @@ export default function App() {
         </SafeAreaProvider>
       </NavigationContainer>
     </NativeBaseProvider>
-  //  </Provider>
+   </Provider>
 
   );
 }

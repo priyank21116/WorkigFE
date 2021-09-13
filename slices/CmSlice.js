@@ -6,7 +6,7 @@ const CinitialState={
 
 export const Cmlice = createSlice({
       name:'Cm',
-      CinitialState,
+      initialState: CinitialState,
       reducers:{
 
       }

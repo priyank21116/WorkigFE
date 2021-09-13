@@ -34,7 +34,7 @@ export const ARTgetMyDetail=createAsyncThunk('/',)
 
 export const SmSlice = createSlice({
       name: 'Sm',
-      SmPerState,
+      initialState:SmPerState,
       reducers: {
         addRegisteroneDetails: ()=>{},
         addRegistertwoDetails: ()=>{},
