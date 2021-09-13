@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import {Text, View, TouchableOpacity } from 'react-native'
 import tw from 'tailwind-react-native-classnames';
 import { Button, Icon } from 'react-native-elements'
-import SelectDropdown from 'react-native-select-dropdown'
-import { TextArea, Stack } from "native-base"
+// import SelectDropdown from 'react-native-select-dropdown'
+import { TextArea } from "native-base"
 
 
 
 const MapScreenS = ({ navigation }) => {
-      const [selected, setSelected] = useState(null)
-
+      
       const domains = ["Electrician", "Plumber", "Carpenter", "Electronic", "Vegitable Vander", "Delivery Assitant", "WasteCollecter", "PhysicalWork"]
-
+      const [selected, setSelected] = useState("Electrician")
 
       return (
+              
             <View style={tw` h-screen bg-indigo-500 w-full`}>
 
                   <View style={[tw`h-2/6 items-center justify-center  w-full`, { backgroundColor: "#8f00ff" }]}>
@@ -45,7 +45,7 @@ const MapScreenS = ({ navigation }) => {
                               <Text style={tw`px-8 text-gray-500`}>Want us to start hunting work for you !</Text>
                               <Text style={tw` px-8 -mb-10 text-gray-400`}>Selct the domain and activate yourself</Text>
 
-                              <SelectDropdown
+                              {/* <SelectDropdown
 
                                     data={domains}
                                     onSelect={(selectedItem, index) => {
@@ -68,14 +68,14 @@ const MapScreenS = ({ navigation }) => {
 
                               >
                                     {selected && <Text>{selected}</Text>}
-                              </SelectDropdown>
+                              </SelectDropdown> */}
 
 
                               <View style={tw`w-11/12 h-44 mx-auto`}>
                                     <Text style={tw`pb-3 text-md text-black font-normal`}> Briefly describe of what you want to do.</Text>
-                                    <Stack space={8} w="100%" h="%100">
+                                    {/* <Stack space={8} w="100%" h="%100"> */}
                                           <TextArea h={40} placeholder="Write here..." />
-                                    </Stack>
+                                    {/* </Stack>  */}
                               </View>
 
                               <Button
@@ -96,4 +96,4 @@ const MapScreenS = ({ navigation }) => {
 
 export default MapScreenS
 
-const styles = StyleSheet.create({})
+

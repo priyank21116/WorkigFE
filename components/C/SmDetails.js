@@ -2,12 +2,12 @@
 import React, { useState } from 'react'
 import { Image } from 'react-native';
 import { ScrollView,StyleSheet, Text, View } from 'react-native'
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import {  ListItem, Button, Icon } from 'react-native-elements'
 import tw from 'tailwind-react-native-classnames';
 import { Rating } from 'react-native-elements';
 
 
-const SmDetails = () => {
+const SmDetails = ({navigation}) => {
       const [selcetedSm, setSelectedSm] = useState({
             id: "11maw1",
             name: "Nobita",
@@ -42,7 +42,7 @@ const SmDetails = () => {
       })
 
       return (
-            <ScrollView style={tw`pt-10`}>
+            <ScrollView style={tw`pt-10 h-full`}>
 
                   <View style={tw` h-48 flex-row `}>
                         <View style={tw`w-36 h-36  m-2 border-2 border-indigo-600 rounded-full`}>
@@ -103,7 +103,7 @@ const SmDetails = () => {
 
                   </View>
 
-                  <View style={tw` items-center mx-auto mt-1 mb-2 border-gray-00 w-full border rounded`}></View>
+                  <View style={tw` items-center mx-auto mt-1 mb-2 border-gray-100 w-full border rounded`}></View>
 
                   <View style={tw``}>
                         <Text style={tw`  pt-1 pl-5   text-xl font-semibold`}>Reviews</Text>
@@ -114,7 +114,7 @@ const SmDetails = () => {
                                           <View style={tw`flex-row`}>
                                                 <Text style={tw`px-2 text-lg font-medium`}>{item.by}</Text>
                                                 <Rating
-                                                      style={tw`py-2 px-8 bg-grey-100`}
+                                                      style={tw`py-2 px-8 bg-gray-100`}
                                                       ratingCount={5}
                                                       imageSize={17}
                                                       showRating={false}
@@ -135,7 +135,7 @@ const SmDetails = () => {
                   </View>
                   <Button
                         title="Search other"
-                        onPress={() => console.log('New page')}
+                        onPress={() =>navigation.navigate('AvailSm')}
                   />
             </ScrollView>
       )

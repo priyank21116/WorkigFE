@@ -31,6 +31,8 @@
     "react-native-svg": "^12.1.1",
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.4",
+    "redux-devtools-extension": "^2.13.9",
+    "remote-redux-devtools": "^0.5.16",
     "styled-components": "^5.3.1",
     "styled-system": "^5.1.5",
     "tailwind-react-native-classnames": "^1.4.3",

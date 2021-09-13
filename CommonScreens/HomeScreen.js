@@ -18,8 +18,8 @@ const HomeScreen = ({ navigation }) => {
 
       return (
 
-
-            <View style={[tw`items-center justify-center bg-gray-100`]}>
+ 
+            <View style={[tw`items-center justify-center mt-32 bg-gray-100`]}>
 
                   <TouchableOpacity onPress={() => {
                         dispatch(TypeofUSer("Client"))

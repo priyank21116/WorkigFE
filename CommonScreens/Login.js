@@ -16,19 +16,21 @@ const arr = {
 
 const loginValidationSchema = yup.object().shape({
 
-      phone: yup.number().required('Mobile No is required').positive().integer(),
-      password: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required')
-            .matches(
-                  "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
-                  "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-            ),
+      phone: yup.number().required('Mobile No is required'),
+      password: yup.string().required('Password is required')
+            // .min(8, ({ min }) => `Password must be atleast ${min} characters`)
+            // .matches(
+            //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+            //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+            // ),
 
 });
 
 
 
 const Login = ({ navigation }) => {
-
+      
+      
       const userType = useSelector(state => state.Genral.typeOUs)
 
       console.log("userTYpe,,,userType", userType)
@@ -64,8 +66,8 @@ const Login = ({ navigation }) => {
                   <Formik
                         initialValues={arr}
                         validateOnMount={true}
-                        onSubmit={values => {navigation.navigate('MapScreenS')}}
-                              // userType === "Serviceman" ? SMlogin(values) : CMLogin(values) }}
+                        onSubmit={values => CMLogin(values) }
+                              //  userType === "Serviceman" ? SMlogin(values) :
                         validationSchema={loginValidationSchema}
                   >
 
@@ -98,6 +100,7 @@ const Login = ({ navigation }) => {
                                                                         keyboardType="number-pad"
                                                                         onChangeText={handleChange('phone')}
                                                                         onBlur={handleBlur('phone')}
+                                                                        
                                                                         value={values.phone}
 
                                                                   />
@@ -193,9 +196,12 @@ const Login = ({ navigation }) => {
                                                                   style={[tw`w-6/12 shadow-lg`, { shadowColor: '#00ACEE' }]}
                                                                   buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
                                                                   title="Login"
-                                                                  onPress={()=>navigation.navigate('MapScreenS')}
+                                                                  onPress={()=>{
+                                                                        userType === "Serviceman" ? SMlogin(values) :  CMLogin(values)
+                                                                  }}
 
                                                             />
+                                                             {/* userType === "Serviceman" ? SMlogin(values) : */}
                                                             {/* <TouchableOpacity onPress={handleSubmit}>
                                                                   <View style={[tw`w-5/12 px-4 py-3 mt-20 my-8 mx-auto h-auto border rounded-xl`, { backgroundColor: "#8f00ff" }]}>
                                                                         <Text style={tw`text-2xl tracking-normal font-bold text-white`} >Login</Text>

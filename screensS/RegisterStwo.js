@@ -28,11 +28,11 @@ const arr2 = {
 const RegisterValidationSchema = yup.object({
 
       adharNo: yup.number().required('Aadhar details are required ').positive().integer(),
-      setpassword: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required')
-            .matches(
-                  "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
-                  "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-            ),
+      setpassword: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required'),
+            // .matches(
+            //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+            //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+            // ),
       confirmPass: yup.string().required('Confirm your password'),
       Rad1: yup.string().required('This field is required'),
       Rad2: yup.string().required('This field is required'),

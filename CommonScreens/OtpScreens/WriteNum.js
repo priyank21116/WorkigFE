@@ -140,7 +140,7 @@ const WriteNum = ({ navigation }) => {
                                           <Text>{countrycode + "  |"}</Text>
                                     </View>
                               </TouchableOpacity>
-                              {renderModal()}
+                              {/* {renderModal()} */}
 
                               <Input
                                     ref={(input) => textInput = input}

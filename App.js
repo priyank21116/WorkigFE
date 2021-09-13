@@ -28,7 +28,7 @@ import RegisterScreenC from './screensC/RegisterScreenC';
 
 import WriteNum from './CommonScreens/OtpScreens/WriteNum';
 import VerfiOTP from './CommonScreens/OtpScreens/VerfiOTP';
-
+import AvailSm from './components/C/AvailSm';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -48,20 +48,21 @@ export default function App() {
               <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{ headerShown: true }} >
 
                 <Stack.Screen name="HomeScreen" component={HomeScreen} />
-                <Stack.Screen name="Login" component={Login} options={{ headerShown: true }} />
+                <Stack.Screen name="Login" component={Login}  />
                 <Stack.Screen name="WriteNum" component={WriteNum} />
                 <Stack.Screen name="VerfiOTP" component={VerfiOTP} />
 
 
-
+  
                 <Stack.Screen name="RegisterSone" component={RegisterSone} />
                 <Stack.Screen name="RegisterStwo" component={RegisterStwo} />
                 <Stack.Screen name="MapScreenS" component={MapScreenS} />
-                <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: true }} />
+                <Stack.Screen name="ProfileScreen" component={ProfileScreen}  />
                 <Stack.Screen name="NewWorkCame" component={NewWorkCame} />
                 {/* <Stack.Screen  name="WDomainSm" component={WDomainSm}  /> */}
 
 
+                {/* <Stack.Screen name="AvailSm" component={AvailSm } /> */}
 
                 <Stack.Screen name="RegisterScreenC" component={RegisterScreenC} />
                 <Stack.Screen name="MapScreenC" component={MapScreenC} />
