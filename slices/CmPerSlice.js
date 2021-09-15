@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const CPerinitialState = {
       name: "",
-      phone: Number,
-      emergencyNo: Number,
+      phone: 0,
+      emergencyNo: 0,
       email: "",
       address: {
             ad1: "",
             ad2: "",
             landmark: "",
-            pin: Number,
+            pin: 0,
             city: "",
             Statee: "",
       },
@@ -19,7 +19,7 @@ const CPerinitialState = {
       NewreviewsC: {
             givenbyid: "",
             givenbyname: "",
-            rating: Number,
+            rating: 0,
             comment: "",
       }
 }
@@ -29,6 +29,7 @@ export const Cmlice = createSlice({
       initialState: CPerinitialState,
       reducers: {
             CwritePhone: (state, actions) => {
+                  console.log("ACTIONSHBDNM", actions)
                   state.phone = actions.payload
             },
             SMaddRegisteroneDetails: (state, actions) => { 

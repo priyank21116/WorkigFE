@@ -112,7 +112,7 @@ const AvailSm = ({ navigation }) => {
                         <FlatList
                               data={AvailSmss}
                               keyExtractor={item => item.id}
-                              renderItem={renderLIstItem}
+                              renderItem={({item}) => renderLIstItem(item)}
                         />
 
 

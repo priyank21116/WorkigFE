@@ -18,7 +18,7 @@ const HomeScreen = ({ navigation }) => {
 
       return (
 
- 
+
             <View style={[tw`items-center justify-center mt-32 bg-gray-100`]}>
 
                   <TouchableOpacity onPress={() => {
@@ -26,7 +26,7 @@ const HomeScreen = ({ navigation }) => {
                         navigation.navigate('Login')
                   }}
                   >
-                        <View style={[tw`w-10/12 px-4 py-6 mt-20 my-8 mx-auto h-auto border rounded-2xl`, { backgroundColor: "#8f00ff" }]}>
+                        <View style={[tw`w-10/12 px-4 py-6 mt-20 my-8 mx-auto  border rounded-2xl`, { backgroundColor: "#8f00ff" }]}>
                               <Text style={tw`text-2xl tracking-normal font-bold text-white`} >Want Some workto be done ?</Text>
                         </View>
                   </TouchableOpacity>
@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
                         navigation.navigate('Login')
                   }}
                   >
-                        <View style={[tw`w-10/12 px-4 py-6 my-8 mx-auto h-auto border rounded-2xl`, { backgroundColor: "#8f00ff" }]}>
+                        <View style={[tw`w-10/12 px-4 py-6 my-8 mx-auto  border rounded-2xl`, { backgroundColor: "#8f00ff" }]}>
                               <Text style={tw`text-2xl tracking-normal font-bold text-white`} >Start Work as Serviceman</Text>
                         </View>
                   </TouchableOpacity>

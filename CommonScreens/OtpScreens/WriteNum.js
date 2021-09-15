@@ -11,18 +11,20 @@ import { useSelector,useDispatch } from 'react-redux';
 import { CwritePhone } from '../../slices/CmPerSlice';
 import { SmwritePhone } from '../../slices/SmPerSlice';
 
+import { ARTpostphone } from '../../slices/SmPerSlice';
 
 
 const WriteNum = ({ navigation }) => {
 
       const dispatch = useDispatch()
       const userType = useSelector(state => state.Genral.typeOUs)
-      const phoneSm = useSelector(state => state.Sm.phone)
-      const phoneCm = useSelector(state => state.Cm.phone)
-
+      // const phoneSm = useSelector(state => state.Sm.phone)
+      // const phoneCm = useSelector(state => state.Cm.phone)
+      
+      console.log("het")
 
       let textInput = useRef(null)
-      const [phone, setphone] = useState()
+      const [phone, setphone] = useState(0)
       const [countrycode, setcountrycode] = useState(91)
       const [focusInput, setfocusInput] = useState(true)
       const [modalVisible, setModalVisible] = useState(false)
@@ -80,7 +82,7 @@ const WriteNum = ({ navigation }) => {
                                     </View>
 
                                     <FlatList
-                                          style={{ flex: 1 }}
+                                          style={[tw` h-2/6`,{ flex: 1 }]}
                                           data={dataCountries}
                                           extraData={dataCountries}
                                           keyExtractor={(item, index) => index.toString()}
@@ -115,7 +117,7 @@ const WriteNum = ({ navigation }) => {
 
 
       const OnSMlogin=(phone)=> {
-            dispatch(SmwritePhone(phone))
+            dispatch(ARTpostphone(phone))
             // console.log(useSelector(state => state.Sm.phone))
             navigation.navigate('RegisterSone')
             
@@ -144,13 +146,13 @@ const WriteNum = ({ navigation }) => {
 
                               <Input
                                     ref={(input) => textInput = input}
-                                    style={tw`mx-4 my-12 w-10/12`}
+                                    style={tw`mx-4 my-1 w-10/12`}
                                     placeholder={placeHolder}
                                     disabledInputStyle={{ border: 0 }}
                                     placeholderTextColor="#A8A8A8"
                                     keyboardType="number-pad"
                                     onChangeText={text => setphone(text)}
-                                    value={phone}
+                                    value={phone.toString()}
                                     onFocus={onChangeFocus}
                                     onBlur={onChangeBlur}
                                     autoFocus={focusInput}
@@ -160,7 +162,7 @@ const WriteNum = ({ navigation }) => {
                         <Button
                               style={tw`w-6/12  items-center justify-center  `}
                               buttonStyle={tw`w-60 bg-purple-600 mx-auto`}
-                              onPress={phone => {
+                              onPress={() => {
                                     if (phone) {
                                           console.log(phone)
                                           userType === "Serviceman" ?  OnSMlogin(phone) : OnCmlogin(phone)

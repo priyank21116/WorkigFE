@@ -3,8 +3,11 @@ import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, TextInp
 import tw from 'tailwind-react-native-classnames';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 
-
+import { useDispatch,useSelector } from 'react-redux';
 const VerfiOTP = ({ navigation }) => {
+
+      const dispatch = useDispatch()
+      const userType = useSelector(state => state.Genral.typeOUs)
 
       let textInput = useRef(null)
       let clockCall = null
@@ -43,7 +46,7 @@ const VerfiOTP = ({ navigation }) => {
 
 
       function handleSubmiiit() {
-            console.log(phone)
+           navigation.navi
       }
 
       const onTextChange = (val) => {

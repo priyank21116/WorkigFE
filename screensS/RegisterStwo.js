@@ -12,15 +12,15 @@ import { Input } from 'react-native-elements/dist/input/Input';
 import { useSelector, useDispatch } from 'react-redux';
 import { SMaddRegistertwoDetails } from '../slices/SmPerSlice';
 const arr2 = {
-      setpassword: "",
+      password: "",
       confirmPass: "",
       Rad1: "",
       Rad2: "",
       Rlandmark: "",
       Rcity: "",
-      Rpin: Number,
+      Rpin: 0,
       Rstate: "",
-      adharNo: Number,
+      adharNo: 0,
       // adharPhoto: String,
 
 }
@@ -28,7 +28,7 @@ const arr2 = {
 const RegisterValidationSchema = yup.object({
 
       adharNo: yup.number().required('Aadhar details are required ').positive().integer(),
-      setpassword: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required'),
+      password: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required'),
             // .matches(
             //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
             //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
@@ -50,13 +50,13 @@ const RegisterStwo = ({ navigation }) => {
 
       const dispatch = useDispatch()
 
-      const helloname = useSelector(state => state.Sm.name)
+      const helloname = useSelector(state => state.SmPer.name)
 
       const OnsubmitFormtwo = (values) => {
             dispatch(SMaddRegistertwoDetails(values))
             console.log(values)
-            console.log("DISSSPPPPPATCH  DDDONEEEEEEEEEE")
-            navigation.navigate('Login')
+            console.log("DISSSPPPPPATCH  RegisterStwo  DDDONEEEEEEEEEE")
+            navigation.navigate('DeclarationSpage')
 
       }
       return (
@@ -86,7 +86,7 @@ const RegisterStwo = ({ navigation }) => {
                                                       keyboardType="number-pad"
                                                       onChangeText={handleChange('adharNo')}
                                                       onBlur={handleBlur('adharNo')}
-                                                      value={values.adharNo}
+                                                      value={values.adharNo.toString()}
                                                 />
                                                 {(errors.adharNo && touched.adharNo) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.adharNo}</Text> : null}
 
@@ -95,11 +95,11 @@ const RegisterStwo = ({ navigation }) => {
                                                       label="Enter password"
                                                       labelStyle={[tw``, { color: "#8f00ff" }]}
                                                       keyboardType="default"
-                                                      onChangeText={handleChange('setpassword')}
-                                                      onBlur={handleBlur('setpassword')}
-                                                      value={values.setpassword}
+                                                      onChangeText={handleChange('password')}
+                                                      onBlur={handleBlur('password')}
+                                                      value={values.password}
                                                 />
-                                                {(errors.setpassword && touched.setpassword) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.setpassword}</Text> : null}
+                                                {(errors.password && touched.password) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.password}</Text> : null}
 
                                                 <Input
                                                       label="Confirm Password"
@@ -162,7 +162,7 @@ const RegisterStwo = ({ navigation }) => {
                                                       keyboardType="numeric"
                                                       onChangeText={handleChange('Rpin')}
                                                       onBlur={handleBlur('Rpin')}
-                                                      value={values.Rpin}
+                                                      value={values.Rpin.toString()}
                                                 />
                                                 {(errors.Rpin && touched.Rpin) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Rpin}</Text> : null}
 
@@ -185,7 +185,7 @@ const RegisterStwo = ({ navigation }) => {
                                           <Button
                                                 style={tw`w-6/12 `}
                                                 buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
-                                                title="Register"
+                                                title="Next"
                                                 onPress={handleSubmit}
 
                                           />

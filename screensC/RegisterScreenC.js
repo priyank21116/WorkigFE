@@ -28,15 +28,15 @@ const registerC = {
       pin: Number,
       sstate: String,
 }
-
-const RegisterValidationSchema = yup.object({
+   
+const RegisterValidationSchema = yup.object().shape({
       Name: yup.string().required('Name is required'),
       emergencyNo: yup.number().required('MObile  number is required required ').positive().integer().min(10).min(12),
-      password: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required')
-            .matches(
-                  "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
-                  "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-            ),
+      password: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required'),
+            // .matches(
+            //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+            //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+            // ),
       confirmPassword: yup.string().required('Confirm your password'),
       ad1: yup.string().required('This field is required'),
       email: yup.string().required('Email is required').email("Enter valid email"),
@@ -83,7 +83,7 @@ const RegisterScreenC = () => {
                   {({ handleChange, handleBlur, handleSubmit, values, touched, errors }) => (
                         <View style={tw`bg-indigo-400 w-full h-full`}>
 
-                              <ScrollView style={tw`bg-gray-200 border rounded-t-xl   mt-20 mx-auto  w-11/12 h-full`}>
+                              <ScrollView style={tw`bg-gray-50 border rounded-t-xl   mt-20 mx-auto  w-11/12 h-full`}>
                                     <KeyboardAvoidingView
 
                                           keyboardVerticalOffset={50}

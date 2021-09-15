@@ -2,51 +2,92 @@ import React, { useState } from 'react'
 import tw from 'tailwind-react-native-classnames';
 import * as yup from 'yup';
 import { Formik } from 'formik';
-import { ScrollView, Dimensions, Text, View, TouchableOpacity } from 'react-native';
+import { ScrollView, Dimensions, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Input, Button, Icon } from 'react-native-elements';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
 
 
 const arr = {
-      phone: Number,
-      password: String,
+      phone: 0,
+      password: "",
 }
 
 const loginValidationSchema = yup.object().shape({
 
-      phone: yup.number().required('Mobile No is required'),
+      phone: yup.number().required('Mobile No is required').positive('MObile no Cant be negative').integer('MOble no has to be positive integer'),
       password: yup.string().required('Password is required')
-            // .min(8, ({ min }) => `Password must be atleast ${min} characters`)
-            // .matches(
-            //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
-            //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-            // ),
+            .min(8, ({ min }) => `Password must be atleast ${min} characters`)
+      // .matches(
+      //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+      //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+      // ),
 
 });
 
 
 
 const Login = ({ navigation }) => {
-      
-      
+
+      const dispatch = useDispatch()
+
       const userType = useSelector(state => state.Genral.typeOUs)
 
-      console.log("userTYpe,,,userType", userType)
+
 
       const [Showpass, setShowpass] = useState(true)
       const [RememberMe, setRememberMe] = useState(false)
 
+      // console.log("UUSUERRR TYPWEE<<<" ,user)
 
-    const SMlogin=(values)=>{
-          console.log("SMlOgin" ,values)
-      navigation.navigate('MapScreenS')
-    }
-    const CMLogin =(values)=>{
-      console.log("CMlOgin" ,values)
-      navigation.navigate('MapScreenC')
-    }
+      const SMlogin = (values) => {
+
+            dispatch(SmLoginValidation(values))
+            console.log("SMlOgin", values)
+            
+            const token = useSelector(state => state.SmLogin.token)
+            console.log(token)
+            // if(token){
+            //       navigation.navigate('MapScreenS')      
+            // }else{
+            //       Alert.alert(
+            //             "LoginFailed",
+            //             "We didn't found your credentials Correct ,Check it again",
+            //             [
+            //               {
+            //                 text: "Cancel",
+            //                 onPress: () => console.log("Cancel Pressed"),
+            //                 style: "cancel"
+            //               }
+                         
+            //             ]
+            //           );
+            // }
+      }
+      const CMLogin = (values) => {
+            dispatch(CmLoginValidation(values))
+            console.log("CMlOgin", values)
+            const token = useSelector(state => state.CmLogin.token)
+            console.log(token)
+            // if(token){
+            // navigation.navigate('MapScreenC')      
+            // }else{
+            //       Alert.alert(
+            //             "LoginFailed",
+            //             "We didn't found your credentials Correct ,Check it again",
+            //             [
+            //               {
+            //                 text: "Cancel",
+            //                 onPress: () => console.log("Cancel Pressed"),
+            //                 style: "cancel"
+            //               }
+                         
+            //             ]
+            //           );
+            // }
+            
+      }
 
       return (
 
@@ -66,8 +107,8 @@ const Login = ({ navigation }) => {
                   <Formik
                         initialValues={arr}
                         validateOnMount={true}
-                        onSubmit={values => CMLogin(values) }
-                              //  userType === "Serviceman" ? SMlogin(values) :
+                        onSubmit={values => CMLogin(values)}
+                        //  userType === "Serviceman" ? SMlogin(values) :
                         validationSchema={loginValidationSchema}
                   >
 
@@ -100,8 +141,8 @@ const Login = ({ navigation }) => {
                                                                         keyboardType="number-pad"
                                                                         onChangeText={handleChange('phone')}
                                                                         onBlur={handleBlur('phone')}
-                                                                        
-                                                                        value={values.phone}
+
+                                                                        value={values.phone.toString()}
 
                                                                   />
                                                                   <TouchableOpacity>
@@ -196,12 +237,12 @@ const Login = ({ navigation }) => {
                                                                   style={[tw`w-6/12 shadow-lg`, { shadowColor: '#00ACEE' }]}
                                                                   buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
                                                                   title="Login"
-                                                                  onPress={()=>{
-                                                                        userType === "Serviceman" ? SMlogin(values) :  CMLogin(values)
+                                                                  onPress={() => {
+                                                                        userType === "Serviceman" ? SMlogin(values) : CMLogin(values)
                                                                   }}
 
                                                             />
-                                                             {/* userType === "Serviceman" ? SMlogin(values) : */}
+                                                            {/* userType === "Serviceman" ? SMlogin(values) : */}
                                                             {/* <TouchableOpacity onPress={handleSubmit}>
                                                                   <View style={[tw`w-5/12 px-4 py-3 mt-20 my-8 mx-auto h-auto border rounded-xl`, { backgroundColor: "#8f00ff" }]}>
                                                                         <Text style={tw`text-2xl tracking-normal font-bold text-white`} >Login</Text>
@@ -222,8 +263,8 @@ const Login = ({ navigation }) => {
 
             </View>
       )
-    
-     
+
+
 }
 
 

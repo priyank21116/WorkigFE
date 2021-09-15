@@ -9,15 +9,15 @@ import { KeyboardAvoidingView } from 'react-native';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { Input } from 'react-native-elements/dist/input/Input';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector } from 'react-redux';
 
 import { SMaddRegisteroneDetails } from '../slices/SmPerSlice';
 
 const arr1 = {
       name: "",
       email: "",
-      emergencyNo: 0,
-      description: "",
+      emergencyPhone: 0,
+      about: "",
       ad1w: "",
       landmarkw: "",
       pincodew: 0,
@@ -47,7 +47,7 @@ const RegisterSone = ({ navigation }) => {
       const OnsubmitFormone = (values) => {
             dispatch(SMaddRegisteroneDetails(values))
             console.log(values)
-            console.log("DISSSPPPPPATCH  DDDONEEEEEEEEEE")
+            console.log("DISSSPPPPPATCH RegisterSone DDDONEEEEEEEEEE")
             navigation.navigate('RegisterStwo')
       }
 
@@ -95,7 +95,7 @@ const RegisterSone = ({ navigation }) => {
                                                       keyboardType="number-pad"
                                                       onChangeText={handleChange('emergencyNo')}
                                                       onBlur={handleBlur('emergencyNo')}
-                                                      value={values.emergencyNo}
+                                                      value={values.emergencyNo.toString()}
                                                 />
                                                 {(errors.emergencyNo && touched.emergencyNo) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.emergencyNo}</Text> : null}
 
@@ -127,7 +127,7 @@ const RegisterSone = ({ navigation }) => {
                                                       keyboardType="number-pad"
                                                       onChangeText={handleChange('pincodew')}
                                                       onBlur={handleBlur('pincodew')}
-                                                      value={values.pincodew}
+                                                      value={values.pincodew.toString()}
                                                 />
                                                 {(errors.pincodew && touched.pincodew) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.pincodew}</Text> : null}
 
@@ -137,8 +137,8 @@ const RegisterSone = ({ navigation }) => {
                                                 <TextInput
 
                                                       style={tw`border mt-6 text-base rounded-xl w-full h-20 py-3 px-4`}
-                                                      onChangeText={handleChange('description')}
-                                                      value={values.description}
+                                                      onChangeText={handleChange('about')}
+                                                      value={values.about}
                                                       placeholder="Briefly describe what you do best .."
                                                       keyboardType="default"
                                                       multiline={true}

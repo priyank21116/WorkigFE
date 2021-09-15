@@ -36,7 +36,8 @@
     "styled-components": "^5.3.1",
     "styled-system": "^5.1.5",
     "tailwind-react-native-classnames": "^1.4.3",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "@react-native-async-storage/async-storage": "~1.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
