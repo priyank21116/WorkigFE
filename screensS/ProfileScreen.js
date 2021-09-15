@@ -2,6 +2,11 @@ import React from 'react'
 import { Image, StyleSheet,ScrollView, Text, View } from 'react-native'
 import tw from 'tailwind-react-native-classnames';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button } from 'react-native-elements/dist/buttons/Button';
+
+import { useSelector,useDispatch } from 'react-redux';
+import { ARTgetMyDetail } from '../slices/SmPerSlice';
 
 const ProDeatils = {
       "_id": "613c79051426453b08500958",
@@ -30,21 +35,34 @@ const {name,email,emergencyPhone,about,adharNo,phone,review,residencial,workplac
 const {Rad1,Rad2,Rcity,Rpin,Rlandmark,Rstate}=residencial;
 const {ad1w,landmarkw,pincodew} =workplace
 
-const ProfileScreen = () => {
+const ProfileScreen = ({navigation}) => {
+
+     
+      const gettoken=async()=>{
+            const token= await AsyncStorage.getItem('token')
+            console.log("HERE IS LOCAL STORAGE TOKEN",token)
+       }
+
+       gettoken()
+
+      const dispatch = useDispatch()
+
+      dispatch(ARTgetMyDetail())
+
       return (
-            <View style={tw`w-full p-6 h-screen`}>
+            <View style={tw`w-full p-6 `}>
                   <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={tw`pt-16 items-center pb-4 px-16 justify-items-center justify-center  m-2 `}>
+                        <View style={tw`pt-16 items-center pb-4 px-16 justify-center   m-2 `}>
                               <Image
-                                    style={tw`w-52 h-48 pt-16 m-2 border-2 border-indigo-600 rounded-full`}
+                                    style={tw`w-52 h-48 pt-16 m-2 border-2  rounded-full`}
                                     source={{
                                           uri: "https://i.pinimg.com/originals/15/f5/6a/15f56a0eb0e2e138702d9ec3bbafadf3.png",
                                     }} />
                         </View>
-                        <Text style={tw`border-b-1 text-center text-3xl mx-auto justify-center w-11/12 items-center mx-auto`}>
+                        <Text style={tw`border-b text-center text-3xl mx-auto justify-center w-11/12 items-center mx-auto`}>
                               {name}
                         </Text>
-                        <Text style={tw`border-b-1 pb-6 border-b text-center text-lg justify-center w-full items-center mx-auto`}>
+                        <Text style={tw`border-b pb-6 border-b text-center text-lg justify-center w-full items-center mx-auto`}>
                        
                               {about}
                         </Text>
@@ -72,6 +90,16 @@ const ProfileScreen = () => {
                               <Text style={tw`font-bold text-xl`} >WOrkplace Address</Text>
                               <Text style={tw``}>{ad1w+", "+pincodew+", "+landmarkw}</Text>
                         </View>
+
+                        <Button
+                              style={tw`w-6/12  items-center justify-center  `}
+                              buttonStyle={tw`w-60 bg-purple-600 mx-auto`}
+                              onPress={ async () => {
+                                    await dispatch(logout)
+                                    navigation.navigate('HomeScreen')
+                              }}
+                              title="Contiune"
+                        />
 
                   </ScrollView>
 

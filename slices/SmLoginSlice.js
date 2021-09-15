@@ -1,43 +1,64 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosReq1 } from "./helpers/Axiosreq";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
 
 
 const LoginSm = {
       token: "",
       loading: false,
       error: "",
-      rememberMe:false,
+      rememberMe: false,
 }
+// res.data.token
 
 // export const ARTpostLoginNgrtToken=createAsyncThunk('/',)
 
 
 
-export const LoginS = createAsyncThunk(
+export const SmLoginValidation = createAsyncThunk(
       'loginSM',
       async (body) => {
-           
-const res = await fetch(url + api,{
-      method: "type",
-      headers:{
-            "Content-Type":"application/json",
-            "Authorization": await AsyncStorage.getItem('token')
-      },
-     
- })
- return await res.json()
+
+
+
+            console.log(" THEN 1", body)
+            await axios({
+                  method: "post",
+                  url: "http://10.0.2.2:9000/sm/login",
+                  data: body,
+                  headers: {
+                        "Content-Type": "application/json",
+                        // "Authorization": await AsyncStorage.getItem('token')
+                  },
+
+            }).then(function (response) {
+                  console.log("RESSPONSE CAME<<<<<<<<<", response.status)
+                  return response.data
+            })
+                  .catch(function (error) {
+                        if (error.response) {
+
+                              console.log(error.response);
+                              state.error = error
+                              alert(error)
+                        } else if (error.request) {
+
+                              console.log(error.request);
+                              state.error = error
+                              alert(error)
+                        } else {
+
+                              console.log('Error', error.message);
+                        
+                        state.error = error
+                        alert(error)}
+                        console.log(error.config);
+
+                  })
 
       })
 
-export const RegisterS = createAsyncThunk(
-      'registerSm',
-      async (body) => {
-            const result = await AxiosReq1('/register', body)
-            return result
-
-      }
-)
 
 
 export const addTokentostate = createAsyncThunk(
@@ -59,35 +80,45 @@ const authReducerSm = createSlice({
             logout: (state, action) => {
                   state.token = null
                   AsyncStorage.removeItem('token')
+            },
+            RememberMeAction: (state, action) => {
+                  state.rememberMe = action.payload
+                  console.log("RMEM",state.rememberMe)
             }
       },
       extraReducers: {
-            [LoginS.fulfilled]: (state, { payload: { error, message } }) => {
-                  state.loading = false
-                  if (error) {
-                        state.error = error
-                        alert(error)
-                  } else {
-                        state.error = message
-                        alert(message)
+            // [LoginS.fulfilled]: (state, { payload: { error, message } }) => {
+            //       state.loading = false
+            //       if (error) {
+            //             state.error = error
+            //             alert(error)
+            //       } else {
+            //             state.error = message
+            //             alert(message)
 
-                  }
-            },
-            [LoginS.pending]: (state, action) => {
+            //       }
+            // },
+            // [LoginS.pending]: (state, action) => {
+            //       state.loading = true
+            // },
+            [SmLoginValidation.pending]: (state, action) => {
                   state.loading = true
             },
-            [RegisterS.pending]: (state, action) => {
-                  state.loading = true
-            },
-            [RegisterS.fulfilled]: (state, { payload: { error, token } }) => {
-                  state.loading = false
-                  if (error) {
-                        state.error = error
-                        alert(error)
-                  } else {
-                        state.token = token
-                        AsyncStorage.setItem('token', token)
-                  }
+            [SmLoginValidation.fulfilled]: (state, action) => {
+
+
+                        //  state.loading = false
+                 
+                       
+                        console.log("HERE THE BESTS>>>>>>>>..", action.payload)
+                        // , " RMMRMRM", state.rememberMe
+                        // if (state.rememberMe) {
+                        //       AsyncStorage.setItem('token', token)
+                        //       const token = AsyncStorage.getItem('token')
+                        //       console.log(" LOCAL STORAGE TOKEN", token)
+                        // }
+
+                  
             },
             [addTokentostate.fulfilled]: (state, action) => {
                   state.token = action.payload
@@ -96,5 +127,5 @@ const authReducerSm = createSlice({
 
 })
 
-export const { logout } = authReducerSm.actions
+export const { logout, RememberMeAction } = authReducerSm.actions
 export default authReducerSm.reducer

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SmPerState = {
       name: "",
@@ -35,7 +35,7 @@ export const ARTpostphone = createAsyncThunk('SmpostPhone',
       async (body) => {
             // const url = "http://192.168.29.199:9000/sm/registerone"
             try {
-                  console.log("1")
+                  console.log(" HERE 1")
                   // const res= await axios.post('url',{phone:body})
                   let res = await axios(
                         {
@@ -77,7 +77,7 @@ export const ARTpatchFullregister = createAsyncThunk('RegisterSmDeatils',
                               }
 
                         })
-                  // console.log("2")
+                  
                   console.log("Phone RESPONSE CAME>>>>>>>>>>>>>>", res)
 
             } catch (error) {
@@ -88,9 +88,31 @@ export const ARTpatchFullregister = createAsyncThunk('RegisterSmDeatils',
 
 //  http://localhost:9000/sm/registertwo
 
-// export const ARTgetMyDetail=createAsyncThunk('/',)
+export const ARTgetMyDetail=createAsyncThunk('getSmPerDetail',
+async()=>{
+      try {
+            let res = await axios(
+                  {
 
-// export const Post new Review=createAsyncThunk('/',)
+                        method: 'get',
+                        url: "http://10.0.2.2:9000/sm/getSmdetail",
+                        
+                        headers: {
+                              // "Content-Type": "application/json",
+                              "authorization":await AsyncStorage.getItem('token')
+                        }
+
+                  })
+            
+            console.log("Phone RESPONSE CAME>>>>>>>>>>>>>>", res.data)
+            
+      } catch (error) {
+            console.log("THISSS GETMY DETAIL>>>>>>>", error)
+      }
+}
+)
+
+
 
 
 

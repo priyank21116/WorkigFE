@@ -5,6 +5,9 @@ import { Button, Icon } from 'react-native-elements'
 // import SelectDropdown from 'react-native-select-dropdown'
 import { TextArea } from "native-base"
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 
 const MapScreenS = ({ navigation }) => {
@@ -12,9 +15,11 @@ const MapScreenS = ({ navigation }) => {
       const domains = ["Electrician", "Plumber", "Carpenter", "Electronic", "Vegitable Vander", "Delivery Assitant", "WasteCollecter", "PhysicalWork"]
       const [selected, setSelected] = useState("Electrician")
 
+
+
       return (
               
-            <View style={tw` h-screen bg-indigo-500 w-full`}>
+            <View style={tw` h-full bg-indigo-500 w-full`}>
 
                   <View style={[tw`h-2/6 items-center justify-center  w-full`, { backgroundColor: "#8f00ff" }]}>
 
@@ -23,7 +28,7 @@ const MapScreenS = ({ navigation }) => {
                               <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')} >
 
                                     <Icon
-                                          style={tw`h-24 w-24 -mt-10 p-2  items-center justify-items-center  rounded-full order-last border-0 flex-col justify-end  bg-violet-300`}
+                                          style={tw`h-24 w-24 -mt-10 p-2  items-center justify-center  rounded-full  border-0 flex-col justify-end  bg-indigo-300`}
                                           name='person-circle-outline'
                                           type='ionicon'
                                           color='#ffffff'
@@ -72,7 +77,7 @@ const MapScreenS = ({ navigation }) => {
 
 
                               <View style={tw`w-11/12 h-44 mx-auto`}>
-                                    <Text style={tw`pb-3 text-md text-black font-normal`}> Briefly describe of what you want to do.</Text>
+                                    <Text style={tw`pb-3 text-lg text-black font-normal`}> Briefly describe of what you want to do.</Text>
                                     {/* <Stack space={8} w="100%" h="%100"> */}
                                           <TextArea h={40} placeholder="Write here..." />
                                     {/* </Stack>  */}

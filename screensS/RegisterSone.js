@@ -27,7 +27,6 @@ const arr1 = {
 
 const RegisterValidationSchema = yup.object({
 
-
       email: yup.string().required('Email is required').email(),
       emergencyNo: yup.number().required('Mobile No is required').positive().integer(),
       pincodew: yup.number().positive().required('This field is required'),
@@ -42,7 +41,6 @@ const RegisterValidationSchema = yup.object({
 const RegisterSone = ({ navigation }) => {
 
       const dispatch = useDispatch();
-
 
       const OnsubmitFormone = (values) => {
             dispatch(SMaddRegisteroneDetails(values))

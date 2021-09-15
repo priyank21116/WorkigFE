@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import tw from 'tailwind-react-native-classnames';
 import * as yup from 'yup';
 import { Formik } from 'formik';
@@ -8,10 +8,13 @@ import { Input, Button, Icon } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
 import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
 
+import { SmLoginValidation } from '../slices/SmLoginSlice';
+import { RememberMeAction } from '../slices/SmLoginSlice';
 
 const arr = {
       phone: 0,
       password: "",
+    
 }
 
 const loginValidationSchema = yup.object().shape({
@@ -32,7 +35,7 @@ const Login = ({ navigation }) => {
 
       const dispatch = useDispatch()
 
-      const userType = useSelector(state => state.Genral.typeOUs)
+      // const userType = useSelector(state => state.Genral.typeOUs)
 
 
 
@@ -44,32 +47,54 @@ const Login = ({ navigation }) => {
       const SMlogin = (values) => {
 
             dispatch(SmLoginValidation(values))
-            console.log("SMlOgin", values)
+            // console.log("SMlOgin 1", values)
+             navigation.navigate('MapScreenS')      
+
+
+
+      //       useEffect(() => {
+      //             const interval = setInterval(() => {
+      //                   console.log("2")
+      //                   // const pending = useSelector(state => state.SmLogin.loading)
+      //                   const error = useSelector(state => state.SmLogin.error)
+      //                   const token = useSelector(state => state.SmLogin.token)
+      //                   if (error !=="" || token !==""){
+      //                         return () => clearInterval(interval);
+      //                   }
+      //             }, 1000);
+      //             // return () => clearInterval(interval);
+      //           }, []);
             
-            const token = useSelector(state => state.SmLogin.token)
-            console.log(token)
-            // if(token){
-            //       navigation.navigate('MapScreenS')      
-            // }else{
-            //       Alert.alert(
-            //             "LoginFailed",
-            //             "We didn't found your credentials Correct ,Check it again",
-            //             [
-            //               {
-            //                 text: "Cancel",
-            //                 onPress: () => console.log("Cancel Pressed"),
-            //                 style: "cancel"
-            //               }
+      //       // const pending = useSelector(state => state.SmLogin.loading)
+      //       // const error = useSelector(state => state.SmLogin.error)
+
+      //      if(error !==""){
+      //            Alert.alert("SMLOGIN ERROR",error,[{text:"Cancel",style:"cancel"}])
+      //      }
+      //       // const token = useSelector(state => state.SmLogin.token)
+      //       console.log("TOOOOKEENNN",token)
+      //       if(token){
+      //             navigation.navigate('MapScreenS')      
+      //       }else{
+      //             Alert.alert(
+      //                   "LoginFailed",
+      //                   "We didn't found your credentials Correct ,Check it again",
+      //                   [
+      //                     {
+      //                       text: "Cancel",
+      //                       onPress: () => console.log("Cancel Pressed"),
+      //                       style: "cancel"
+      //                     }
                          
-            //             ]
-            //           );
-            // }
+      //                   ]
+      //                 );
+      //       }
       }
       const CMLogin = (values) => {
             dispatch(CmLoginValidation(values))
             console.log("CMlOgin", values)
             const token = useSelector(state => state.CmLogin.token)
-            console.log(token)
+            console.log("TOOOOKEENNN",token)
             // if(token){
             // navigation.navigate('MapScreenC')      
             // }else{
@@ -107,12 +132,12 @@ const Login = ({ navigation }) => {
                   <Formik
                         initialValues={arr}
                         validateOnMount={true}
-                        onSubmit={values => CMLogin(values)}
+                        // onSubmit={values => CMLogin(values)}
                         //  userType === "Serviceman" ? SMlogin(values) :
                         validationSchema={loginValidationSchema}
                   >
 
-                        {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => {
+                        {({ handleChange, handleBlur,  values, touched, errors, isValid }) => {
 
                               return (
 
@@ -208,11 +233,15 @@ const Login = ({ navigation }) => {
 
                                                                         <CheckBox
                                                                               checked={RememberMe}
-                                                                              style={tw`border-none bg-white`}
+                                                                              style={tw`border-none`}
                                                                               uncheckedColor="#4632A1"
-                                                                              color='#8F9195'
+                                                                              color='#0000FF'
                                                                               title=" Remember Me"
-                                                                              onPress={() => setRememberMe(!RememberMe)}
+                                                                              onPress={() =>{ 
+                                                                                    setRememberMe(!RememberMe)
+                                                                                    dispatch(RememberMeAction(RememberMe))
+                                                                                    // Remember = RememberMe}
+                                                                                    }}
 
                                                                         />
 
@@ -237,9 +266,10 @@ const Login = ({ navigation }) => {
                                                                   style={[tw`w-6/12 shadow-lg`, { shadowColor: '#00ACEE' }]}
                                                                   buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
                                                                   title="Login"
-                                                                  onPress={() => {
-                                                                        userType === "Serviceman" ? SMlogin(values) : CMLogin(values)
-                                                                  }}
+                                                                  onPress={() => SMlogin(values,RememberMe)}
+                                                                        // console.log(values,RememberMe)
+                                                                        // userType === "Serviceman" ? SMlogin(values,RememberMe) : CMLogin(values,RememberMe)
+                                                                  
 
                                                             />
                                                             {/* userType === "Serviceman" ? SMlogin(values) : */}
