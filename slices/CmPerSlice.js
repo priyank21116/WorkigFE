@@ -1,72 +1,146 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+import axios from "axios";
 
 const CPerinitialState = {
-      name: "",
+      Name: "",
       phone: 0,
       emergencyNo: 0,
       email: "",
-      address: {
-            ad1: "",
-            ad2: "",
-            landmark: "",
-            pin: 0,
-            city: "",
-            Statee: "",
-      },
-      password: "",
-      helpDomain: "",
-      SpecifyHelp: "",
-      NewreviewsC: {
-            givenbyid: "",
-            givenbyname: "",
-            rating: 0,
-            comment: "",
-      }
+      ad1: "",
+      ad2: "",
+      landmark: "",
+      pin: 0,
+      city: "",
+      sstate: "",
+      password: ""
+      // helpDomain: "",
+      // SpecifyHelp: "",
+      // NewreviewsC: {
+      //       givenbyid: "",
+      //       givenbyName: "",
+      //       rating: 0,
+      //       comment: "",
+      // }
 }
 
-export const Cmlice = createSlice({
-      name: 'Cm',
+export const CMARTpostphone = createAsyncThunk('CmpostPhone',
+      async (body) => {
+
+            try {
+                  console.log(" CmpostPhone 1")
+
+                  let res = await axios(
+                        {
+                              // baseURL: "http://localhost:9000/sm",
+                              method: 'post',
+                              url: "http://10.0.2.2:9000/client/registerone",
+                              data: {
+                                    phone: body
+                              },
+                              headers: {
+                                    "Content-Type": "application/json"
+                              }
+
+                        })
+                  // console.log("2")
+                  console.log("Phone RESPONSE CAME>>>>>>>>>>>>>>", res.data)
+                  return body
+                  // return res
+            } catch (error) {
+                  console.log("3")
+                  console.log("THISSS URLLLLLL>>>>>>>", error)
+            }
+      }
+)
+
+
+
+
+export const CMARTpatchFullregister = createAsyncThunk('RegisterCmDeatils',
+      async (body) => {
+            console.log("REGISTERR:::::::::::", body)
+            try {
+                  let res = await axios(
+                        {
+
+                              method: 'patch',
+
+                              url: "http://10.0.2.2:9000/client/registertwo",
+                              data: {
+                                    SmPer: body
+                              },
+                              headers: {
+                                    "Content-Type": "application/json"
+                              }
+
+                        })
+
+                  console.log("Phone RESPONSE CAME>>>>>>>>>>>>>>", res)
+                  return body
+
+            } catch (error) {
+                  console.log("THISSS REGISTER>>>>>>>", error)
+            }
+      }
+)
+
+
+
+const Cmlice = createSlice({
+      name: 'Cmpersonal',
       initialState: CPerinitialState,
       reducers: {
-            CwritePhone: (state, actions) => {
-                  console.log("ACTIONSHBDNM", actions)
+
+            // SMaddRegisteroneDetails: (state, actions) => {
+            //       const { Name, email, emergencyNo, password, ad1, ad2, landmark, city, pin, sstate } = actions.payload
+
+            //       state.name = Name
+            //       state.email = email
+            //       state.emergencyNo = emergencyNo
+            //       state.password = password
+            //       state.address.ad1 = ad1
+            //       state.address.ad2 = ad2
+            //       state.address.landmark = landmark
+            //       state.address.city = city
+            //       state.address.pin = pin
+            //       state.address.sstate = sstate
+
+            // },
+
+
+
+
+      },
+      extraReducers: {
+            [CMARTpostphone.fulfilled]: (state, actions) => {
+                  console.log(" BEST here", actions.payload)
                   state.phone = actions.payload
             },
-            SMaddRegisteroneDetails: (state, actions) => { 
-                  const {Name,email,emergencyNo,password,ad1,ad2,landmark,city,pin,sstate} = actions.payload
+            [CMARTpatchFullregister.fulfilled]: (state, actions) => {
 
-                  state.name=Name
+                  console.log("4>>>>>>>>>>>>>>>>>>>",actions.payload)
+                  const { Name, email, emergencyNo, password, ad1, ad2, landmark, city, pin, sstate } = actions.payload
+         console.log("5")
+                  state.Name = Name
                   state.email = email
                   state.emergencyNo = emergencyNo
-                  state.password= password
-                  state.address.ad1=ad1
-                  state.address.ad2 = ad2
-                  state.address.landmark= landmark
-                  state.address.city= city
-                  state.address.pin=pin
-                  state.address.Statee= sstate
-
-            },
-
-            // HelprequireNitsDeatils:(state,actions)=>{
-            //        const {}= actions.payload
-            //        state.helpDomain= 
-            //        state.SpecifyHelp =
-            // },
-    
-            CustomerReview: (state, actions) => {
-                  const  {givenbyid,givenbyname,rating,comment} = actions.payload
-                   state.NewreviewsC.givenbyid= givenbyid
-                   state.NewreviewsC.givenbyname=givenbyname
-                   state.NewreviewsC.rating =rating
-                   state.NewreviewsC.comment =comment
-             }
+                  state.password = password
+                  state.ad1 = ad1
+                  state.ad2 = ad2
+                  state.landmark = landmark
+                  state.city = city
+                  state.pin = pin
+                  state.sstate = sstate
 
 
+                  console.log("Staateeee::", state)
+
+            }
       }
 })
 
 
-export const { CwritePhone} = Cmlice.actions
+export const { CwritePhone } = Cmlice.actions
 
 export default Cmlice.reducer

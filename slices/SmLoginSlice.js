@@ -20,9 +20,7 @@ export const SmLoginValidation = createAsyncThunk(
       'loginSM',
       async (body) => {
 
-
-
-            console.log(" THEN 1", body)
+            
             await axios({
                   method: "post",
                   url: "http://10.0.2.2:9000/sm/login",
@@ -32,9 +30,11 @@ export const SmLoginValidation = createAsyncThunk(
                         // "Authorization": await AsyncStorage.getItem('token')
                   },
 
-            }).then(function (response) {
-                  console.log("RESSPONSE CAME<<<<<<<<<", response.status)
-                  return response.data
+            }).then(async (response)=> {
+                  console.log("RESSPONSE CAME<<<<<<<<<", response.data)
+                   await AsyncStorage.setItem('token', response.data.token)
+                  // return response.data
+                 
             })
                   .catch(function (error) {
                         if (error.response) {
@@ -61,7 +61,7 @@ export const SmLoginValidation = createAsyncThunk(
 
 
 
-export const addTokentostate = createAsyncThunk(
+ const addTokentostate = createAsyncThunk(
       'addtoken',
       async () => {
             const result = await AsyncStorage.getItem('token')
@@ -81,42 +81,33 @@ const authReducerSm = createSlice({
                   state.token = null
                   AsyncStorage.removeItem('token')
             },
-            RememberMeAction: (state, action) => {
+            SmRememberMeAction: (state, action) => {
                   state.rememberMe = action.payload
-                  console.log("RMEM",state.rememberMe)
+                  console.log("SM Rmemberme silce",state.rememberMe)
             }
       },
       extraReducers: {
-            // [LoginS.fulfilled]: (state, { payload: { error, message } }) => {
-            //       state.loading = false
-            //       if (error) {
-            //             state.error = error
-            //             alert(error)
-            //       } else {
-            //             state.error = message
-            //             alert(message)
-
-            //       }
-            // },
-            // [LoginS.pending]: (state, action) => {
-            //       state.loading = true
-            // },
+            
             [SmLoginValidation.pending]: (state, action) => {
                   state.loading = true
             },
-            [SmLoginValidation.fulfilled]: (state, action) => {
+            [SmLoginValidation.fulfilled]: async (state,actions) => {
 
+                  
 
-                        //  state.loading = false
-                 
+                  const tokenn= await AsyncStorage.getItem('token')
+                  // console.log("TOKENSET TO LOCAL STORAGE",tokenn)
+                         state.loading = false
+                        state.token= tokenn
                        
-                        console.log("HERE THE BESTS>>>>>>>>..", action.payload)
-                        // , " RMMRMRM", state.rememberMe
-                        // if (state.rememberMe) {
-                        //       AsyncStorage.setItem('token', token)
-                        //       const token = AsyncStorage.getItem('token')
-                        //       console.log(" LOCAL STORAGE TOKEN", token)
-                        // }
+                          if (state.rememberMe ===false) {
+                                    AsyncStorage.setItem('token', token)
+                                    const token = AsyncStorage.removeItem('token')
+                                   
+                              }
+                       
+                        console.log("HERE THE BESTS>>>>>>>>..",state.token, " RMMRMRM", state.rememberMe)
+                  
 
                   
             },
@@ -127,5 +118,5 @@ const authReducerSm = createSlice({
 
 })
 
-export const { logout, RememberMeAction } = authReducerSm.actions
+export const { logout, SmRememberMeAction } = authReducerSm.actions
 export default authReducerSm.reducer

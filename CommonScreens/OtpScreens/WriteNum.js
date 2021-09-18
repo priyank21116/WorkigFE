@@ -8,8 +8,8 @@ import { Input } from 'react-native-elements/dist/input/Input';
 import { Countries } from './CountryCode';
 
 import { useSelector,useDispatch } from 'react-redux';
-import { CwritePhone } from '../../slices/CmPerSlice';
-import { SmwritePhone } from '../../slices/SmPerSlice';
+
+import { CMARTpostphone } from '../../slices/CmPerSlice';
 
 import { ARTpostphone } from '../../slices/SmPerSlice';
 
@@ -21,7 +21,7 @@ const WriteNum = ({ navigation }) => {
       // const phoneSm = useSelector(state => state.Sm.phone)
       // const phoneCm = useSelector(state => state.Cm.phone)
       
-      console.log("het")
+      
 
       let textInput = useRef(null)
       const [phone, setphone] = useState(0)
@@ -124,7 +124,7 @@ const WriteNum = ({ navigation }) => {
       }
 
       const OnCmlogin=(phone)=>{
-             dispatch(CwritePhone(phone))
+             dispatch(CMARTpostphone(phone))
             //  console.log(useSelector(state => state.Cm.phone))
             navigation.navigate('RegisterScreenC')
       }

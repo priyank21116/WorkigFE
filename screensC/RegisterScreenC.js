@@ -9,24 +9,24 @@ import { ScrollView } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native';
 
 
-
+import { CMARTpatchFullregister } from '../slices/CmPerSlice';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { Input } from 'react-native-elements/dist/input/Input';
 
 import { useSelector, useDispatch } from 'react-redux';
 
 const registerC = {
-      Name: String,
-      email: String,
-      emergencyNo: Number,
-      password: String,
-      confirmPassword: String,
-      ad1: String,
-      ad2: String,
-      landmark: String,
-      city: String,
-      pin: Number,
-      sstate: String,
+      Name: "",
+      email: "",
+      emergencyNo: 0,
+      password: "",
+      confirmPassword: "",
+      ad1: "",
+      ad2: "",
+      landmark: "",
+      city: "",
+      pin: 0,
+      sstate: "",
 }
    
 const RegisterValidationSchema = yup.object().shape({
@@ -49,12 +49,15 @@ const RegisterValidationSchema = yup.object().shape({
 });
 
 
-const RegisterScreenC = () => {
+const RegisterScreenC = ({navigation}) => {
 
       const dispatch = useDispatch()
+      const phonee = useSelector(state => state.CmPer.phone)
 
       const OnsubmitClregister = (values) => {
-            dispatch(SMaddRegistertwoDetails(values))
+      
+      dispatch(CMARTpatchFullregister({...values,phone :phonee}))
+            
             console.log(values)
             console.log("DISSSPPPPPATCH  DDDONEEEEEEEEEE")
             navigation.navigate('Login')
@@ -100,7 +103,7 @@ const RegisterScreenC = () => {
                                                       onBlur={handleBlur('Name')}
                                                       value={values.Name}
                                                 />
-                                                {(errors.Name && touched.Name) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.Name}</Text> : null}
+                                                {(errors.Name && touched.Name) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.Name}</Text> : null}
 
                                                 <Input
                                                       label="Email"
@@ -110,7 +113,7 @@ const RegisterScreenC = () => {
                                                       onBlur={handleBlur('email')}
                                                       value={values.email}
                                                 />
-                                                {(errors.email && touched.email) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.email}</Text> : null}
+                                                {(errors.email && touched.email) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.email}</Text> : null}
 
                                                 <Input
                                                       label="Another mobile no"
@@ -118,9 +121,9 @@ const RegisterScreenC = () => {
                                                       keyboardType="numeric"
                                                       onChangeText={handleChange('emergencyNo')}
                                                       onBlur={handleBlur('emergencyNo')}
-                                                      value={values.emergencyNo}
+                                                      value={values.emergencyNo.toString()}
                                                 />
-                                                {(errors.emergencyNo && touched.emergencyNo)  ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.emergencyNo}</Text> : null}
+                                                {(errors.emergencyNo && touched.emergencyNo)  ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.emergencyNo}</Text> : null}
 
                                                 <Input
                                                       label="Enter password"
@@ -130,7 +133,7 @@ const RegisterScreenC = () => {
                                                       onBlur={handleBlur('password')}
                                                       value={values.password}
                                                 />
-                                                {(errors.password && touched.password) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.password}</Text> : null}
+                                                {(errors.password && touched.password) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.password}</Text> : null}
 
                                                 <Input
                                                       label="ConfirmPassword"
@@ -140,8 +143,8 @@ const RegisterScreenC = () => {
                                                       onBlur={handleBlur('confirmPassword')}
                                                       value={values.confirmPassword}
                                                 />
-                                                {(errors.confirmPassword && touched.confirmPassword) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.confirmPassword}</Text> : null}
-                                                  {touched.confirmPassword !== values.password ?  <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}> {console.log("THis")} Passwords do not match</Text> : null}
+                                                {(errors.confirmPassword && touched.confirmPassword) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.confirmPassword}</Text> : null}
+                                                  {/* {touched.confirmPassword !== values.password ?  <Text style={tw`text-sm text-red-500  italic font-semibold`}> {console.log("THis")} Passwords do not match</Text> : null} */}
                                                   
                                                 <Input
                                                       label="Address line 1"
@@ -151,7 +154,7 @@ const RegisterScreenC = () => {
                                                       onBlur={handleBlur('ad1')}
                                                       value={values.ad1}
                                                 />
-                                                {(errors.ad1 && touched.ad1) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.ad1}</Text> : null}
+                                                {(errors.ad1 && touched.ad1) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.ad1}</Text> : null}
 
                                                 <Input
                                                       label="Address line 2"
@@ -161,7 +164,7 @@ const RegisterScreenC = () => {
                                                       onBlur={handleBlur('ad2')}
                                                       value={values.ad2}
                                                 />
-                                                {(errors.ad2 && touched.ad2) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.ad2}</Text> : null}
+                                                {(errors.ad2 && touched.ad2) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.ad2}</Text> : null}
 
                                                 <Input
                                                       label="Landmark"
@@ -171,7 +174,7 @@ const RegisterScreenC = () => {
                                                       onBlur={handleBlur('landmark')}
                                                       value={values.landmark}
                                                 />
-                                                {(errors.landmark && touched.landmark) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.landmark}</Text> : null}
+                                                {(errors.landmark && touched.landmark) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.landmark}</Text> : null}
 
                                                 <Input
                                                       label="City"
@@ -181,7 +184,7 @@ const RegisterScreenC = () => {
                                                       onBlur={handleBlur('city')}
                                                       value={values.city}
                                                 />
-                                                {(errors.city && touched.city) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.city}</Text> : null}
+                                                {(errors.city && touched.city) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.city}</Text> : null}
 
                                                 <Input
                                                       label="Zip code"
@@ -189,9 +192,9 @@ const RegisterScreenC = () => {
                                                       keyboardType="default"
                                                       onChangeText={handleChange('pin')}
                                                       onBlur={handleBlur('pin')}
-                                                      value={values.pin}
+                                                      value={values.pin.toString()}
                                                 />
-                                                {(errors.pin && touched.pin) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.pin}</Text> : null}
+                                                {(errors.pin && touched.pin) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.pin}</Text> : null}
 
                                                 <Input
                                                       label="State"
@@ -201,7 +204,7 @@ const RegisterScreenC = () => {
                                                       onBlur={handleBlur('sstate')}
                                                       value={values.sstate}
                                                 />
-                                                {(errors.sstate && touched.sstate) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.sstate}</Text> : null}
+                                                {(errors.sstate && touched.sstate) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.sstate}</Text> : null}
 
 
 

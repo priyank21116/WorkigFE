@@ -1,11 +1,11 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Image, StyleSheet,ScrollView, Text, View } from 'react-native'
 import tw from 'tailwind-react-native-classnames';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 
-import { useSelector,useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { ARTgetMyDetail } from '../slices/SmPerSlice';
 
 const ProDeatils = {
@@ -37,18 +37,14 @@ const {ad1w,landmarkw,pincodew} =workplace
 
 const ProfileScreen = ({navigation}) => {
 
-     
-      const gettoken=async()=>{
-            const token= await AsyncStorage.getItem('token')
-            console.log("HERE IS LOCAL STORAGE TOKEN",token)
-       }
-
-       gettoken()
-
       const dispatch = useDispatch()
-
-      dispatch(ARTgetMyDetail())
-
+      
+      useEffect(() => {
+       dispatch(ARTgetMyDetail())   
+      }, [])
+      
+     const state = useSelector(state => state.SmPer.state)
+     
       return (
             <View style={tw`w-full p-6 `}>
                   <ScrollView showsVerticalScrollIndicator={false}>

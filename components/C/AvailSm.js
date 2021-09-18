@@ -58,7 +58,8 @@ const AvailSm = ({ navigation }) => {
 
       ]
 
-      const renderLIstItem = ({ item }) => {
+      const renderLIstItem = ( item ) => {
+          
             return (
                   <View style={tw`border flex-1 rounded-xl mx-1 mt-3 w-full  flex-row`}>
                         <View style={tw`border  w-24 h-24 ml-3 my-4 rounded-full overflow-hidden`}>
@@ -102,7 +103,7 @@ const AvailSm = ({ navigation }) => {
 
 
                   <View style={tw` items-center mx-auto -mt-6 mb-7 border-gray-300 w-16 border-2 rounded`}></View>
-                  <View ><Text style={tw` -mt-3 text-2xl text-center tracking-wide font-bold subpixel-antialiased leading-relaxed`}> Active Servicemans</Text></View>
+                  <View ><Text style={tw` -mt-3 text-2xl text-center  font-bold `}> Active Servicemans</Text></View>
 
                   <View style={tw` items-center mx-auto mt-4 mb-3 border-gray-500 w-96 border rounded`}></View>
 

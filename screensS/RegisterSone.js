@@ -28,7 +28,7 @@ const arr1 = {
 const RegisterValidationSchema = yup.object({
 
       email: yup.string().required('Email is required').email(),
-      emergencyNo: yup.number().required('Mobile No is required').positive().integer(),
+      emergencyPhone: yup.number().required('Mobile No is required').positive().integer(),
       pincodew: yup.number().positive().required('This field is required'),
       name: yup.string().required('Enter Name'),
       ad1w: yup.string().required('This field is required'),
@@ -91,11 +91,11 @@ const RegisterSone = ({ navigation }) => {
                                                       label="Alternate mobile no."
                                                       labelStyle={[tw``, { color: "#8f00ff" }]}
                                                       keyboardType="number-pad"
-                                                      onChangeText={handleChange('emergencyNo')}
-                                                      onBlur={handleBlur('emergencyNo')}
-                                                      value={values.emergencyNo.toString()}
+                                                      onChangeText={handleChange('emergencyPhone')}
+                                                      onBlur={handleBlur('emergencyPhone')}
+                                                      value={values.emergencyPhone.toString()}
                                                 />
-                                                {(errors.emergencyNo && touched.emergencyNo) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.emergencyNo}</Text> : null}
+                                                {(errors.emergencyPhone && touched.emergencyPhone) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.emergencyPhone}</Text> : null}
 
                                                 <Text style={tw`font-semibold text-xl`}> Work Place Address</Text>
                                                 <Text style={tw`font-normal text-base pb-6 border-b w-full mb-6`}>Write residential if dont have one</Text>
@@ -149,8 +149,8 @@ const RegisterSone = ({ navigation }) => {
                                           <Button
                                                 style={tw`w-6/12 `}
                                                 buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
-                                                title="Next"
-                                                onPress={handleSubmit}
+                                                title="Nexttti"
+                                                onPress={ handleSubmit}
 
                                           />
 

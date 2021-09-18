@@ -9,9 +9,9 @@ const NewworkCard = ({ items, acceptWork, discussOnCall, locattteOnmap, getdetai
 
       const {  by, location, address, WorkDomain, Workdescription, Clientrating,photo } = items;
 
-      console.log("HEre  ",items)
+    
       return (
-            <View style={tw`w-full border-2 border-bg-gray mx-auto bg-white my-8 rounded-xl flex-col justify-between h-auto py-6 overflow-hidden`}>
+            <View style={tw`w-full border-2  mx-auto bg-white my-8 rounded-xl flex-col justify-between  py-6 overflow-hidden`}>
                   {/* top */}
                   
                         <View style={tw` h-48 flex-row `}>
@@ -22,7 +22,7 @@ const NewworkCard = ({ items, acceptWork, discussOnCall, locattteOnmap, getdetai
                                                 uri:photo,
                                           }} />
                               </View>
-                              <View style={tw`h-auto mb-4`} >
+                              <View style={tw` mb-4`} >
                                     <Text style={tw` px-1  pt-3  tracking-wider text-2xl font-semibold`}>{by}</Text>
                                     <Text style={tw`px-1`}>{`Workdomain--- ${WorkDomain}`} </Text>
                                     <Text style={tw`px-0`}> {`Time Posted --- ${"now"}`}</Text>
@@ -31,10 +31,10 @@ const NewworkCard = ({ items, acceptWork, discussOnCall, locattteOnmap, getdetai
                                     <View style={tw` items-center mx-auto mt-4 mb-2 -ml-2 border-indigo-700 w-full border rounded`}></View>
 
 
-                                    <View style={tw`flex-row flex-1  h-auto`}>
+                                    <View style={tw`flex-row flex-1  `}>
                                     <TouchableOpacity  onPress={()=>discussOnCall()}>
                                           <Icon
-                                                style={tw`h-12 p-2 m-3 mt-1 items-center justify-items-center w-12 rounded-full order-first border-0 flex-col justify-end   bg-green-500`}
+                                                style={tw`h-12 p-2 m-3 mt-1 items-center  w-12 rounded-full  border-0 flex-col justify-end   bg-green-500`}
                                                 name='call'
                                                 type='material-icons'
                                                 color='#ffffff'
@@ -43,7 +43,7 @@ const NewworkCard = ({ items, acceptWork, discussOnCall, locattteOnmap, getdetai
                                           </TouchableOpacity>
                                           <TouchableOpacity onPress={()=>getdetailONChat()}>
                                           <Icon
-                                                style={tw` h-12 p-2 my-4 mt-1 mx-1 items-center justify-items-center w-12 rounded-full border-0 flex-col justify-end  bg-yellow-500`}
+                                                style={tw` h-12 p-2 my-4 mt-1 mx-1 items-center justify-center w-12 rounded-full border-0 flex-col justify-end  bg-yellow-500`}
 
                                                 name='chatbubbles-outline'
                                                 type='ionicon'
@@ -55,7 +55,7 @@ const NewworkCard = ({ items, acceptWork, discussOnCall, locattteOnmap, getdetai
                                           <TouchableOpacity onPress={()=>locattteOnmap()} >
                                          
                                           <Icon
-                                                style={tw`h-12 p-2 m-4 mt-1 items-center justify-items-center w-12 rounded-full order-last border-0 flex-col justify-end  bg-blue-500`}
+                                                style={tw`h-12 p-2 m-4 mt-1 items-center justify-center w-12 rounded-full  border-0 flex-col justify-end  bg-blue-500`}
                                                 name='location-outline'
                                                 type='ionicon'
                                                 color='#ffffff'
@@ -75,13 +75,13 @@ const NewworkCard = ({ items, acceptWork, discussOnCall, locattteOnmap, getdetai
 
                   </View>
                   <View style={tw` items-center mx-auto mt-4 mb-2 -ml-2 border-indigo-700 w-full border rounded`}></View>
-                  <Text style={tw` px-1  pt-3 mx-6 leading-loose tracking-wider text-xl font-semibold`}>Address -</Text>
-                  <Text style={tw` px-1  pt-1 mx-6 leading-loose tracking-wider text-base font-semibold`}>{address}</Text>
+                  <Text style={tw` px-1  pt-3 mx-6 tracking-wider text-xl font-semibold`}>Address -</Text>
+                  <Text style={tw` px-1  pt-1 mx-6 tracking-wider text-base font-semibold`}>{address}</Text>
 
                   <View style={tw` items-center mx-auto mt-3 mb-2 -ml-2 border-indigo-700 w-full border rounded`}></View>
 
-                  <Text style={tw` px-1  pt-3 mx-6 leading-loose tracking-wider text-xl font-semibold`}>Work Description -</Text>
-                  <Text style={tw` px-1  pt-1 mx-6 leading-loose tracking-wider text-base font-semibold`}>{Workdescription}</Text>
+                  <Text style={tw` px-1  pt-3 mx-6 tracking-wider text-xl font-semibold`}>Work Description -</Text>
+                  <Text style={tw` px-1  pt-1 mx-6 tracking-wider text-base font-semibold`}>{Workdescription}</Text>
 
                   <View style={tw` items-center mx-auto mt-4 mb-2 -ml-2 border-indigo-700 w-full border rounded`}></View>
                   

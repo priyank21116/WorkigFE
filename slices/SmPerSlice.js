@@ -35,7 +35,7 @@ export const ARTpostphone = createAsyncThunk('SmpostPhone',
       async (body) => {
             // const url = "http://192.168.29.199:9000/sm/registerone"
             try {
-                  console.log(" HERE 1")
+                  // console.log(" HERE 1")
                   // const res= await axios.post('url',{phone:body})
                   let res = await axios(
                         {
@@ -104,9 +104,10 @@ async()=>{
 
                   })
             
-            console.log("Phone RESPONSE CAME>>>>>>>>>>>>>>", res.data)
+            console.log("Phone RESPONSE ARTgetMyDetail>>>>>>>>>>>>>>", res.data.user)
+            return res.data.user
             
-      } catch (error) {
+             } catch(error) {
             console.log("THISSS GETMY DETAIL>>>>>>>", error)
       }
 }
@@ -118,7 +119,7 @@ async()=>{
 
 
 const SmSlice = createSlice({
-      name: 'Sm',
+      name: 'Smpersonal',
       initialState: SmPerState,
       reducers: {
             SmwritePhone: (state, actions) => {
@@ -158,9 +159,31 @@ const SmSlice = createSlice({
 
             //set phoneinstate
             [ARTpostphone.fulfilled]: (state, actions) => {
+                  console.log(" BEST here" ,actions.payload)
                   state.phone = actions.payload
-            }
+            },
             // set full state in successful login
+            [ARTgetMyDetail.fulfilled]:(state,actions)=>{
+                  console.log("EXTAR Red GET MY DETAIL::::",actions)
+                  state.phone = actions.payload
+                  state.name = actions.payload.name
+                  state.email = actions.payload.email
+                  state.emergencyPhone = actions.payload.emergencyPhone
+                  state.about = actions.payload.about
+                  state.ad1w = actions.payload.workplace.ad1w
+                  state.landmarkw = actions.payload.workplace.landmarkw
+                  state.pincodew = actions.payload.workplace.pincodew
+                  state.password = actions.payload.password
+                  state.confirmPass = actions.payload.confirmPass
+                  state.Rad1 = actions.payload.residencial.Rad1
+                  state.Rad2 = actions.payload.residencial.Rad2
+                  state.Rlandmark = actions.payload.residencial.Rlandmark
+                  state.Rcity = actions.payload.residencial.Rcity
+                  state.Rpin = actions.payload.residencial.Rpin
+                  state.Rstate = actions.payload.residencial.Rstate
+                  state.adharNo = actions.payload.adharNo
+            }
+           
 
       }
 

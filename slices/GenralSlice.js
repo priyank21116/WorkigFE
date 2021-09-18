@@ -5,7 +5,7 @@ const GinitialState = {
 }
 
 export const GenralSlice = createSlice({
-      name: 'Cm',
+      name: 'Genraltypeof',
       initialState: GinitialState,
       reducers: {
             TypeofUSer: (state, action) => {

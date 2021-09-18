@@ -4,8 +4,8 @@ import SmPerSlice from './slices/SmPerSlice';
 import GenralSlice from './slices/GenralSlice';
 import SmLoginSlice from './slices/SmLoginSlice';
 import CmLoginSlice from './slices/CmLoginSlice';
-import { composeWithDevTools } from 'remote-redux-devtools';
-import { getDefaultMiddleware } from '@reduxjs/toolkit';
+
+
 
 const store = configureStore({
   reducer: {
