@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 import * as yup from 'yup';
 import tw from 'tailwind-react-native-classnames';
 import { Formik } from 'formik';
-import { ScrollView } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native';
 
 import { Button } from 'react-native-elements/dist/buttons/Button';
@@ -11,6 +11,10 @@ import { Input } from 'react-native-elements/dist/input/Input';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { SMaddRegistertwoDetails } from '../slices/SmPerSlice';
+import { Icon } from 'react-native-elements/dist/icons/Icon';
+
+
+
 const arr2 = {
       password: "",
       confirmPass: "",
@@ -29,10 +33,10 @@ const RegisterValidationSchema = yup.object({
 
       adharNo: yup.number().required('Aadhar details are required ').positive().integer(),
       password: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required'),
-            // .matches(
-            //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
-            //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-            // ),
+      // .matches(
+      //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+      //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+      // ),
       confirmPass: yup.string().required('Confirm your password'),
       Rad1: yup.string().required('This field is required'),
       Rad2: yup.string().required('This field is required'),
@@ -68,16 +72,16 @@ const RegisterStwo = ({ navigation }) => {
                   validationSchema={RegisterValidationSchema}
             >
                   {({ handleChange, handleBlur, handleSubmit, values, touched, errors }) => (
-                        <View style={tw`bg-indigo-400 w-full h-full`}>
+                        <View style={tw`bg-indigo-400 w-full`}>
 
-                              <ScrollView style={tw`bg-gray-200 border rounded-t-xl   mt-20 mx-auto  w-11/12 h-full`}>
+                              <ScrollView showsVerticalScrollIndicator={false} style={tw`bg-gray-50 border rounded-t-xl   mt-20 mx-auto  w-11/12`}>
                                     <KeyboardAvoidingView
 
                                           keyboardVerticalOffset={50}
                                           behavior={'padding'}>
-                                          <View style={tw` my-20 px-6`}>
+                                          <View style={tw` mt-12 px-6`}>
                                                 <Text style={tw`mb-1 mt-4 ml-4 text-xl font-bold italic`}> {`Hello ${helloname} !`}</Text>
-                                                <Text style={tw`mb-4 ml-4  text-base italic border-b pb-4 w-full border-gray-600`}>Some more details are required before we register you. Fill them below</Text>
+                                                <Text style={tw`mb-4 ml-4  text-base italic border-b pb-4 w-11/12 mx-auto border-gray-400`}>Some more details are required before we register you. Fill them below</Text>
 
 
                                                 <Input
@@ -89,6 +93,20 @@ const RegisterStwo = ({ navigation }) => {
                                                       value={values.adharNo.toString()}
                                                 />
                                                 {(errors.adharNo && touched.adharNo) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.adharNo}</Text> : null}
+
+                                                <Text style={[tw`ml-2 mb-1 font-bold`, { color: "#8f00ff" }]}>Upload Aadhar Card </Text>
+                                                <TouchableOpacity >
+                                                      <View style={[tw`border rounded h-36 ml-2 mr-2 justify-center items-center mb-8  w-full border-dashed border-gray-500 bg-gray-100`]}>
+
+                                                            <Icon
+                                                                  
+                                                                  name='card-outline'
+                                                                  type='ionicon'
+                                                                  color="gray"
+                                                                  size={48}
+                                                            />
+                                                      </View>
+                                                </TouchableOpacity>
 
 
                                                 <Input
@@ -183,8 +201,8 @@ const RegisterStwo = ({ navigation }) => {
 
 
                                           <Button
-                                                style={tw`w-6/12 `}
-                                                buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
+                                                style={tw`w-6/12  `}
+                                                buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto mb-16 mt-8 `}
                                                 title="Next"
                                                 onPress={handleSubmit}
 

@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Alert,  StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native';
+
+import * as SMS from 'expo-sms';
+import * as Linking from 'expo-linking';
 
 import tw from 'tailwind-react-native-classnames';
 
@@ -23,9 +26,10 @@ const NewWorkCame = () => {
             console.log("AAAHUUUUUREEEEEEE    CAALllled", acceptWork)
       }
 
-      const discussOnCall = () => {
-            // console.log(item.by)
-            console.log("AAAHUUUUUREEEEEEE    CAALllled", discussOnCall)
+      const discussOnCall = async () => {
+           
+           let result = await Linking.openURL(`twl: ${'6260041022'}`)
+           console.log(" :::::::::CALL::::::::::::::::::",result)
       }
 
       const locattteOnmap = () => {
@@ -33,9 +37,18 @@ const NewWorkCame = () => {
             console.log("AAAHUUUUUREEEEEEE    CAALllled", locattteOnmap)
       }
 
-      const getdetailONChat = () => {
+      const getdetailONChat =async () => {
             // console.log(item.by)
-            console.log("AAAHUUUUUREEEEEEE    CAALllled", getdetailONChat)
+            const isAvailable = await SMS.isAvailableAsync();
+            if (isAvailable) {
+                  const { result } = await SMS.sendSMSAsync( ["6260041022"], "Hello ! I'm Suresh and my workdomain matches your requiremnts And I'm ready to owrkout your need. I'm accepting request and will contactyou in second")
+
+                  console.log(result)
+            } else {
+              Alert.alert("Could not Send message","We didn't find messaging functionality on your device.Therefor you can not use this feature.Try call out")
+            }
+
+
       }
 
       const rejectWork = () => {

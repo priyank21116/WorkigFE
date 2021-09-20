@@ -17,7 +17,7 @@ const NewworkCard = ({ items, acceptWork, discussOnCall, locattteOnmap, getdetai
                         <View style={tw` h-48 flex-row `}>
                               <View style={tw`w-28 h-28  m-2 border-2 border-indigo-600 rounded-full`}>
                                     <Image
-                                          style={tw`w-28 h-28  border-2 border-indigo-600 rounded-full`}
+                                          style={tw`w-28 h-28  rounded-full`}
                                           source={{
                                                 uri:photo,
                                           }} />

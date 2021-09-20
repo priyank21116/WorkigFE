@@ -1,13 +1,16 @@
 
 import React, { useState } from 'react'
-import { Image } from 'react-native';
-import { ScrollView,StyleSheet, Text, View } from 'react-native'
-import {  ListItem, Button, Icon } from 'react-native-elements'
+import { Image, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ListItem, Button, Icon } from 'react-native-elements'
 import tw from 'tailwind-react-native-classnames';
 import { Rating } from 'react-native-elements';
 
 
-const SmDetails = ({navigation}) => {
+import * as SMS from 'expo-sms';
+import * as Linking from 'expo-linking';
+
+const SmDetails = ({ navigation }) => {
       const [selcetedSm, setSelectedSm] = useState({
             id: "11maw1",
             name: "Nobita",
@@ -41,6 +44,25 @@ const SmDetails = ({navigation}) => {
             photo: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/21c77039-c68a-4ad9-b6e3-fa31d39a7c4e/d8vtcbc-9f0e08ff-1ab4-43c0-b1f6-9d9347bf95da.png/v1/fill/w_891,h_720,strp/doraemon__nobita_nobi_vector_by_jewel_chanxoxo_d8vtcbc-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvMjFjNzcwMzktYzY4YS00YWQ5LWI2ZTMtZmEzMWQzOWE3YzRlXC9kOHZ0Y2JjLTlmMGUwOGZmLTFhYjQtNDNjMC1iMWY2LTlkOTM0N2JmOTVkYS5wbmciLCJ3aWR0aCI6Ijw9ODkxIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.WlZ1FWYRfaSBPD5Rlh8QNOzMHOkzquDj3UTmSa5ev7k"
       })
 
+
+      const CallServiceman=()=>{
+    
+            let result = await Linking.openURL(`twl: ${'6260041022'}`)
+            console.log(" :::::::::CALL::::::::::::::::::",result)
+      }
+
+      const SendDeatilsinText=()=>{
+            const isAvailable = await SMS.isAvailableAsync();
+            if (isAvailable) {
+                  const { result } = await SMS.sendSMSAsync( ["6260041022"], "Hello ! I'm Suresh and my workdomain matches your requiremnts And I'm ready to owrkout your need. I'm accepting request and will contactyou in second")
+
+                  console.log(result)
+            } else {
+              Alert.alert("Could not Send message","We didn't find messaging functionality on your device.Therefor you can not use this feature.Try call out")
+            }
+
+      }
+
       return (
             <ScrollView style={tw`pt-10 h-full`}>
 
@@ -63,32 +85,37 @@ const SmDetails = ({navigation}) => {
 
 
                               <View style={tw`flex-row flex-1  h-auto`}>
-                                    <Icon
-                                          style={tw`h-12 p-2 m-4 mt-1 items-center justify-items-center w-14 rounded-full order-first border-0 flex-col justify-end   bg-green-500`}
-                                          name='call'
-                                          type='material-icons'
-                                          color='#ffffff'
-                                          size={35}
-                                    />
-                                    <Icon
-                                          style={tw` h-12 p-2 my-4 mt-1 mx-1 items-center justify-items-center w-14 rounded-full border-0 flex-col justify-end  bg-yellow-500`}
+                                    <TouchableOpacity onPress={() => CallServiceman()}>
+                                          <Icon
+                                                style={tw`h-12 p-2 m-4 mt-1 items-center justify-items-center w-14 rounded-full order-first border-0 flex-col justify-end   bg-green-500`}
+                                                name='call'
+                                                type='material-icons'
+                                                color='#ffffff'
+                                                size={35}
+                                          />
+                                    </TouchableOpacity>
 
-                                          name='chatbubbles-outline'
-                                          type='ionicon'
-                                          color='#ffffff'
-                                          size={35}
+                                    <TouchableOpacity onPress={() => (console.log("hey"))}>
+                                          <Icon
+                                                style={tw` h-12 p-2 my-4 mt-1 mx-1 items-center justify-items-center w-14 rounded-full border-0 flex-col justify-end  bg-yellow-500`}
 
-                                    />
+                                                name='chatbubbles-outline'
+                                                type='ionicon'
+                                                color='#ffffff'
+                                                size={35}
 
-                                    <Icon
-                                          style={tw`h-12 p-2 m-4 mt-1 items-center justify-items-center w-14 rounded-full order-last border-0 flex-col justify-end  bg-blue-500`}
-                                          name='sc-telegram'
-                                          type='evilicon'
-                                          color='#ffffff'
-                                          size={35}
+                                          />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => SendDeatilsinText()}>
+                                          <Icon
+                                                style={tw`h-12 p-2 m-4 mt-1 items-center justify-items-center w-14 rounded-full order-last border-0 flex-col justify-end  bg-blue-500`}
+                                                name='sc-telegram'
+                                                type='evilicon'
+                                                color='#ffffff'
+                                                size={35}
 
-                                    />
-
+                                          />
+                                    </TouchableOpacity>
 
 
                               </View>
@@ -135,7 +162,7 @@ const SmDetails = ({navigation}) => {
                   </View>
                   <Button
                         title="Search other"
-                        onPress={() =>navigation.navigate('AvailSm')}
+                        onPress={() => navigation.navigate('AvailSm')}
                   />
             </ScrollView>
       )

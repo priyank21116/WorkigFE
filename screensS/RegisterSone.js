@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, TextInput, Text } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, TextInput, Text, TouchableOpacity, Alert } from 'react-native'
 import * as yup from 'yup';
 import tw from 'tailwind-react-native-classnames';
 import { Formik } from 'formik';
@@ -9,9 +9,13 @@ import { KeyboardAvoidingView } from 'react-native';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { Input } from 'react-native-elements/dist/input/Input';
 
-import { useDispatch ,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { SMaddRegisteroneDetails } from '../slices/SmPerSlice';
+import { Icon } from 'react-native-elements/dist/icons/Icon';
+
+import * as ImagePicker from 'expo-image-picker';
+// import * as Permissions from 'expo-permissions'
 
 const arr1 = {
       name: "",
@@ -42,6 +46,60 @@ const RegisterSone = ({ navigation }) => {
 
       const dispatch = useDispatch();
 
+
+
+
+      const pickFromGallery = async () => {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status==="granted") {
+                  let data = await ImagePicker.launchImageLibraryAsync({
+                        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                        allowsEditing: true,
+                        aspect: [1, 1],
+                        quality: 0.4
+                  })
+                  if(!data.cancelled){
+                        let newfile = {uri:data.uri , 
+                              type:`test/${data.uri.split(".")[1]}` ,
+                              name:`test.${data.uri.split(".")[1]}`}
+                        handleUpload(newfile)
+                  }
+
+                  console.log("Gallery",data)
+            } else {
+                  Alert.alert("Gallery access is neccesary to get your image")
+            }
+      }
+
+      const photofromCamers = async () => {
+            const { status } = await ImagePicker.requestCameraPermissionsAsync();
+            if (status ==='granted') {
+                  let data = await ImagePicker.launchCameraAsync({
+                        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                        allowsEditing: true,
+                        aspect: [1, 1],
+                        quality: 0.4
+                  })
+
+                  console.log("CAMERA",data)
+                  if(!data.cancelled){
+                        let newfile = {uri:data.uri , 
+                              type:`test/${data.uri.split(".")[1]}` ,
+                              name:`test.${data.uri.split(".")[1]}`}
+                        handleUpload(newfile)
+                  }
+            } else {
+                  Alert.alert("Camera access is neccesary to get your image")
+            }
+      }
+
+
+      const handleUpload =(image)=>{
+
+      }
+
+
+
       const OnsubmitFormone = (values) => {
             dispatch(SMaddRegisteroneDetails(values))
             console.log(values)
@@ -58,14 +116,14 @@ const RegisterSone = ({ navigation }) => {
             >
                   {({ handleChange, handleBlur, handleSubmit, values, touched, errors }) => (
 
-                        <View style={tw`bg-indigo-400 w-full h-full`}>
+                        <View style={tw`bg-indigo-400 w-full `}>
 
-                              <ScrollView style={tw`bg-gray-200 border rounded-t-xl   mt-20 mx-auto  w-11/12 h-full`}>
+                              <ScrollView scrollsToTop showsVerticalScrollIndicator={false} style={tw`bg-gray-50 border rounded-t-xl  mt-20 mx-auto  w-11/12`}>
                                     <KeyboardAvoidingView
 
                                           keyboardVerticalOffset={50}
                                           behavior={'padding'}>
-                                          <View style={tw` mt-20 px-6`}>
+                                          <View style={tw` mt-16 px-6`}>
 
 
                                                 <Input
@@ -97,8 +155,54 @@ const RegisterSone = ({ navigation }) => {
                                                 />
                                                 {(errors.emergencyPhone && touched.emergencyPhone) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.emergencyPhone}</Text> : null}
 
-                                                <Text style={tw`font-semibold text-xl`}> Work Place Address</Text>
-                                                <Text style={tw`font-normal text-base pb-6 border-b w-full mb-6`}>Write residential if dont have one</Text>
+                                                <View style={tw` mb-12 w-full   flex-row py-4`}>
+                                                      <View style={tw` mx-auto w-36    `}>
+                                                            <TouchableOpacity onPress={()=>pickFromGallery}>
+                                                                  <View style={[tw`border-2 h-44  rounded-xl justify-center items-center  border-dashed border-gray-400 bg-gray-100`]}>
+
+
+                                                                        <Icon
+                                                                              // raised
+
+                                                                              name='image-outline'
+                                                                              type='ionicon'
+                                                                              color='#A9A9A9'
+                                                                              size={40}
+
+                                                                        />
+
+
+                                                                  </View>
+                                                            </TouchableOpacity>
+                                                            <Text style={tw`  text-xs italic font-light text-gray-600`}>- Choose any of your Image from Gallery </Text>
+                                                            <Text style={tw`  text-xs italic font-light text-gray-600`}>- This photo will be shown in your public profile. That means this would be visilbe to everyone </Text>
+
+
+                                                      </View>
+                                                      <View style={tw` mx-auto w-36   `}>
+                                                            <TouchableOpacity onPress={()=>photofromCamers()}>
+                                                                  <View style={[tw` border-dashed border-2  rounded-xl h-44 justify-center items-center   border-gray-400  bg-gray-100`]}>
+
+                                                                        <Icon
+                                                                              // raised
+                                                                              name='camera'
+                                                                              type='ionicon'
+                                                                              color='#A9A9A9'
+                                                                              size={36}
+
+                                                                        />
+
+                                                                  </View>
+                                                            </TouchableOpacity>
+                                                            <Text style={tw`text-xs  italic font-light text-gray-600`}>- Click your currnt picture through camera </Text>
+                                                            <Text style={tw` text-xs italic font-light text-gray-600`}>- This picture is just for validation purpose.This will not be shown or visible to anyone . </Text>
+
+
+                                                      </View>
+                                                </View>
+
+                                                <Text style={tw`font-semibold text-gray-500 text-xl`}> Work Place Address</Text>
+                                                <Text style={tw`font-normal text-base text-gray-300 pb-5 w-9/12 border-b border-gray-200 w-full mb-6`}>Write residential if dont have one</Text>
                                                 <Input
                                                       label="Workplace address"
                                                       labelStyle={[tw``, { color: "#8f00ff" }]}
@@ -107,7 +211,7 @@ const RegisterSone = ({ navigation }) => {
                                                       onBlur={handleBlur('ad1w')}
                                                       value={values.ad1w}
                                                 />
-                                                {(errors.ad1w && touched.ad1w) ? <Text style={tw`text-sm text-red-500  mt-1 italic font-semibold`}>{errors.ad1w}</Text> : null}
+                                                {(errors.ad1w && touched.ad1w) ? <Text style={tw`text-sm text-red-500   italic font-semibold`}>{errors.ad1w}</Text> : null}
 
                                                 <Input
                                                       label="WP landmark"
@@ -117,7 +221,7 @@ const RegisterSone = ({ navigation }) => {
                                                       onBlur={handleBlur('landmarkw')}
                                                       value={values.landmarkw}
                                                 />
-                                                {(errors.landmarkw && touched.landmarkw) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.landmarkw}</Text> : null}
+                                                {(errors.landmarkw && touched.landmarkw) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.landmarkw}</Text> : null}
 
                                                 <Input
                                                       label="WP Zip code"
@@ -127,14 +231,14 @@ const RegisterSone = ({ navigation }) => {
                                                       onBlur={handleBlur('pincodew')}
                                                       value={values.pincodew.toString()}
                                                 />
-                                                {(errors.pincodew && touched.pincodew) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.pincodew}</Text> : null}
+                                                {(errors.pincodew && touched.pincodew) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.pincodew}</Text> : null}
 
 
 
 
                                                 <TextInput
 
-                                                      style={tw`border mt-6 text-base rounded-xl w-full h-20 py-3 px-4`}
+                                                      style={tw`border mt-6 text-base rounded-xl w-full h-24 py-4 px-4`}
                                                       onChangeText={handleChange('about')}
                                                       value={values.about}
                                                       placeholder="Briefly describe what you do best .."
@@ -148,9 +252,9 @@ const RegisterSone = ({ navigation }) => {
 
                                           <Button
                                                 style={tw`w-6/12 `}
-                                                buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
+                                                buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto mt-12 mb-16`}
                                                 title="Nexttti"
-                                                onPress={ handleSubmit}
+                                                onPress={handleSubmit}
 
                                           />
 
@@ -160,7 +264,7 @@ const RegisterSone = ({ navigation }) => {
                         </View>
                   )}
 
-            </Formik >
+            </Formik>
       )
 }
 
