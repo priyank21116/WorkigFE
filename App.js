@@ -20,18 +20,20 @@ import MapScreenC from './screensC/MapScreenC';
 import MapScreenS from './screensS/MapScreenS';
 
 import DeclarationSpage from './screensS/DeclarationSpage';
-import WDomain from './components/C/WDomain';
+// import WDomain from './CommonScreens/deletedcompo/WDomain';
 import NewWorkCame from './screensS/NewWorkCame';
 import RegisterStwo from './screensS/RegisterStwo';
 import RegisterSone from './screensS/RegisterSone';
-import WDomainSm from './screensS/WDomainSm';
+// import WDomainSm from './CommonScreens/deletedcompo/WDomainSm';
 import ProfileScreen from './screensS/ProfileScreen';
 import RegisterScreenC from './screensC/RegisterScreenC';
+import DomainScreen from './screensC/DomainScreen';
 
 import WriteNum from './CommonScreens/OtpScreens/WriteNum';
 import VerfiOTP from './CommonScreens/OtpScreens/VerfiOTP';
-import AvailSm from './components/C/AvailSm';
 
+
+// import MapC from './components/C/MapC'
 
 
 
@@ -59,7 +61,7 @@ function App() {
             style={{ flex: 1 }}
           >
 
-            <Stack.Navigator initialRouteName="NewWorkCame" screenOptions={{ headerShown: true }} >
+            <Stack.Navigator initialRouteName="MapScreenC" screenOptions={{ headerShown: true }} >
 
               <Stack.Screen name="HomeScreen" component={HomeScreen} />
               <Stack.Screen name="Login" component={Login} />
@@ -67,6 +69,7 @@ function App() {
               <Stack.Screen name="VerfiOTP" component={VerfiOTP} />
               <Stack.Screen name="DeclarationSpage" component={DeclarationSpage} />
 
+            
 
 
 
@@ -75,11 +78,11 @@ function App() {
               <Stack.Screen name="MapScreenS" component={MapScreenS} />
               <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
               <Stack.Screen name="NewWorkCame" component={NewWorkCame} />
-              {/* <Stack.Screen  name="WDomainSm" component={WDomainSm}  /> */}
+              
 
 
-              {/* <Stack.Screen name="AvailSm" component={AvailSm } /> */}
-
+              
+              <Stack.Screen name="DomainScreen" component={DomainScreen } />
               <Stack.Screen name="RegisterScreenC" component={RegisterScreenC} />
               <Stack.Screen name="MapScreenC" component={MapScreenC} />
 

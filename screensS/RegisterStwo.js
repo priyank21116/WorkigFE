@@ -13,7 +13,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { SMaddRegistertwoDetails } from '../slices/SmPerSlice';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 
+import * as ImagePicker from 'expo-image-picker';
 
+import { patchadharPhoto } from '../slices/SmPerSlice';
 
 const arr2 = {
       password: "",
@@ -53,8 +55,33 @@ const RegisterValidationSchema = yup.object({
 const RegisterStwo = ({ navigation }) => {
 
       const dispatch = useDispatch()
-
+     
       const helloname = useSelector(state => state.SmPer.name)
+
+      const UploadadharImage = async () => {
+            const { status } = await ImagePicker.requestCameraPermissionsAsync();
+            if (status === "granted") {
+                  let data = await ImagePicker.launchCameraAsync({
+                        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                        allowsEditing: true,
+                        aspect: [1, 2],
+                        quality: 0.3
+                  })
+                  if (!data.cancelled) {
+                        let newfile = {
+                              uri: data.uri,
+                              type: `test/${data.uri.split(".")[1]}`,
+                              name: `test.${data.uri.split(".")[1]}`
+                        }
+                        handleUpload(newfile)
+                  }
+                   const UploadAdhar ="......jpg"
+                   dispatch(patchadharPhoto(UploadAdhar))
+                  console.log("Adhar Camera", data)
+            } else {
+                  Alert.alert("Gallery access is neccesary to get your image")
+            }
+      }
 
       const OnsubmitFormtwo = (values) => {
             dispatch(SMaddRegistertwoDetails(values))
@@ -95,11 +122,11 @@ const RegisterStwo = ({ navigation }) => {
                                                 {(errors.adharNo && touched.adharNo) ? <Text style={tw`text-sm text-red-500 mt-1 italic font-semibold`}>{errors.adharNo}</Text> : null}
 
                                                 <Text style={[tw`ml-2 mb-1 font-bold`, { color: "#8f00ff" }]}>Upload Aadhar Card </Text>
-                                                <TouchableOpacity >
+                                                <TouchableOpacity onPress={() => UploadadharImage()}>
                                                       <View style={[tw`border rounded h-36 ml-2 mr-2 justify-center items-center mb-8  w-full border-dashed border-gray-500 bg-gray-100`]}>
 
                                                             <Icon
-                                                                  
+
                                                                   name='card-outline'
                                                                   type='ionicon'
                                                                   color="gray"

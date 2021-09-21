@@ -17,6 +17,8 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 import * as ImagePicker from 'expo-image-picker';
 // import * as Permissions from 'expo-permissions'
 
+import { patchProfileImage,patchValidateImage } from '../slices/SmPerSlice';
+
 const arr1 = {
       name: "",
       email: "",
@@ -50,6 +52,7 @@ const RegisterSone = ({ navigation }) => {
 
 
       const pickFromGallery = async () => {
+            console.log("jhrerdtfcghv:::::::::::;")
             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
             if (status==="granted") {
                   let data = await ImagePicker.launchImageLibraryAsync({
@@ -66,6 +69,8 @@ const RegisterSone = ({ navigation }) => {
                   }
 
                   console.log("Gallery",data)
+                  const proimg=".....png"
+                  dispatch(patchProfileImage(proimg))
             } else {
                   Alert.alert("Gallery access is neccesary to get your image")
             }
@@ -88,6 +93,8 @@ const RegisterSone = ({ navigation }) => {
                               name:`test.${data.uri.split(".")[1]}`}
                         handleUpload(newfile)
                   }
+                  const valiImg=".....png"
+                  dispatch(patchValidateImage(valiImg))
             } else {
                   Alert.alert("Camera access is neccesary to get your image")
             }
@@ -157,7 +164,7 @@ const RegisterSone = ({ navigation }) => {
 
                                                 <View style={tw` mb-12 w-full   flex-row py-4`}>
                                                       <View style={tw` mx-auto w-36    `}>
-                                                            <TouchableOpacity onPress={()=>pickFromGallery}>
+                                                            <TouchableOpacity onPress={()=>pickFromGallery()}>
                                                                   <View style={[tw`border-2 h-44  rounded-xl justify-center items-center  border-dashed border-gray-400 bg-gray-100`]}>
 
 

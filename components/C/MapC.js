@@ -10,8 +10,10 @@ import { useSelector } from 'react-redux';
 
 
 const MapC = () => {
-      const origin = useSelector(selectOrigin);
-      const destination = useSelector(selectDestination)
+      const origin = 120
+      // useSelector(selectOrigin);
+      const destination = 120
+      // useSelector(selectDestination)
       const mapRef = useRef(null)
       const dispatch = useDispatch()
 
@@ -45,7 +47,7 @@ const MapC = () => {
       return (
             <MapView
             ref={mapRef}
-                  style={tw`flex-1`}
+                  style={tw`flex-1 h-1/6`}
                   mapType="mutedStandard"
                   initialRegion={{
                         latitude: origin.location.lat,

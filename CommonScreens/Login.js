@@ -52,6 +52,7 @@ const Login = ({ navigation }) => {
             dispatch(SmLoginValidation(values))
             console.log("SMlOgin 1", values)
             navigation.navigate('MapScreenS')
+      }
 
             // if (token) {
             //       navigation.navigate('MapScreenS')
@@ -69,14 +70,15 @@ const Login = ({ navigation }) => {
             //             ]
             //       );
             // }
-      }
+      
       const CMLogin = (values) => {
 
             dispatch(CmLoginValidation(values))
-
-            const token = useSelector(state => state.CmLogin.token)
-            console.log("TOOOOKEENNN in LOGINNNN:::::::::::::::::::::", token)
-            navigation.navigate('MapScreenC')
+     console.log("CMLOGIN")
+            // const token = useSelector(state => state.CmLogin.token)
+            // console.log("TOOOOKEENNN in LOGINNNN:::::::::::::::::::::", token)
+            navigation.navigate('DomainScreen')
+            }
             // if (token) {
             //       navigation.navigate('MapScreenC')
             // } else {
@@ -94,7 +96,7 @@ const Login = ({ navigation }) => {
             //       );
             // }
 
-      }
+      
 
 
       useEffect(() => {

@@ -13,7 +13,8 @@ const CPerinitialState = {
       pin: 0,
       city: "",
       sstate: "",
-      password: ""
+      password: "",
+      photo :" "
       // helpDomain: "",
       // SpecifyHelp: "",
       // NewreviewsC: {
@@ -92,6 +93,10 @@ const Cmlice = createSlice({
       initialState: CPerinitialState,
       reducers: {
 
+            patchPhoto:(state,actions)=>{
+                   state.photo = actions.payload
+            }
+
             // SMaddRegisteroneDetails: (state, actions) => {
             //       const { Name, email, emergencyNo, password, ad1, ad2, landmark, city, pin, sstate } = actions.payload
 
@@ -141,6 +146,6 @@ const Cmlice = createSlice({
 })
 
 
-export const { CwritePhone } = Cmlice.actions
+export const { CwritePhone,patchPhoto } = Cmlice.actions
 
 export default Cmlice.reducer

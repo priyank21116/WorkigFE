@@ -28,7 +28,7 @@ const NewWorkCame = () => {
 
       const discussOnCall = async () => {
            
-           let result = await Linking.openURL(`twl: ${'6260041022'}`)
+           let result = await Linking.openURL(`tel:${'6260041022'}`)
            console.log(" :::::::::CALL::::::::::::::::::",result)
       }
 

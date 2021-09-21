@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {  View, Text, SafeAreaView } from 'react-native'
+import {  View, Text, SafeAreaView,TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 import tw from 'tailwind-react-native-classnames';
@@ -14,6 +14,9 @@ import { Button } from 'react-native-elements/dist/buttons/Button';
 import { Input } from 'react-native-elements/dist/input/Input';
 
 import { useSelector, useDispatch } from 'react-redux';
+
+import { patchPhoto } from '../slices/CmPerSlice';
+import * as ImagePicker from 'expo-image-picker';
 
 const registerC = {
       Name: "",
@@ -64,7 +67,30 @@ const RegisterScreenC = ({navigation}) => {
 
       }
 
-
+      const UploadClientPhoto=async()=>{
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status === "granted") {
+                  let data = await ImagePicker.launchImageLibraryAsync({
+                        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                        allowsEditing: true,
+                        aspect: [4,3],
+                        quality: 0.3
+                  })
+                  if (!data.cancelled) {
+                        let newfile = {
+                              uri: data.uri,
+                              type: `test/${data.uri.split(".")[1]}`,
+                              name: `test.${data.uri.split(".")[1]}`
+                        }
+                        handleUpload(newfile)
+                  }
+                  const photoo =".....png"
+                  dispatch(patchPhoto(photoo))
+                  console.log("Adhar Camera", data)
+            } else {
+                  Alert.alert("Gallery access is neccesary to get your image")
+            }
+      }
 
 
 
@@ -74,8 +100,7 @@ const RegisterScreenC = ({navigation}) => {
 
       return (
 
-
-
+      
 
             <Formik
                   initialValues={registerC}
@@ -92,8 +117,20 @@ const RegisterScreenC = ({navigation}) => {
                                           keyboardVerticalOffset={50}
                                           behavior={'padding'}>
                                           <View style={tw` my-20 px-6`}>
+                                          <Text style={[tw`mx-auto mb-2 mt-12 font-bold items-center`, { color: "#8f00ff" }]}> Upload Profile photo </Text>
                                               
+                                          <TouchableOpacity onPress={() => UploadClientPhoto()}>
+                                                      <View style={[tw`border rounded h-36 justify-center items-center mb-8  w-9/12 mx-auto border-dashed border-gray-500 bg-gray-100`]}>
 
+                                                            <Icon
+
+                                                                  name='card-outline'
+                                                                  type='ionicon'
+                                                                  color="gray"
+                                                                  size={48}
+                                                            />
+                                                      </View>
+                                                </TouchableOpacity>
 
                                                 <Input
                                                       label="Enter name"

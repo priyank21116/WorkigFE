@@ -27,8 +27,9 @@ const SmPerState = {
       //       rating: 0,
       //       comment: "",
       // }
-      // image: "",
-      // adharPhoto: "",
+      ProfileImage: "",
+      ValidateImage:" ",
+      adharPhoto: "",
 }
 
 export const ARTpostphone = createAsyncThunk('SmpostPhone',
@@ -125,6 +126,15 @@ const SmSlice = createSlice({
             SmwritePhone: (state, actions) => {
                   state.phone = actions.payload
             },
+            patchProfileImage:(state,actions)=>{
+ state.ProfileImage =actions.payload
+            },
+            patchValidateImage:(state,actions)=>{
+                  state.ValidateImage = actions.payload
+            },
+            patchadharPhoto:(state,actions)=>{
+                  state.adharPhoto = actions.payload
+            },
             SMaddRegisteroneDetails: (state, actions) => {
                   state.name = actions.payload.name
                   state.email = actions.payload.email
@@ -190,6 +200,6 @@ const SmSlice = createSlice({
 })
 
 
-export const { SmwritePhone, SMaddRegisteroneDetails, SMaddRegistertwoDetails } = SmSlice.actions
+export const { SmwritePhone, SMaddRegisteroneDetails, SMaddRegistertwoDetails,patchValidateImage,patchProfileImage,patchadharPhoto } = SmSlice.actions
 
 export default SmSlice.reducer
