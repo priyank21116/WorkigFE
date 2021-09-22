@@ -1,86 +1,96 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MapView, { Callout, Circle, Marker } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import tw from 'tailwind-react-native-classnames';
 import { flex } from 'styled-system';
+import { MarkerUnits } from 'react-native-svg';
 
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function MapCurrLoc({ navigation }) {
-      const [pin, setpin] = useState({
+
+      const dispatch = useDispatch()
+
+      let pin = {
             latitude: 37.78825,
             longitude: -122.4324,
-      })
+      }
+
+      console.log("1")
+      const getloc = async () => {
+            console.log("2")
+            const loc = useSelector((state) => state.CmLivSer.livelocation)
+            pin = { latitude: loc.lat, longitude: loc.lng }
+            console.log("3")
+            console.log("INMAP>>>>>", loc)
+      }
+      getloc()
+      console.log("4")
+
+
+
+      // const [pin, setpin] = useState({
+      //       latitude: 37.78825,
+      //       longitude: -122.4324,
+      // })
+
+
       const [region, setregion] = useState({
             latitude: 37.78825,
             longitude: -122.4324,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
       })
+
+      const markers = [{
+
+            latitude: 23.1851724,
+            longitude: 79.9122222
+      }, {
+
+            latitude: 23.1851737,
+            longitude: 79.9192222
+      }, {
+
+            latitude: 23.1841727,
+            longitude: 78.9162222
+      },]
+
       return (
-            <View style={{ marginTop: 20, flex: 1 }}>
-                  
+            <View style={{ marginTop: 5, flex: 1 }}>
 
-
-                        <GooglePlacesAutocomplete
-
-                              placeholder='Search'
-                              fetchDetails={true}
-                              GooglePlacesSearchQuery={{
-                                    rankby: "distance"
-                              }}
-                              onPress={(data, details = null) => {
-                                    // 'details' is provided when fetchDetails = true
-                                    console.log(data, details);
-                                    setregion({
-                                          latitude: details.geometry.location.lat.toString,
-                                          longitude: details.geometry.location.lng,
-                                          latitudeDelta: 0.0922,
-                                          longitudeDelta: 0.0421,
-                                    })
-                              }}
-                              query={{
-                                    key: 'AIzaSyD2oqIHk_IQpkXaPRD5KoVITz9Z6k-Db80',
-                                    language: 'en',
-                                    // components: "country:us",
-                                    // types: "establishment",
-                                    // radius: 30000,
-                                    // location: `${region.latitude},${region.longitude}`
-                              }}
-                              styles={
-                                    {
-                                          container: { flex: 0, position: "absolute", width: "100%", zIndex: 1 },
-                                          listView: { backgroundColor: "pink" }
-
-                                    }
-                              }
-                        />
-                  
                   <MapView
-                        style={styles.map}
+                        style={tw`w-full h-full`}
+
                         initialRegion={{
-                              latitude: 37.78825,
-                              longitude: -122.4324,
+                              ...pin,
                               latitudeDelta: 0.0922,
                               longitudeDelta: 0.0421,
                         }}
                         provider="google"
                   >
-                  <Marker coordinate={{latitude:region.latitude ,longitude:region.longitude}} ></Marker>
-                        <Marker coordinate={pin}
+                        {markers?.map((marker, index) => (<Marker key={index} coordinate={{latitude: marker.latitude, longitude: marker.longitude}}  ></Marker>))}
+                        {/* title={marker.title} description={marker.description} */}
+                        {/* <Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} ></Marker> */}
+                        <Marker
+                              // draggable
+                              coordinate={pin}
                               pinColor="black"
-                              draggable
-                              onDragStart={(e) => { console.log("DRAG START", e.nativeEvent) }}
-                              onDragEnd={(e) => {
-                                    console.log("DRAG END", e.nativeEvent)
-                                    setpin({
-                                          latitude: e.nativeEvent.coordinate.latitude,
-                                          longitude: e.nativeEvent.coordinate.longitude,
-                                    })
-                              }}
+
+                        // onDragStart={(e) => { console.log("DRAG START", e.nativeEvent) }}
+                        // onDragEnd={(e) => {
+                        //       console.log("DRAG END", e.nativeEvent)
+                        //       setpin({
+                        //             latitude: e.nativeEvent.coordinate.latitude,
+                        //             longitude: e.nativeEvent.coordinate.longitude,
+                        //       })
+                        // }}
                         >
                               <Callout>
+                                    {/* <View style={tw`w-20 h-16 bg-indigo-200`}> */}
                                     <Text>TutU HERE</Text>
+                                    {/* </View> */}
                               </Callout>
                         </Marker>
                         {/* <Circle center={pin}
@@ -99,7 +109,7 @@ const styles = StyleSheet.create({
             justifyContent: 'center',
       },
       map: {
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').height,
+            // width: Dimensions.get('window').width,
+            // height: Dimensions.get('window').height,
       },
 });

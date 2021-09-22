@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 
 import { useDispatch,useSelector } from 'react-redux';
-import { ARTgetMyDetail } from '../slices/SmPerSlice';
+import { ARTgetMyDetail } from '../slices/Sm/SmPerSlice';
 
 const ProDeatils = {
       "_id": "613c79051426453b08500958",

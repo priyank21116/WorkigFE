@@ -10,12 +10,12 @@ import { Button } from 'react-native-elements/dist/buttons/Button';
 import { Input } from 'react-native-elements/dist/input/Input';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { SMaddRegistertwoDetails } from '../slices/SmPerSlice';
+import { SMaddRegistertwoDetails } from '../slices/Sm/SmPerSlice';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 import * as ImagePicker from 'expo-image-picker';
 
-import { patchadharPhoto } from '../slices/SmPerSlice';
+import { patchadharPhoto } from '../slices/Sm/SmPerSlice';
 
 const arr2 = {
       password: "",

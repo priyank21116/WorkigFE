@@ -18,35 +18,35 @@ const MapC = () => {
       const dispatch = useDispatch()
 
       useEffect(() => {
-        if(!origin || !destination) return
+            if (!origin || !destination) return
 
-      //   Zoom &fir to markers
-      mapRef.current.fitToSuppliedMarkers(["origin","destination"],{
-            edgePadding:{ top:50, right:50,bottom:50,left:50},
-      })
+            //   Zoom &fir to markers
+            mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
+                  edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+            })
 
-      }, [origin,destination])
+      }, [origin, destination])
 
 
       useEffect(() => {
-        if(!origin || !destination) return
+            if (!origin || !destination) return
 
-           const getTravelTime = async()=>{
-                 fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin.description}&destinations=${destination.description}&key=${GOOGLE_MAPS_APIKEY}`)
-                 .then((res)=> res.json())
-                 .then((data)=>{
-                       console.log("MAPS __DIATANCE MATRIXA DATA",data)
-                       dispatch(setTravelTimeInformation(data.rowa[0].elements[0]));
-                 })
+            const getTravelTime = async () => {
+                  fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin.description}&destinations=${destination.description}&key=${GOOGLE_MAPS_APIKEY}`)
+                        .then((res) => res.json())
+                        .then((data) => {
+                              console.log("MAPS __DIATANCE MATRIXA DATA", data)
+                              dispatch(setTravelTimeInformation(data.rowa[0].elements[0]));
+                        })
 
-           }
+            }
 
-           getTravelTime();
-      }, [origin,destination,GOOGLE_MAPS_APIKEY])
+            getTravelTime();
+      }, [origin, destination, GOOGLE_MAPS_APIKEY])
 
       return (
             <MapView
-            ref={mapRef}
+                  ref={mapRef}
                   style={tw`flex-1 h-1/6`}
                   mapType="mutedStandard"
                   initialRegion={{
@@ -56,17 +56,50 @@ const MapC = () => {
                         longitudeDelta: 0.005,
                   }}
             >
+                  <GooglePlacesAutocomplete
 
+                        placeholder='Search'
+                        fetchDetails={true}
+                        GooglePlacesSearchQuery={{
+                              rankby: "distance"
+                        }}
+                        onPress={(data, details = null) => {
+                              // 'details' is provided when fetchDetails = true
+                              console.log(data, details);
+                              setregion({
+                                    latitude: details.geometry.location.lat.toString,
+                                    longitude: details.geometry.location.lng,
+                                    latitudeDelta: 0.0922,
+                                    longitudeDelta: 0.0421,
+                              })
+                        }}
+                        query={{
+                              key: 'AIzaSyD2oqIHk_IQpkXaPRD5KoVITz9Z6k-Db80',
+                              language: 'en',
+                              // components: "country:us",
+                              // types: "establishment",
+                              // radius: 30000,
+                              // location: `${region.latitude},${region.longitude}`
+                        }}
+                        styles={
+                              {
+                                    container: { flex: 0, position: "absolute", width: "100%", zIndex: 1 },
+                                    listView: { backgroundColor: "pink" }
 
-            {origin && destination &&(
-                  <MapViewDirections 
-                        origin={origin.description}
-                        destination={destination.description}
-                        apikey={GOOGLE_MAPS_APIKEY}
-                        strokeColor="black"
-                        strokeWidth={3}
+                              }
+                        }
                   />
-            )}
+
+
+                  {origin && destination && (
+                        <MapViewDirections
+                              origin={origin.description}
+                              destination={destination.description}
+                              apikey={GOOGLE_MAPS_APIKEY}
+                              strokeColor="black"
+                              strokeWidth={3}
+                        />
+                  )}
 
                   {origin?.location && (
                         <Marker

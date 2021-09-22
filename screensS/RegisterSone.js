@@ -11,13 +11,13 @@ import { Input } from 'react-native-elements/dist/input/Input';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { SMaddRegisteroneDetails } from '../slices/SmPerSlice';
+import { SMaddRegisteroneDetails } from '../slices/Sm/SmPerSlice';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 import * as ImagePicker from 'expo-image-picker';
 // import * as Permissions from 'expo-permissions'
 
-import { patchProfileImage,patchValidateImage } from '../slices/SmPerSlice';
+import { patchProfileImage,patchValidateImage } from '../slices/Sm/SmPerSlice';
 
 const arr1 = {
       name: "",

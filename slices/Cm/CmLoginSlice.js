@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { AxiosReq1 } from "./helpers/Axiosreq";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import axios from "axios";

@@ -9,13 +9,13 @@ import { ScrollView } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native';
 
 
-import { CMARTpatchFullregister } from '../slices/CmPerSlice';
+import { CMARTpatchFullregister } from '../slices/Cm/CmPerSlice';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { Input } from 'react-native-elements/dist/input/Input';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { patchPhoto } from '../slices/CmPerSlice';
+import { patchPhoto } from '../slices/Cm/CmPerSlice';
 import * as ImagePicker from 'expo-image-picker';
 
 const registerC = {

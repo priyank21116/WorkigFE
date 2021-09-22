@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import store from './store'
 import { useSelector,useDispatch } from 'react-redux';
 
-import { addTokentostate } from './slices/SmLoginSlice';
+
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -61,7 +61,7 @@ function App() {
             style={{ flex: 1 }}
           >
 
-            <Stack.Navigator initialRouteName="MapScreenC" screenOptions={{ headerShown: true }} >
+            <Stack.Navigator initialRouteName="MapScreenS" screenOptions={{ headerShown: true }} >
 
               <Stack.Screen name="HomeScreen" component={HomeScreen} />
               <Stack.Screen name="Login" component={Login} />
@@ -84,7 +84,7 @@ function App() {
               
               <Stack.Screen name="DomainScreen" component={DomainScreen } />
               <Stack.Screen name="RegisterScreenC" component={RegisterScreenC} />
-              <Stack.Screen name="MapScreenC" component={MapScreenC} />
+              <Stack.Screen name="MapScreenC" component={MapScreenC} options={{headerShown:false}} />
 
 
             </Stack.Navigator>

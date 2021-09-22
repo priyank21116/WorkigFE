@@ -4,7 +4,7 @@ import { useDispatch,useSelector } from 'react-redux'
 import tw from 'tailwind-react-native-classnames';
 
 import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
-import { ARTpatchFullregister } from '../slices/SmPerSlice'
+import { ARTpatchFullregister } from '../slices/Sm/SmPerSlice'
 import { Input, Button, Icon } from 'react-native-elements';
 
 const DeclarationSpage = ({ navigation }) => {

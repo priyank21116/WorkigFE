@@ -67,8 +67,8 @@ const AvailSm = ({ navigation }) => {
                         </View>
                         <View style={tw`ml-3 my-4`}>
                               <Text style={tw`text-xl`}>{item.name}</Text>
-                              {item.specilisation?.map(i =>
-                                    <Text style={tw``}>#{i},</Text>)}
+                              {item.specilisation?.map((i,index) =>
+                                    <Text style={tw``} key={index}>#{i},</Text>)}
                               <View style={tw`flex-row mt-2 p-0`}>
                                     <Text style={tw`text-base`}>{`Rating -${item.rating} /5`}</Text>
                                    

@@ -1,24 +1,77 @@
-import React, { useState } from 'react'
-import { TextInput } from 'react-native'
-import { StyleSheet, View,ScrollView } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { Alert, TextInput } from 'react-native'
+import { StyleSheet, View, ScrollView, Platform } from 'react-native'
+import * as Location from 'expo-location';
 // import SelectDropdown from 'react-native-select-dropdown'
 import tw from 'tailwind-react-native-classnames';
-import { TextArea, Center, Text,  Button } from "native-base"
+import { TextArea, Center, Text, Button } from "native-base"
 
-const DomainScreen = ({navigation}) => {
+import { useDispatch } from 'react-redux';
+import { Input } from 'react-native-elements/dist/input/Input';
+import { tempCmlive } from '../slices/Cm/CmLivSerSlice';
+
+const DomainScreen = ({ navigation }) => {
+
+      const dispatch = useDispatch()
+
       const [selected, setSelected] = useState(null)
+      // const [location, setLocation] = useState(null);
+      const [errorMsg, setErrorMsg] = useState(null);
+      const [HelpDetails, setHelpDetails] = useState({
+            lat: Number,
+            lng: Number,
+            helpDomain: String,
+            SpecifyHelp: String,
+      })
+
+
+      // tempCmlive
+
+      useEffect(() => {
+            (async () => {
+                  let { status } = await Location.requestForegroundPermissionsAsync();
+                  if (status !== 'granted') {
+                        setErrorMsg('Permission to access location was denied');
+                        Alert.alert("Allow location access ,its neccesary to proceed further")
+                        return;
+                  }
+
+                  let location = await Location.getLastKnownPositionAsync({});
+                  // setLocation(location);
+                  setHelpDetails({ ...HelpDetails, lat: location.coords.latitude, lng: location.coords.longitude })
+                  console.log(":::::::MY LOCATION::::::::::", location)
+            })();
+      }, []);
+
+      // let text = 'Waiting..';
+      // if (errorMsg) {
+      //       text = errorMsg;
+      // } else if (location) {
+      //       text = JSON.stringify(location);
+      // }
 
       const domains = ["Electrician", "Plumber", "Carpenter", "Electronic", "Vegitable Vander", "Delivery Assitant", "WasteCollecter", "PhysicalWork"]
-      return (
-            <View style={[tw` w-full h-full `,{backgroundColor:"#8f00ff"}]}>
-            <ScrollView style={tw`w-11/12 mx-auto mt-20 bg-white  rounded-t-3xl`}>
-                  <Text style={tw`pt-8 px-8 italic font-semibold text-4xl text-indigo-600`}> Hello !! </Text>
-                  <Text style={tw` px-8 pt-1 pb-2 text-lg font-normal`}> Glad to see you here.</Text>
-                  <View style={tw` items-center mx-auto mt-1 mb-2 border-gray-400 w-full border rounded`}></View>
 
-                  <Text style={tw`px-8 text-gray-500`}>Got some work to be done? Don't worry</Text>
-                  <Text style={tw` px-8 -mb-10 text-gray-400`}>Just tell us what help you need below.</Text>
-{/* 
+      // const OntextChange = (e) => {
+      //       console.log("Event", e)
+      //       let key = e.target.value
+      //       let value = e.target.value
+      //       setHelpDetails({ ...HelpDetails, [key]: value })
+      // }
+
+
+      return (
+            <View style={[tw` w-full h-full `, { backgroundColor: "#8f00ff" }]}>
+                  <ScrollView style={tw`w-11/12 mx-auto mt-20 bg-white  rounded-t-3xl`}>
+                        <View style={tw`my-12`}>
+                              <Text style={tw`pt-8 px-8 italic font-semibold text-4xl text-indigo-600`}> Hello !! </Text>
+                              <Text style={tw` px-8 pt-1 pb-2 text-lg font-normal`}> Glad to see you here.</Text>
+                              <View style={tw` items-center mx-auto mt-1 mb-2 border-gray-400 w-full border rounded`}></View>
+
+                              <Text style={tw`px-8 text-gray-500`}>Got some work to be done? Don't worry</Text>
+                              <Text style={tw` px-8 -mb-10 text-gray-400`}>Just tell us what help you need below.</Text>
+                        </View>
+                        {/* 
                   <SelectDropdown
 
                         data={domains}
@@ -45,24 +98,38 @@ const DomainScreen = ({navigation}) => {
                   </SelectDropdown> */}
 
 
-                  <View style={tw`w-11/12 h-44 mx-auto`}>
-                        <Text style={tw`pb-3 text-black font-normal`}> Briefly Descibe Your Work below.</Text>
-                        {/* <Stack space={8} w="100%" h="%100"> */}
-                              <TextArea h={40} placeholder="Write here..." />
-                        {/* </Stack> */}
-                  </View>
-                 
-                  <Button
-                  style={tw`mx-auto w-8/12 my-10 bg-green-300 h-12 border rounded-xl`}
-                  color="#667eea"
-                  onPress={() => navigation.navigate('MapScreenC')}
-                  title="Serach Servicemans"
-                  ><Text>Search Servicemans</Text></Button>
-         
-            </ScrollView>
+                        <View style={tw`w-11/12 h-44 mx-auto`}>
+                              <Input
+                                    label="Write Help Domain"
+                                    keyboardType="default"
+                                    onChangeText={(e) => setHelpDetails({ ...HelpDetails, helpDomain: e.toString() })}
+                                    name="helpDomain"
+                              // value={HelpDetails.helpDomain.toString() }
+                              />
+                              <Text style={tw`pb-3 text-black font-normal`}> Briefly Descibe Your Work below.</Text>
+                              {/* <Stack space={8} w="100%" h="%100"> */}
+                              <TextArea h={40} placeholder="Write here..." onChangeText={(e) => {
+                                    setHelpDetails({ ...HelpDetails, SpecifyHelp: e })
+                              }} />
+                              {/* </Stack> */}
+                        </View>
+                        <View style={tw`mt-20 mb-12`}>
+                              <Button
+                                    style={tw`mx-auto w-8/12 my-10 bg-green-300 h-12 border rounded-xl`}
+                                    color="#667eea"
+                                    onPress={() => {
+                                          dispatch(tempCmlive(HelpDetails))
+                                          console.log(":::::::Helpdetails>>>>>>>>", HelpDetails)
+
+                                          navigation.navigate('MapScreenC')
+                                    }}
+                                    title="Serach Servicemans"
+                              ><Text>Search Servicemans</Text></Button>
+                        </View>
+                  </ScrollView>
             </View>
-                  
-            
+
+
       )
 }
 

@@ -8,10 +8,10 @@ import { Input, Button, Icon } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
 import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
 
-import { SmLoginValidation } from '../slices/SmLoginSlice';
-import { SmRememberMeAction } from '../slices/SmLoginSlice';
-import { CmRememberMeAction } from '../slices/CmLoginSlice';
-import { CmLoginValidation } from '../slices/CmLoginSlice';
+import { SmLoginValidation } from '../slices/Sm/SmLoginSlice';
+import { SmRememberMeAction } from '../slices/Sm/SmLoginSlice';
+import { CmRememberMeAction } from '../slices/Cm/CmLoginSlice';
+import { CmLoginValidation } from '../slices/Cm/CmLoginSlice';
 
 
 const arr = {

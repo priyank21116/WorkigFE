@@ -9,9 +9,9 @@ import { Countries } from './CountryCode';
 
 import { useSelector,useDispatch } from 'react-redux';
 
-import { CMARTpostphone } from '../../slices/CmPerSlice';
+import { CMARTpostphone } from '../../slices/Cm/CmPerSlice';
 
-import { ARTpostphone } from '../../slices/SmPerSlice';
+import { ARTpostphone } from '../../slices/Sm/SmPerSlice';
 
 
 const WriteNum = ({ navigation }) => {
