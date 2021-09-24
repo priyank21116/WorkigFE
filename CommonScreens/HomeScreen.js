@@ -13,13 +13,12 @@ import { TypeofUSer } from '../slices/GenralSlice';
 
 const HomeScreen = ({ navigation }) => {
       const dispatch = useDispatch()
-      const navigate = useNavigation();
 
 
       return (
 
 
-            <View style={[tw`items-center justify-center mt-32 bg-gray-100`]}>
+            <View style={[tw`items-center justify-center mt-40 bg-gray-200`]}>
 
                   <TouchableOpacity onPress={() => {
                         dispatch(TypeofUSer("Client"))

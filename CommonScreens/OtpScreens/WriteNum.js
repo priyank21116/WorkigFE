@@ -117,17 +117,16 @@ const WriteNum = ({ navigation }) => {
 
 
       const OnSMlogin=(phone)=> {
-            dispatch(ARTpostphone(phone))
-            // console.log(useSelector(state => state.Sm.phone))
-            navigation.navigate('RegisterSone')
-            
+            dispatch(ARTpostphone(phone)).then(()=>{
+                   navigation.navigate('RegisterSone')
+            })
+         
       }
 
       const OnCmlogin=(phone)=>{
-             dispatch(CMARTpostphone(phone))
-            //  console.log(useSelector(state => state.Cm.phone))
+             dispatch(CMARTpostphone(phone)).then(()=>{
             navigation.navigate('RegisterScreenC')
-      }
+      })}
 
       return (   
             <View style={tw`w-full h-full items-center bg-white border-4 border-purple-600`}>
@@ -164,7 +163,7 @@ const WriteNum = ({ navigation }) => {
                               buttonStyle={tw`w-60 bg-purple-600 mx-auto`}
                               onPress={() => {
                                     if (phone) {
-                                          console.log(phone)
+                                          // console.log(phone)
                                           userType === "Serviceman" ?  OnSMlogin(phone) : OnCmlogin(phone)
                                     }
                               }}

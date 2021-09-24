@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Alert, StyleSheet, Text, View } from 'react-native'
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import tw from 'tailwind-react-native-classnames';
 
 import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
@@ -16,26 +16,34 @@ const DeclarationSpage = ({ navigation }) => {
       const [declare, setDeclare] = useState(false)
 
       const OnsubmitFormtwo = () => {
-            if(declare){
+            if (declare) {
                   dispatch(ARTpatchFullregister(SmPerr))
-                  // console.log(values)
-                  console.log("DISSSPPPPPATCH  Declaretion & Full Details  DDDONEEEEEEEEEE")
-                  navigation.navigate('Login')
-            }else{
+                        .unwrap()
+                        .then((res) => {
+                              console.log("RESP FROM DeclarationSpage DISPATCH", res)
+                              console.log("DISSSPPPPPATCH  Declaretion & Full Details  DDDONEEEEEEEEEE", SmPerr)
+                              navigation.navigate('Login')
+
+                        })
+                        .catch((rejectedValueOrSerializedError) => {
+                              console.log("DeclarationSpage error", rejectedValueOrSerializedError)
+                        })
+
+            } else {
                   Alert.alert(
-                                    "Cannot Register",
-                                    "You need to checkout Declaration before we can register you",
-                                    [
-                                      {
-                                        text: "Cancel",
-                                        onPress: () => console.log("Cancel Pressed"),
-                                        style: "cancel"
-                                      }
-                                     
-                                    ]
-                                  );
+                        "Cannot Register",
+                        "You need to checkout Declaration before we can register you",
+                        [
+                              {
+                                    text: "Cancel",
+                                    onPress: () => console.log("Cancel Pressed"),
+                                    style: "cancel"
+                              }
+
+                        ]
+                  );
             }
-      
+
 
       }
 

@@ -14,7 +14,7 @@ const CPerinitialState = {
       city: "",
       sstate: "",
       password: "",
-      photo :" "
+      photo: " "
       // helpDomain: "",
       // SpecifyHelp: "",
       // NewreviewsC: {
@@ -29,7 +29,7 @@ export const CMARTpostphone = createAsyncThunk('CmpostPhone',
       async (body) => {
 
             try {
-                  console.log(" CmpostPhone 1")
+                  // console.log(" CmpostPhone 1")
 
                   let res = await axios(
                         {
@@ -45,7 +45,7 @@ export const CMARTpostphone = createAsyncThunk('CmpostPhone',
 
                         })
                   // console.log("2")
-                  console.log("Phone RESPONSE CAME>>>>>>>>>>>>>>", res.data)
+                  // console.log("Phone RESPONSE CAME>>>>>>>>>>>>>>", res.data)
                   return body
                   // return res
             } catch (error) {
@@ -60,7 +60,7 @@ export const CMARTpostphone = createAsyncThunk('CmpostPhone',
 
 export const CMARTpatchFullregister = createAsyncThunk('RegisterCmDeatils',
       async (body) => {
-            console.log("REGISTERR:::::::::::", body)
+            // console.log("RECEIVED VALUE IN SLICE:::::::", body)
             try {
                   let res = await axios(
                         {
@@ -69,7 +69,7 @@ export const CMARTpatchFullregister = createAsyncThunk('RegisterCmDeatils',
 
                               url: "http://10.0.2.2:9000/client/registertwo",
                               data: {
-                                    SmPer: body
+                                    CmPer: body
                               },
                               headers: {
                                     "Content-Type": "application/json"
@@ -77,7 +77,7 @@ export const CMARTpatchFullregister = createAsyncThunk('RegisterCmDeatils',
 
                         })
 
-                  console.log("Phone RESPONSE CAME>>>>>>>>>>>>>>", res)
+                  // console.log("CM RESPONSE CAME>>>>>>>>>>>>>>", res)
                   return body
 
             } catch (error) {
@@ -93,8 +93,8 @@ const Cmlice = createSlice({
       initialState: CPerinitialState,
       reducers: {
 
-            patchPhoto:(state,actions)=>{
-                   state.photo = actions.payload
+            patchPhoto: (state, actions) => {
+                  state.photo = actions.payload
             }
 
             // SMaddRegisteroneDetails: (state, actions) => {
@@ -119,14 +119,14 @@ const Cmlice = createSlice({
       },
       extraReducers: {
             [CMARTpostphone.fulfilled]: (state, actions) => {
-                  console.log(" BEST here", actions.payload)
+                  // console.log(" BEST here", actions.payload)
                   state.phone = actions.payload
             },
             [CMARTpatchFullregister.fulfilled]: (state, actions) => {
 
-                  console.log("4>>>>>>>>>>>>>>>>>>>",actions.payload)
+                  // console.log("4>>>>>>>>>>>>>>>>>>>", actions.payload)
                   const { Name, email, emergencyNo, password, ad1, ad2, landmark, city, pin, sstate } = actions.payload
-         console.log("5")
+                  // console.log("5")
                   state.Name = Name
                   state.email = email
                   state.emergencyNo = emergencyNo
@@ -137,15 +137,15 @@ const Cmlice = createSlice({
                   state.city = city
                   state.pin = pin
                   state.sstate = sstate
+                  // console.log("6")
 
-
-                  console.log("Staateeee::", state)
+                  // console.log("Staateeee::", state)
 
             }
       }
 })
 
 
-export const { CwritePhone,patchPhoto } = Cmlice.actions
+export const { CwritePhone, patchPhoto } = Cmlice.actions
 
 export default Cmlice.reducer

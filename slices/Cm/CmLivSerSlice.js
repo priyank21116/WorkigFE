@@ -15,14 +15,15 @@ const CmlivService = {
 export const CmPostHelpSearch = createAsyncThunk(
       'CmPostHelpSearch',
       async (body) => {
+            console.log("DTATRECIVED",body)
             try {
                   let response = await axios({
                         method: "post",
-                        url: " ",
+                        url: "http://10.0.2.2:9000/ctcurrent/ActivateCtforSERACH",
                         data: body,
                         headers: {
                               "Content-Type": "application/json",
-                              "Authorization": await AsyncStorage.getItem('token')
+                              "Authorization": await AsyncStorage.getItem('Ctoken')
 
                         }
 

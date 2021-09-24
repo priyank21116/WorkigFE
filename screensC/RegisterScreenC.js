@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {  View, Text, SafeAreaView,TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 import tw from 'tailwind-react-native-classnames';
@@ -31,15 +31,15 @@ const registerC = {
       pin: 0,
       sstate: "",
 }
-   
+
 const RegisterValidationSchema = yup.object().shape({
       Name: yup.string().required('Name is required'),
       emergencyNo: yup.number().required('MObile  number is required required ').positive().integer().min(10).min(12),
       password: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required'),
-            // .matches(
-            //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
-            //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-            // ),
+      // .matches(
+      //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+      //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+      // ),
       confirmPassword: yup.string().required('Confirm your password'),
       ad1: yup.string().required('This field is required'),
       email: yup.string().required('Email is required').email("Enter valid email"),
@@ -52,28 +52,37 @@ const RegisterValidationSchema = yup.object().shape({
 });
 
 
-const RegisterScreenC = ({navigation}) => {
+const RegisterScreenC = ({ navigation }) => {
 
       const dispatch = useDispatch()
       const phonee = useSelector(state => state.CmPer.phone)
 
       const OnsubmitClregister = (values) => {
-      
-      dispatch(CMARTpatchFullregister({...values,phone :phonee}))
-            
-            console.log(values)
-            console.log("DISSSPPPPPATCH  DDDONEEEEEEEEEE")
-            navigation.navigate('Login')
+            // console.log("GIvenvalue", values)
+            dispatch(CMARTpatchFullregister({ ...values, phone: phonee }))
+                  .unwrap()
+                  .then((res) => {
+                        // console.log("RESP RegisterScreenC DISPATCH", res)
+                       
+                        navigation.navigate('Login')
+
+                  })
+                  .catch((rejectedValueOrSerializedError) => {
+                        console.log("DeclarationSpage error", rejectedValueOrSerializedError)
+                  })
+
+
+
 
       }
 
-      const UploadClientPhoto=async()=>{
+      const UploadClientPhoto = async () => {
             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
             if (status === "granted") {
                   let data = await ImagePicker.launchImageLibraryAsync({
                         mediaTypes: ImagePicker.MediaTypeOptions.Images,
                         allowsEditing: true,
-                        aspect: [4,3],
+                        aspect: [4, 3],
                         quality: 0.3
                   })
                   if (!data.cancelled) {
@@ -84,7 +93,7 @@ const RegisterScreenC = ({navigation}) => {
                         }
                         handleUpload(newfile)
                   }
-                  const photoo =".....png"
+                  const photoo = ".....png"
                   dispatch(patchPhoto(photoo))
                   console.log("Adhar Camera", data)
             } else {
@@ -100,11 +109,11 @@ const RegisterScreenC = ({navigation}) => {
 
       return (
 
-      
+
 
             <Formik
                   initialValues={registerC}
-                  onSubmit={values =>OnsubmitClregister(values)}
+                  onSubmit={values => OnsubmitClregister(values)}
                   validateOnMount={true}
                   validationSchema={RegisterValidationSchema}
             >
@@ -117,9 +126,9 @@ const RegisterScreenC = ({navigation}) => {
                                           keyboardVerticalOffset={50}
                                           behavior={'padding'}>
                                           <View style={tw` my-20 px-6`}>
-                                          <Text style={[tw`mx-auto mb-2 mt-12 font-bold items-center`, { color: "#8f00ff" }]}> Upload Profile photo </Text>
-                                              
-                                          <TouchableOpacity onPress={() => UploadClientPhoto()}>
+                                                <Text style={[tw`mx-auto mb-2 mt-12 font-bold items-center`, { color: "#8f00ff" }]}> Upload Profile photo </Text>
+
+                                                <TouchableOpacity onPress={() => UploadClientPhoto()}>
                                                       <View style={[tw`border rounded h-36 justify-center items-center mb-8  w-9/12 mx-auto border-dashed border-gray-500 bg-gray-100`]}>
 
                                                             <Icon
@@ -160,7 +169,7 @@ const RegisterScreenC = ({navigation}) => {
                                                       onBlur={handleBlur('emergencyNo')}
                                                       value={values.emergencyNo.toString()}
                                                 />
-                                                {(errors.emergencyNo && touched.emergencyNo)  ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.emergencyNo}</Text> : null}
+                                                {(errors.emergencyNo && touched.emergencyNo) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.emergencyNo}</Text> : null}
 
                                                 <Input
                                                       label="Enter password"
@@ -181,8 +190,8 @@ const RegisterScreenC = ({navigation}) => {
                                                       value={values.confirmPassword}
                                                 />
                                                 {(errors.confirmPassword && touched.confirmPassword) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.confirmPassword}</Text> : null}
-                                                  {/* {touched.confirmPassword !== values.password ?  <Text style={tw`text-sm text-red-500  italic font-semibold`}> {console.log("THis")} Passwords do not match</Text> : null} */}
-                                                  
+                                                {/* {touched.confirmPassword !== values.password ?  <Text style={tw`text-sm text-red-500  italic font-semibold`}> {console.log("THis")} Passwords do not match</Text> : null} */}
+
                                                 <Input
                                                       label="Address line 1"
                                                       labelStyle={[tw`mt-4`, { color: "#8f00ff" }]}
@@ -250,16 +259,16 @@ const RegisterScreenC = ({navigation}) => {
 
 
                                           </View>
-                                   
 
-                                    <Button
+
+                                          <Button
                                                 style={tw`w-6/12 `}
                                                 buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
                                                 title="Register"
                                                 onPress={handleSubmit}
 
                                           />
-                                           </KeyboardAvoidingView>
+                                    </KeyboardAvoidingView>
                               </ScrollView>
                         </View>
                   )}

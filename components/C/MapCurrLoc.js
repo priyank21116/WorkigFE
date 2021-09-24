@@ -17,16 +17,16 @@ export default function MapCurrLoc({ navigation }) {
             longitude: -122.4324,
       }
 
-      console.log("1")
+      // console.log("1")
       const getloc = async () => {
-            console.log("2")
+            // console.log("2")
             const loc = useSelector((state) => state.CmLivSer.livelocation)
             pin = { latitude: loc.lat, longitude: loc.lng }
-            console.log("3")
+            // console.log("3")
             console.log("INMAP>>>>>", loc)
       }
       getloc()
-      console.log("4")
+      // console.log("4")
 
 
 

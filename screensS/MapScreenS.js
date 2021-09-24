@@ -11,8 +11,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { tempSmlive } from '../slices/Sm/SmLivSeSlice';
+import { SmPostWOrkSearch } from '../slices/Sm/SmLivSeSlice';
 
 const MapScreenS = ({ navigation }) => {
+
+      // const result = AsyncStorage.getItem('token')
+
+      // console.log(" 5  Async storage::::::::::;",result)
 
       const dispatch = useDispatch()
       const mapRef = useRef(null)
@@ -32,7 +37,7 @@ const MapScreenS = ({ navigation }) => {
             Domain: ""
       })
       useEffect(() => {
-            
+            RenderMap()
 
       }, [locationDetails])
 
@@ -50,7 +55,7 @@ const MapScreenS = ({ navigation }) => {
                   let location = await Location.getLastKnownPositionAsync({});
                   // setLocation(location);
                   setlocationDetails({ latitude: location.coords.latitude, longitude: location.coords.longitude })
-                  console.log(":::::::SM LOCATION::::::::::", location)
+                  // console.log(":::::::SM LOCATION::::::::::", location)
             })();
       }, []);
 
@@ -61,7 +66,36 @@ const MapScreenS = ({ navigation }) => {
 
 
 
+const RenderMap=()=>{
+      return(
+            <MapView
+            style={tw`w-full h-full`}
+            ref={mapRef}
+            initialRegion={{
+                 ... locationDetails,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+            }}
+            provider="google"
+      >
+            <Marker
 
+                  coordinate={
+                       locationDetails
+                  }
+                  pinColor="black"
+
+
+            >
+                  <Callout>
+                        <View style={tw`w-20 h-16 bg-indigo-200`}>
+                              <Text>TutU HERE</Text>
+                        </View>
+                  </Callout>
+            </Marker>
+      </MapView>
+      )
+}
 
 
 
@@ -89,34 +123,9 @@ const MapScreenS = ({ navigation }) => {
                                     />
                               </TouchableOpacity>
                         </View>
-                        {console.log("HERE>>>>",locationDetails)}
-                        <MapView
-                              style={tw`w-full h-full`}
-                              ref={mapRef}
-                              initialRegion={{
-                                   ... locationDetails,
-                                    latitudeDelta: 0.0922,
-                                    longitudeDelta: 0.0421,
-                              }}
-                              provider="google"
-                        >
-                              <Marker
-
-                                    coordinate={
-                                         locationDetails
-                                    }
-                                    pinColor="black"
-
-
-                              >
-                                    <Callout>
-                                          <View style={tw`w-20 h-16 bg-indigo-200`}>
-                                                <Text>TutU HERE</Text>
-                                          </View>
-                                    </Callout>
-                              </Marker>
-                        </MapView>
-
+                        {/* {console.log("HERE>>>>",locationDetails)} */}
+                     
+<RenderMap />
                   </View>
 
                   <ScrollView style={tw`h-3/6 bg-gray-100 w-full border-t-8 border-indigo-500 rounded-t-3xl   z-0`}>
@@ -164,14 +173,14 @@ const MapScreenS = ({ navigation }) => {
                                     />
                                     {/* </Stack>  */}
                               </View>
-                              <View>
+                              <View style={tw`my-12`}>
 
                               <Button
                                     style={tw`mx-auto w-8/12 my-10 bg-green-300 h-12 border rounded-xl`}
                                     color="#667eea"
                                     onPress={() => {
-                                          console.log("SM FINAL WORK DETAILS:::::::::::::::::", locationDetails)
-                                          dispatch(tempSmlive({...location,...domain}))
+                                          console.log("SM FINAL WORK DETAILS:::::::::::::::::", {...locationDetails,...domain})
+                                          dispatch(SmPostWOrkSearch({...locationDetails,...domain}))
                                           navigation.navigate('NewWorkCame')
                                     }}
                                     title="Serach Servicemans"

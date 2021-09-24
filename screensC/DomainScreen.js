@@ -9,6 +9,11 @@ import { TextArea, Center, Text, Button } from "native-base"
 import { useDispatch } from 'react-redux';
 import { Input } from 'react-native-elements/dist/input/Input';
 import { tempCmlive } from '../slices/Cm/CmLivSerSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { useSelector } from 'react-redux';
+import { CmPostHelpSearch } from '../slices/Cm/CmLivSerSlice';
+
 
 const DomainScreen = ({ navigation }) => {
 
@@ -24,22 +29,36 @@ const DomainScreen = ({ navigation }) => {
             SpecifyHelp: String,
       })
 
+      const getTokenASYNC = async () => {
+            try {
+
+                  const value = await AsyncStorage.getItem('Ctoken')
+                  console.log("getTokenASYNC", value)
+            } catch (e) {
+                  console.log("getTokenASYNC", e)
+            }
+      }
+      getTokenASYNC()
+
 
       // tempCmlive
 
       useEffect(() => {
             (async () => {
+                  console.log("1")
                   let { status } = await Location.requestForegroundPermissionsAsync();
+                  console.log("!111",status)
                   if (status !== 'granted') {
                         setErrorMsg('Permission to access location was denied');
                         Alert.alert("Allow location access ,its neccesary to proceed further")
                         return;
                   }
 
-                  let location = await Location.getLastKnownPositionAsync({});
-                  // setLocation(location);
-                  setHelpDetails({ ...HelpDetails, lat: location.coords.latitude, lng: location.coords.longitude })
-                  console.log(":::::::MY LOCATION::::::::::", location)
+                  let locationn = await Location.getLastKnownPositionAsync({});
+                  console.log(":::::::MY LOCATION::::::::::", locationn)
+                  // setLocationn(locationn);
+                  setHelpDetails({ ...HelpDetails, lat: locationn.coords.latitude, lng: locationn.coords.longitude })
+                  
             })();
       }, []);
 
@@ -118,13 +137,19 @@ const DomainScreen = ({ navigation }) => {
                                     style={tw`mx-auto w-8/12 my-10 bg-green-300 h-12 border rounded-xl`}
                                     color="#667eea"
                                     onPress={() => {
-                                          dispatch(tempCmlive(HelpDetails))
-                                          console.log(":::::::Helpdetails>>>>>>>>", HelpDetails)
-
-                                          navigation.navigate('MapScreenC')
+                                          dispatch(CmPostHelpSearch(HelpDetails))
+                                                .unwrap()
+                                                .then(() => {
+                                                      console.log(":::::::Helpdetails>>>>>>>>", HelpDetails)
+                                                      navigation.navigate('MapScreenC')
+                                                })
+                                                .catch((rejectedValueOrSerializedError) => {
+                                                      console.log("ERROR in CCCCM Domain SET", rejectedValueOrSerializedError)
+                                                })
+                                       
                                     }}
                                     title="Serach Servicemans"
-                              ><Text>Search Servicemans</Text></Button>
+                              ></Button>
                         </View>
                   </ScrollView>
             </View>

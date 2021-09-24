@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import tw from 'tailwind-react-native-classnames';
 import * as yup from 'yup';
 import { Formik } from 'formik';
-import { ScrollView, Dimensions, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Input, Button, Icon } from 'react-native-elements';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,19 +12,21 @@ import { SmLoginValidation } from '../slices/Sm/SmLoginSlice';
 import { SmRememberMeAction } from '../slices/Sm/SmLoginSlice';
 import { CmRememberMeAction } from '../slices/Cm/CmLoginSlice';
 import { CmLoginValidation } from '../slices/Cm/CmLoginSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const arr = {
-      phone: 0,
       password: "",
-
+      phone: 0
 }
+
+
 
 const loginValidationSchema = yup.object().shape({
 
       phone: yup.number().required('Mobile No is required').positive('MObile no Cant be negative').integer('MOble no has to be positive integer'),
       password: yup.string().required('Password is required')
-            .min(8, ({ min }) => `Password must be atleast ${min} characters`)
+      // .min(8, ({ min }) => `Password must be atleast ${min} characters`)
       // .matches(
       //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
       //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
@@ -37,73 +39,96 @@ const loginValidationSchema = yup.object().shape({
 const Login = ({ navigation }) => {
 
       const dispatch = useDispatch()
+      const [userType, setuserType] = useState("")
+      const getData = async () => {
+            try {
+                  const userTypee = await useSelector(state => state.Genral.typeOUs)
+                  const value = await AsyncStorage.getItem('typeOfUser')
+                  setuserType(userTypee)
+                  // console.log("STAETE", userTypee, "ASYNC STORAGE", value)
 
-      const userType = useSelector(state => state.Genral.typeOUs)
+            } catch (e) {
+                  console.log("ERROR IN TYPE OF USER AS")
+            }
+      }
 
-      //    console.log(">>>>>>>>>>>>",userType)
+      getData()
+
 
       const [Showpass, setShowpass] = useState(true)
       const [RememberMe, setRememberMe] = useState(true)
 
 
-
-      const SMlogin = (values) => {
-
+      const SMlogin = async (values) => {
+            console.log(" 1 SMlOgin 1", values)
             dispatch(SmLoginValidation(values))
-            console.log("SMlOgin 1", values)
-            navigation.navigate('MapScreenS')
+                  .unwrap()
+                  .then((res) => {
+                        console.log("RESP FROM SM LOGIN DISPATCH", res)
+                        navigation.navigate('MapScreenS')
+                  })
+                  .catch((rejectedValueOrSerializedError) => {
+                        console.log("ERROR in SSSSSM LOGIN",rejectedValueOrSerializedError)
+                  })
       }
 
-            // if (token) {
-            //       navigation.navigate('MapScreenS')
-            // } else {
-            //       Alert.alert(
-            //             "LoginFailed",
-            //             "We didn't found your credentials Correct ,Check it again",
-            //             [
-            //                   {
-            //                         text: "Cancel",
-            //                         onPress: () => console.log("Cancel Pressed"),
-            //                         style: "cancel"
-            //                   }
+      // if (token) {
+      //       navigation.navigate('MapScreenS')
+      // } else {
+      //       Alert.alert(
+      //             "LoginFailed",
+      //             "We didn't found your credentials Correct ,Check it again",
+      //             [
+      //                   {
+      //                         text: "Cancel",
+      //                         onPress: () => console.log("Cancel Pressed"),
+      //                         style: "cancel"
+      //                   }
 
-            //             ]
-            //       );
-            // }
-      
+      //             ]
+      //       );
+      // }
+
       const CMLogin = (values) => {
-
+            // console.log("Body Given::::",values)
             dispatch(CmLoginValidation(values))
-     console.log("CMLOGIN")
-            // const token = useSelector(state => state.CmLogin.token)
-            // console.log("TOOOOKEENNN in LOGINNNN:::::::::::::::::::::", token)
-            navigation.navigate('DomainScreen')
+                  .unwrap()
+                  .then((res) => {
+                        // console.log("RESP FROM CCCCM LOGIN DISPATCH", res)
+                        navigation.navigate('DomainScreen')
+                  })
+                  .catch((rejectedValueOrSerializedError) => {
+                        console.log("ERROR in CCCCM LOGIN",rejectedValueOrSerializedError)
+                  })
+                 
             }
-            // if (token) {
-            //       navigation.navigate('MapScreenC')
-            // } else {
-            //       Alert.alert(
-            //             "LoginFailed",
-            //             "We didn't found your credentials Correct ,Check it again",
-            //             [
-            //                   {
-            //                         text: "Cancel",
-            //                         onPress: () => console.log("Cancel Pressed"),
-            //                         style: "cancel"
-            //                   }
-
-            //             ]
-            //       );
-            // }
-
       
+      // if (token) {
+      //       navigation.navigate('MapScreenC')
+      // } else {
+      //       Alert.alert(
+      //             "LoginFailed",
+      //             "We didn't found your credentials Correct ,Check it again",
+      //             [
+      //                   {
+      //                         text: "Cancel",
+      //                         onPress: () => console.log("Cancel Pressed"),
+      //                         style: "cancel"
+      //                   }
+
+      //             ]
+      //       );
+      // }
+
+
 
 
       useEffect(() => {
 
-            userType == "Serviceman" ? dispatch(SmRememberMeAction(RememberMe)) : dispatch(CmRememberMeAction(RememberMe))
+            userType === "Serviceman" ?
+                   dispatch(SmRememberMeAction(RememberMe)) : dispatch(CmRememberMeAction(RememberMe))
 
-      }, [RememberMe])
+      }, [RememberMe,userType])
 
       return (
 
@@ -123,12 +148,11 @@ const Login = ({ navigation }) => {
                   <Formik
                         initialValues={arr}
                         validateOnMount={true}
-                        // onSubmit={values => CMLogin(values)}
-                        //  userType === "Serviceman" ? SMlogin(values) :
+                        onSubmit={values => { userType === "Serviceman" ? SMlogin(values) : CMLogin(values) }}
                         validationSchema={loginValidationSchema}
                   >
 
-                        {({ handleChange, handleBlur, values, touched, errors, isValid }) => {
+                        {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => {
 
                               return (
 
@@ -163,14 +187,14 @@ const Login = ({ navigation }) => {
                                                                   />
                                                                   <TouchableOpacity>
 
-                                                                        <Icon
-                                                                              raised
+                                                                        {/* <Icon
+                                                                              
                                                                               name='done'
                                                                               type='material-icons'
                                                                               // name='checkmark-done-outline'
                                                                               // type='ionicon'
                                                                               color='#0096FF'
-                                                                        />
+                                                                        /> */}
                                                                   </TouchableOpacity>
 
                                                                   {(errors.phone && touched.phone) &&
@@ -194,17 +218,17 @@ const Login = ({ navigation }) => {
                                                                         value={values.password}
 
                                                                   />
-                                                                  <TouchableOpacity onPress={() => setShowpass(!Showpass)}>
+                                                                  <TouchableOpacity style={tw`mt-8 -ml-8`} onPress={() => setShowpass(!Showpass)}>
                                                                         {Showpass ?
                                                                               <Icon
-                                                                                    raised
+
                                                                                     name='eye-off-outline'
                                                                                     type='ionicon'
                                                                                     color='#0096FF'
 
                                                                               /> :
                                                                               <Icon
-                                                                                    raised
+
                                                                                     name='eye-outline'
                                                                                     type='ionicon'
                                                                                     color='#686868'
@@ -261,10 +285,10 @@ const Login = ({ navigation }) => {
                                                                   style={[tw`w-6/12 shadow-lg`, { shadowColor: '#00ACEE' }]}
                                                                   buttonStyle={tw`w-8/12 bg-indigo-400 mx-auto`}
                                                                   title="Login"
-                                                                  onPress={() =>
+                                                                  onPress={handleSubmit}
 
-                                                                        userType === "Serviceman" ? SMlogin(values) : CMLogin(values)
-                                                                  }
+                                                            // userType === "Serviceman" ? SMlogin(values) : CMLogin(values)
+
 
                                                             />
                                                             {/* userType === "Serviceman" ? SMlogin(values) : */}

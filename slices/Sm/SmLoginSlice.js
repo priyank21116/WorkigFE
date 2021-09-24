@@ -7,7 +7,7 @@ const LoginSm = {
       token: "",
       loading: false,
       error: "",
-      rememberMe: false,
+      rememberMe: true,
 }
 // res.data.token
 
@@ -19,7 +19,7 @@ export const SmLoginValidation = createAsyncThunk(
       'loginSM',
       async (body) => {
 
-            
+            // console.log("4 LoginSlice",body)
             await axios({
                   method: "post",
                   url: "http://10.0.2.2:9000/sm/login",
@@ -30,31 +30,38 @@ export const SmLoginValidation = createAsyncThunk(
                   },
 
             }).then(async (response)=> {
-                  console.log("RESSPONSE CAME<<<<<<<<<", response.data)
-                   await AsyncStorage.setItem('token', response.data.token)
+                  console.log("SmLoginValidation<<<<<<<<<", response.data.token)
+                   AsyncStorage.setItem('Stoken', response.data.token)
+                  return response
+                  // return body
+                  //  if(response.data.token){return response.data.token}
+                  //  else{return false}
+                   
                   // return response.data
                  
+            }).catch(function (error) {
+                  console.log("EREKEMNRM::::",error)
             })
-                  .catch(function (error) {
-                        if (error.response) {
+                  // .catch(function (error) {
+                  //       if (error.response) {
 
-                              console.log(error.response);
-                              state.error = error
-                              alert(error)
-                        } else if (error.request) {
+                  //             console.log(error.response);
+                  //             state.error = error
+                  //             alert(error)
+                  //       } else if (error.request) {
 
-                              console.log(error.request);
-                              state.error = error
-                              alert(error)
-                        } else {
+                  //             console.log(error.request);
+                  //             state.error = error
+                  //             alert(error)
+                  //       } else {
 
-                              console.log('Error', error.message);
+                  //             console.log('Error', error.message);
                         
-                        state.error = error
-                        alert(error)}
-                        console.log(error.config);
+                  //       state.error = error
+                  //       alert(error)}
+                  //       console.log(error.config);
 
-                  })
+                  // })
 
       })
 
@@ -82,7 +89,7 @@ const authReducerSm = createSlice({
             },
             SmRememberMeAction: (state, action) => {
                   state.rememberMe = action.payload
-                  console.log("SM Rmemberme silce",state.rememberMe)
+                  console.log("SM Rmemberme",state.rememberMe)
             }
       },
       extraReducers: {
@@ -90,25 +97,19 @@ const authReducerSm = createSlice({
             [SmLoginValidation.pending]: (state, action) => {
                   state.loading = true
             },
-            [SmLoginValidation.fulfilled]: async (state,actions) => {
-
-                  
-
-                  const tokenn= await AsyncStorage.getItem('token')
-                  // console.log("TOKENSET TO LOCAL STORAGE",tokenn)
-                         state.loading = false
-                        state.token= tokenn
+            [SmLoginValidation.fulfilled]: (state,actions) => {
+                          console.log("ACTIONS LOGIN",actions)
+                          console.log("::::::::::",state.rememberMe)
+                        //   actions.meta.arg
+                        // state.loading = false
+                        // state.token=actions.payload
                        
-                          if (state.rememberMe ===false) {
-                                    AsyncStorage.setItem('token', token)
-                                    const token = AsyncStorage.removeItem('token')
-                                   
-                              }
+                        //   if (state.rememberMe ===false) {
+                        //             const token = AsyncStorage.removeItem('Stoken')
+                        //             console.log("TOKENREMOVED FRORM ASYNC STORAGE",token)
+                        //       }
                        
-                        console.log("HERE THE BESTS>>>>>>>>..",state.token, " RMMRMRM", state.rememberMe)
-                  
-
-                  
+                       
             },
             [addTokentostate.fulfilled]: (state, action) => {
                   state.token = action.payload

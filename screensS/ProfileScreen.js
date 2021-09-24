@@ -38,6 +38,16 @@ const {ad1w,landmarkw,pincodew} =workplace
 const ProfileScreen = ({navigation}) => {
 
       const dispatch = useDispatch()
+
+      const gettoken=async ()=>{
+            const value = await AsyncStorage.getItem('typeOfUser')
+            const value2 = await AsyncStorage.getItem('token')
+
+            console.log("TOKen:::",value2,"type>>>>>>>",value)
+      }
+
+      
+
       
       useEffect(() => {
        dispatch(ARTgetMyDetail())   

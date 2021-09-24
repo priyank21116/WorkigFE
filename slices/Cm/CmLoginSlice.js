@@ -7,7 +7,7 @@ const LoginCm = {
       token: "",
       loading: false,
       error: "",
-      rememberMe:false,
+      rememberMe: true,
 }
 
 // export const ARTpostLoginNgrtToken=createAsyncThunk('/',)
@@ -19,21 +19,21 @@ const LoginCm = {
 export const CmLoginValidation = createAsyncThunk(
       'loginCM',
       async (body) => {
- 
+            //   console.log("BODY RECEIVED:::",body)
             await axios({
                   method: "post",
                   url: "http://10.0.2.2:9000/client/login",
                   data: body,
                   headers: {
                         "Content-Type": "application/json",
-                        
+
                   },
 
-            }).then(async (response)=> {
-                  console.log("RESSPONSE CAME<<<<<<<<<", response.json())
-                  //  await AsyncStorage.setItem('token', response.data.token)
-                  // return response.data
-                 
+            }).then((response) => {
+                  // console.log("2.1 CmLoginValidation   RESSPONSE <<<<<<<<<", response)
+                  AsyncStorage.setItem('Ctoken', response.data.token)
+                  return body
+
             })
                   .catch(function (error) {
                         if (error.response) {
@@ -49,9 +49,10 @@ export const CmLoginValidation = createAsyncThunk(
                         } else {
 
                               console.log('Error', error.message);
-                        
-                        state.error = error
-                        alert(error)}
+
+                              state.error = error
+                              alert(error)
+                        }
                         console.log(error.config);
 
                   })
@@ -73,20 +74,27 @@ const authReducerCm = createSlice({
             },
             CmRememberMeAction: (state, action) => {
                   state.rememberMe = action.payload
-                  console.log("CM Rmemberme silce",state.rememberMe)
+                  console.log("CM Rmemberme silce", state.rememberMe)
             }
       },
       extraReducers: {
-           
-            [CmLoginValidation.fulfilled]:(state,actions)=>{
-              console.log( "   reducer CAME" ,actions)
-              console.log("STATE:::::::",state)
+
+            [CmLoginValidation.fulfilled]: (state, actions) => {
+                    console.log( " EXTRA REDUCER  reducer CAME" ,actions)
+                  //   console.log("EXTRA REDUCER STATE:::::::",state)
+                  // const tokk = AsyncStorage.getItem('Ctoken')
+                  // state.token = tokk
+                  // if (state.rememberMe === false) {
+
+                  //       AsyncStorage.removeItem('Ctoken')
+                  //       console.log("TOKENREMOVED FRORM ASYNC STORAGE")
+                  // }
 
             }
-         
+
       }
 
 })
 
-export const { logout,CmRememberMeAction } = authReducerCm.actions
+export const { logout, CmRememberMeAction } = authReducerCm.actions
 export default authReducerCm.reducer
