@@ -45,19 +45,19 @@ const DomainScreen = ({ navigation }) => {
 
       useEffect(() => {
             (async () => {
-                  console.log("1")
+                 
                   let { status } = await Location.requestForegroundPermissionsAsync();
-                  console.log("!111",status)
+                 
                   if (status !== 'granted') {
                         setErrorMsg('Permission to access location was denied');
                         Alert.alert("Allow location access ,its neccesary to proceed further")
                         return;
                   }
-
-                  let locationn = await Location.getLastKnownPositionAsync({});
-                  console.log(":::::::MY LOCATION::::::::::", locationn)
-                  // setLocationn(locationn);
-                  setHelpDetails({ ...HelpDetails, lat: locationn.coords.latitude, lng: locationn.coords.longitude })
+              
+                  let location = await Location.getLastKnownPositionAsync({});
+                  console.log(":::::::MY LOCATION::::::::::", location)
+                  // setLocationn(location);
+                  setHelpDetails({ ...HelpDetails, lat: location.coords.latitude, lng: location.coords.longitude })
                   
             })();
       }, []);
@@ -140,7 +140,7 @@ const DomainScreen = ({ navigation }) => {
                                           dispatch(CmPostHelpSearch(HelpDetails))
                                                 .unwrap()
                                                 .then(() => {
-                                                      console.log(":::::::Helpdetails>>>>>>>>", HelpDetails)
+                                                      // console.log(":::::::Helpdetails>>>>>>>>", HelpDetails)
                                                       navigation.navigate('MapScreenC')
                                                 })
                                                 .catch((rejectedValueOrSerializedError) => {
@@ -148,8 +148,8 @@ const DomainScreen = ({ navigation }) => {
                                                 })
                                        
                                     }}
-                                    title="Serach Servicemans"
-                              ></Button>
+                                    
+                              ><Text>Serach Servicemans</Text></Button>
                         </View>
                   </ScrollView>
             </View>

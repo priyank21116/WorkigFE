@@ -7,7 +7,7 @@ import { Input } from 'react-native-elements/dist/input/Input';
 
 import { Countries } from './CountryCode';
 
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { CMARTpostphone } from '../../slices/Cm/CmPerSlice';
 
@@ -20,8 +20,8 @@ const WriteNum = ({ navigation }) => {
       const userType = useSelector(state => state.Genral.typeOUs)
       // const phoneSm = useSelector(state => state.Sm.phone)
       // const phoneCm = useSelector(state => state.Cm.phone)
-      
-      
+
+
 
       let textInput = useRef(null)
       const [phone, setphone] = useState(0)
@@ -82,7 +82,7 @@ const WriteNum = ({ navigation }) => {
                                     </View>
 
                                     <FlatList
-                                          style={[tw` h-2/6`,{ flex: 1 }]}
+                                          style={[tw` h-2/6`, { flex: 1 }]}
                                           data={dataCountries}
                                           extraData={dataCountries}
                                           keyExtractor={(item, index) => index.toString()}
@@ -116,65 +116,78 @@ const WriteNum = ({ navigation }) => {
       }, [])
 
 
-      const OnSMlogin=(phone)=> {
-            dispatch(ARTpostphone(phone)).then(()=>{
-                   navigation.navigate('RegisterSone')
-            })
-         
+      const OnSMlogin = (phone) => {
+            dispatch(ARTpostphone(phone))
+                  
+                  .unwrap()
+                  .then(() => {
+                        // console.log("POST SM PHONE RES")
+                        navigation.navigate('RegisterSone')
+                  }).catch ((rejectedValueOrSerializedError) => {
+                        console.log("ERROR SM inPOST PHONE RES", rejectedValueOrSerializedError)
+                  })
+            
+
       }
 
-      const OnCmlogin=(phone)=>{
-             dispatch(CMARTpostphone(phone)).then(()=>{
-            navigation.navigate('RegisterScreenC')
-      })}
+      const OnCmlogin = (phone) => {
+            dispatch(CMARTpostphone(phone))
+                  .unwrap()
+                  .then(() => {
+                        console.log("POST CM PHONE RES")
+                        navigation.navigate('RegisterScreenC')
+                  }).catch ((rejectedValueOrSerializedError) => {
+                        console.log("ERROR CM inPOST PHONE RES", rejectedValueOrSerializedError)
+                  })
+            }
 
-      return (   
-            <View style={tw`w-full h-full items-center bg-white border-4 border-purple-600`}>
-                  <View style={tw`w-11/12 h-96 mt-32 leading-5  items-center justify-center  `}>
-                        <Text style={tw`text-2xl pb-4  text-black`}>Please Enter mobile no </Text>
-                        <Text style={tw`italic text-center text-gray-500 text-base font-normal`}> An OTP would be send on that mobile no for veification purpose.</Text>
+            return (
+                  <View style={tw`w-full h-full items-center bg-white border-4 border-purple-600`}>
+                        <View style={tw`w-11/12 h-96 mt-32 leading-5  items-center justify-center  `}>
+                              <Text style={tw`text-2xl pb-4  text-black`}>Please Enter mobile no </Text>
+                              <Text style={tw`italic text-center text-gray-500 text-base font-normal`}> An OTP would be send on that mobile no for veification purpose.</Text>
 
-                        <View style={tw`my-12 flex-row px-8 `}>
-                              {/* constainer input */}
-                              <TouchableOpacity onPress={onShowhidehandle}>
-                                    <View style={tw`flex-row  items-center justify-center `}>
-                                          <Text>{countrycode + "  |"}</Text>
-                                    </View>
-                              </TouchableOpacity>
-                              {/* {renderModal()} */}
+                              <View style={tw`my-12 flex-row px-8 `}>
+                                    {/* constainer input */}
+                                    <TouchableOpacity onPress={onShowhidehandle}>
+                                          <View style={tw`flex-row  items-center justify-center `}>
+                                                <Text>{countrycode + "  |"}</Text>
+                                          </View>
+                                    </TouchableOpacity>
+                                    {/* {renderModal()} */}
 
-                              <Input
-                                    ref={(input) => textInput = input}
-                                    style={tw`mx-4 my-1 w-10/12`}
-                                    placeholder={placeHolder}
-                                    disabledInputStyle={{ border: 0 }}
-                                    placeholderTextColor="#A8A8A8"
-                                    keyboardType="number-pad"
-                                    onChangeText={text => setphone(text)}
-                                    value={phone.toString()}
-                                    onFocus={onChangeFocus}
-                                    onBlur={onChangeBlur}
-                                    autoFocus={focusInput}
+                                    <Input
+                                          ref={(input) => textInput = input}
+                                          style={tw`mx-4 my-1 w-10/12`}
+                                          placeholder={placeHolder}
+                                          disabledInputStyle={{ border: 0 }}
+                                          placeholderTextColor="#A8A8A8"
+                                          keyboardType="number-pad"
+                                          onChangeText={text => setphone(text)}
+                                          value={phone.toString()}
+                                          onFocus={onChangeFocus}
+                                          onBlur={onChangeBlur}
+                                          autoFocus={focusInput}
+                                    />
+                              </View>
+
+                              <Button
+                                    style={tw`w-6/12  items-center justify-center  `}
+                                    buttonStyle={tw`w-60 bg-purple-600 mx-auto`}
+                                    onPress={() => {
+                                          if (phone) {
+                                                // console.log(phone)
+                                                userType === "Serviceman" ? OnSMlogin(phone) : OnCmlogin(phone)
+                                          }
+                                    }}
+                                    title="Contiune"
                               />
+
                         </View>
-
-                        <Button
-                              style={tw`w-6/12  items-center justify-center  `}
-                              buttonStyle={tw`w-60 bg-purple-600 mx-auto`}
-                              onPress={() => {
-                                    if (phone) {
-                                          // console.log(phone)
-                                          userType === "Serviceman" ?  OnSMlogin(phone) : OnCmlogin(phone)
-                                    }
-                              }}
-                              title="Contiune"
-                        />
-
                   </View>
-            </View>
-      )
-}
+            )
+      }
 
-export default WriteNum
+      export default WriteNum
 
-const styles = StyleSheet.create({})
+      const styles = StyleSheet.create({})

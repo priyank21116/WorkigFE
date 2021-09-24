@@ -19,9 +19,9 @@ const DeclarationSpage = ({ navigation }) => {
             if (declare) {
                   dispatch(ARTpatchFullregister(SmPerr))
                         .unwrap()
-                        .then((res) => {
-                              console.log("RESP FROM DeclarationSpage DISPATCH", res)
-                              console.log("DISSSPPPPPATCH  Declaretion & Full Details  DDDONEEEEEEEEEE", SmPerr)
+                        .then(() => {
+                              // console.log("RESP FROM DeclarationSpage DISPATCH")
+                              // console.log("DISSSPPPPPATCH  Declaretion & Full Details  DDDONEEEEEEEEEE", SmPerr)
                               navigation.navigate('Login')
 
                         })

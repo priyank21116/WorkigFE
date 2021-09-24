@@ -29,15 +29,15 @@ const SmPerState = {
       // }
       ProfileImage: "",
       ValidateImage:" ",
-      adharPhoto: "",
+      adharPhoto: ""
 }
 
 export const ARTpostphone = createAsyncThunk('SmpostPhone',
       async (body) => {
             // const url = "http://192.168.29.199:9000/sm/registerone"
             try {
-                  // console.log(" HERE 1")
-                  // const res= await axios.post('url',{phone:body})
+                  // console.log("Phone SM came",body)
+                 
                   let res = await axios(
                         {
                               // baseURL: "http://localhost:9000/sm",
@@ -51,7 +51,7 @@ export const ARTpostphone = createAsyncThunk('SmpostPhone',
                               }
 
                         })
-                  // console.log("2")
+                  // console.log("Response phone register",res)
                   console.log("Phone RESPONSE CAME>>>>>>>>>>>>>>", res.data)
                   return body
                   // return res
@@ -79,7 +79,7 @@ export const ARTpatchFullregister = createAsyncThunk('RegisterSmDeatils',
 
                         })
                   
-                  console.log("Phone RESPONSE CAME>>>>>>>>>>>>>>", res)
+                  console.log("PAtch FUll SM detail  CAME>>>>>>>>>>>>>>", res.data)
 
             } catch (error) {
                   console.log("THISSS REGISTER>>>>>>>", error)
@@ -143,6 +143,7 @@ const SmSlice = createSlice({
                   state.ad1w = actions.payload.ad1w
                   state.landmarkw = actions.payload.landmarkw
                   state.pincodew = actions.payload.pincodew
+                  // console.log("After register 1",state)
 
             },
             SMaddRegistertwoDetails: (state, actions) => {
@@ -155,6 +156,8 @@ const SmSlice = createSlice({
                   state.Rpin = actions.payload.Rpin
                   state.Rstate = actions.payload.Rstate
                   state.adharNo = actions.payload.adharNo
+                  // console.log("After register 2",state)
+
             },
             // addSmReview: (state, actions) => {
             //       const { givenbyid, givenbyname, rating, comment } = actions.payload
@@ -169,8 +172,10 @@ const SmSlice = createSlice({
 
             //set phoneinstate
             [ARTpostphone.fulfilled]: (state, actions) => {
-                  console.log(" BEST here" ,actions.payload)
+                  // console.log("Phonepost 1 here" ,actions.payload)
                   state.phone = actions.payload
+                  // console.log("Phonepost 2 here" ,state.phone)
+
             },
             // set full state in successful login
             [ARTgetMyDetail.fulfilled]:(state,actions)=>{

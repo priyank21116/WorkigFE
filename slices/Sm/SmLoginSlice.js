@@ -26,11 +26,11 @@ export const SmLoginValidation = createAsyncThunk(
                   data: body,
                   headers: {
                         "Content-Type": "application/json",
-                        // "Authorization": await AsyncStorage.getItem('token')
+                        
                   },
 
             }).then(async (response)=> {
-                  console.log("SmLoginValidation<<<<<<<<<", response.data.token)
+                  // console.log("SmLoginValidation<<<<<<<<<", response.data.token)
                    AsyncStorage.setItem('Stoken', response.data.token)
                   return response
                   // return body
@@ -98,8 +98,8 @@ const authReducerSm = createSlice({
                   state.loading = true
             },
             [SmLoginValidation.fulfilled]: (state,actions) => {
-                          console.log("ACTIONS LOGIN",actions)
-                          console.log("::::::::::",state.rememberMe)
+                          console.log("ACTIONS Sm LOGIN",actions)
+                        //   console.log("::::::::::",state.rememberMe)
                         //   actions.meta.arg
                         // state.loading = false
                         // state.token=actions.payload

@@ -61,7 +61,7 @@ function App() {
             style={{ flex: 1 }}
           >
 
-            <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{ headerShown: true }} >
+            <Stack.Navigator initialRouteName="DomainScreen" screenOptions={{ headerShown: true }} >
 
               <Stack.Screen name="HomeScreen" component={HomeScreen} />
               <Stack.Screen name="Login" component={Login} />

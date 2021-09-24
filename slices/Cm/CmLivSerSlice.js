@@ -15,7 +15,7 @@ const CmlivService = {
 export const CmPostHelpSearch = createAsyncThunk(
       'CmPostHelpSearch',
       async (body) => {
-            console.log("DTATRECIVED",body)
+            // console.log("DTATRECIVED",body)
             try {
                   let response = await axios({
                         method: "post",
@@ -29,7 +29,7 @@ export const CmPostHelpSearch = createAsyncThunk(
 
                   })
 
-                  console.log("CmPostHelpSearch<<<<<", response)
+                  // console.log("CmPostHelpSearch<<<<<", response)
                   return body
             } catch (error) {
                   console.log(" ERROR<<CmPostHelpSearc", error)

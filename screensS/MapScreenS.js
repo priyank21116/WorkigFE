@@ -179,7 +179,7 @@ const RenderMap=()=>{
                                     style={tw`mx-auto w-8/12 my-10 bg-green-300 h-12 border rounded-xl`}
                                     color="#667eea"
                                     onPress={() => {
-                                          console.log("SM FINAL WORK DETAILS:::::::::::::::::", {...locationDetails,...domain})
+                                          // console.log("SM FINAL WORK DETAILS:::::::::::::::::", {...locationDetails,...domain})
                                           dispatch(SmPostWOrkSearch({...locationDetails,...domain}))
                                           navigation.navigate('NewWorkCame')
                                     }}

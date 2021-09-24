@@ -85,8 +85,8 @@ const RegisterStwo = ({ navigation }) => {
 
       const OnsubmitFormtwo = (values) => {
             dispatch(SMaddRegistertwoDetails(values))
-            console.log(values)
-            console.log("DISSSPPPPPATCH  RegisterStwo  DDDONEEEEEEEEEE")
+            // console.log("22222222",values)
+            // console.log("DISSSPPPPPATCH  RegisterStwo  DDDONEEEEEEEEEE")
             navigation.navigate('DeclarationSpage')
 
       }

@@ -15,24 +15,22 @@ const SmlivService = {
 export const SmPostWOrkSearch = createAsyncThunk(
       'SmPostWOrkSearch',
       async (body) => {
-            console.log(":::::::::::::::::::::::::::::::::::::::::::::::::::::;",body)
+            // console.log(":::::::::::::::::::::::::::::::::::::::::::::::::::::;",body)
             try {
-                  console.log("1")
+                  // console.log("1")
                   let response = await axios({
                         method: "post",
-                        url: "http://localhost:9000/Smser/ActivateSm",
+                        url: "http://10.0.2.2:9000/Smser/ActivateSm",
                         data: body,
                         headers: {
                               "Content-Type": "application/json",
-                              "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTQ1Nzc4MjEwZTUwZTBjNmM2NzdjNTMiLCJpYXQiOjE2MzE5NDI4ODh9.8M0MrmUXgIFxajRf0mFO2Jvhcx9C8YA5Q0buohKb1lE"
-                              // await AsyncStorage.getItem('token')
-
+                              "Authorization": await AsyncStorage.getItem('Stoken')
                         }
 
                   })
-                  console.log("2")
+                  // console.log("2")
 
-                  console.log("SmPostWOrkSearch<<<<<", response)
+                  console.log("SmPostWOrkSearch<<<<<", response.data)
                   return body
             } catch (error) {
                   console.log(" ERROR<<SmPostWOrkSearc", error)
@@ -60,6 +58,7 @@ const SmONWorkSearch = createSlice({
                   state.livelocation.lat = latitude
                   state.livelocation.lng = longitude
                   state.Domain = Domain
+                  // console.log("SmPostWOrkSearch state",state)
             }
       }
 })

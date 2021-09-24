@@ -60,11 +60,11 @@ const Login = ({ navigation }) => {
 
 
       const SMlogin = async (values) => {
-            console.log(" 1 SMlOgin 1", values)
+            // console.log(" 1 SMlOgin 1", values)
             dispatch(SmLoginValidation(values))
                   .unwrap()
-                  .then((res) => {
-                        console.log("RESP FROM SM LOGIN DISPATCH", res)
+                  .then(() => {
+                        // console.log("RESP FROM SM LOGIN DISPATCH")
                         navigation.navigate('MapScreenS')
                   })
                   .catch((rejectedValueOrSerializedError) => {
