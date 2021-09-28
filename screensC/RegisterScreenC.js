@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, Image } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 import tw from 'tailwind-react-native-classnames';
@@ -30,6 +30,7 @@ const registerC = {
       city: "",
       pin: 0,
       sstate: "",
+      perImg: ""
 }
 
 const RegisterValidationSchema = yup.object().shape({
@@ -54,16 +55,17 @@ const RegisterValidationSchema = yup.object().shape({
 
 const RegisterScreenC = ({ navigation }) => {
 
+      const [photo, setphoto] = useState("")
       const dispatch = useDispatch()
       const phonee = useSelector(state => state.CmPer.phone)
 
       const OnsubmitClregister = (values) => {
             // console.log("GIvenvalue", values)
-            dispatch(CMARTpatchFullregister({ ...values, phone: phonee }))
+            dispatch(CMARTpatchFullregister({ ...values, phone: phonee, perImg: photo }))
                   .unwrap()
                   .then((res) => {
                         // console.log("RESP RegisterScreenC DISPATCH", res)
-                       
+
                         navigation.navigate('Login')
 
                   })
@@ -91,10 +93,13 @@ const RegisterScreenC = ({ navigation }) => {
                               type: `test/${data.uri.split(".")[1]}`,
                               name: `test.${data.uri.split(".")[1]}`
                         }
-                        handleUpload(newfile)
+                        // handleUpload(newfile)
+                        // setphoto(newfile)
+                        console.log("NEW FILE",newfile)
                   }
-                  const photoo = ".....png"
-                  dispatch(patchPhoto(photoo))
+
+                  // dispatch(patchPhoto(photoo))
+                  setphoto(data.uri)
                   console.log("Adhar Camera", data)
             } else {
                   Alert.alert("Gallery access is neccesary to get your image")
@@ -105,7 +110,7 @@ const RegisterScreenC = ({ navigation }) => {
 
       // const { Name, email, emergencyNo, password, confirmPassword, ad1, ad2, landmark, city, pin, sstate } = registerC
 
-
+console.log("PHOTOS",photo)
 
       return (
 
@@ -126,20 +131,37 @@ const RegisterScreenC = ({ navigation }) => {
                                           keyboardVerticalOffset={50}
                                           behavior={'padding'}>
                                           <View style={tw` my-20 px-6`}>
-                                                <Text style={[tw`mx-auto mb-2 mt-12 font-bold items-center`, { color: "#8f00ff" }]}> Upload Profile photo </Text>
 
-                                                <TouchableOpacity onPress={() => UploadClientPhoto()}>
-                                                      <View style={[tw`border rounded h-36 justify-center items-center mb-8  w-9/12 mx-auto border-dashed border-gray-500 bg-gray-100`]}>
+                                                {photo ?
+                                                      <View>
+                                                            <Text style={[tw`mx-auto mb-2 mt-12 font-bold items-center`, { color: "#8f00ff" }]}> IMage Uploaded Successfully</Text>
 
-                                                            <Icon
+                                                            <Image
+                                                                    source={{  uri: `${photo}`}}
+                                                                  // source={require(`${photo}`)}
+                                                                  style={tw`h-36 w-9/12 mx-auto`}
+                                                                  resizeMode="contain"
 
-                                                                  name='card-outline'
-                                                                  type='ionicon'
-                                                                  color="gray"
-                                                                  size={48}
                                                             />
+                                                      </View> :
+                                                      <View>
+
+                                                            <Text style={[tw`mx-auto mb-2 mt-12 font-bold items-center`, { color: "#8f00ff" }]}> Upload Profile photo </Text>
+
+                                                            <TouchableOpacity onPress={() => UploadClientPhoto()}>
+                                                                  <View style={[tw`border rounded h-36 justify-center items-center mb-8  w-9/12 mx-auto border-dashed border-gray-500 bg-gray-100`]}>
+
+                                                                        <Icon
+
+                                                                              name='card-outline'
+                                                                              type='ionicon'
+                                                                              color="gray"
+                                                                              size={48}
+                                                                        />
+                                                                  </View>
+                                                            </TouchableOpacity>
                                                       </View>
-                                                </TouchableOpacity>
+                                                }
 
                                                 <Input
                                                       label="Enter name"

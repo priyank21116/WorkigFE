@@ -28,7 +28,7 @@ const SmPerState = {
       //       comment: "",
       // }
       ProfileImage: "",
-      ValidateImage:" ",
+      ValidateImage: " ",
       adharPhoto: ""
 }
 
@@ -37,7 +37,7 @@ export const ARTpostphone = createAsyncThunk('SmpostPhone',
             // const url = "http://192.168.29.199:9000/sm/registerone"
             try {
                   // console.log("Phone SM came",body)
-                 
+
                   let res = await axios(
                         {
                               // baseURL: "http://localhost:9000/sm",
@@ -78,7 +78,7 @@ export const ARTpatchFullregister = createAsyncThunk('RegisterSmDeatils',
                               }
 
                         })
-                  
+
                   console.log("PAtch FUll SM detail  CAME>>>>>>>>>>>>>>", res.data)
 
             } catch (error) {
@@ -89,29 +89,29 @@ export const ARTpatchFullregister = createAsyncThunk('RegisterSmDeatils',
 
 //  http://localhost:9000/sm/registertwo
 
-export const ARTgetMyDetail=createAsyncThunk('getSmPerDetail',
-async()=>{
-      try {
-            let res = await axios(
-                  {
+export const ARTgetMyDetail = createAsyncThunk('getSmPerDetail',
+      async () => {
+            try {
+                  let res = await axios(
+                        {
 
-                        method: 'get',
-                        url: "http://10.0.2.2:9000/sm/getSmdetail",
-                        
-                        headers: {
-                              // "Content-Type": "application/json",
-                              "authorization":await AsyncStorage.getItem('token')
-                        }
+                              method: 'get',
+                              url: "http://10.0.2.2:9000/sm/getSmdetail",
 
-                  })
-            
-            console.log("Phone RESPONSE ARTgetMyDetail>>>>>>>>>>>>>>", res.data.user)
-            return res.data.user
-            
-             } catch(error) {
-            console.log("THISSS GETMY DETAIL>>>>>>>", error)
+                              headers: {
+                                    // "Content-Type": "application/json",
+                                    "authorization": await AsyncStorage.getItem('token')
+                              }
+
+                        })
+
+                  console.log("Phone RESPONSE ARTgetMyDetail>>>>>>>>>>>>>>", res.data.user)
+                  return res.data.user
+
+            } catch (error) {
+                  console.log("THISSS GETMY DETAIL>>>>>>>", error)
+            }
       }
-}
 )
 
 
@@ -126,13 +126,13 @@ const SmSlice = createSlice({
             SmwritePhone: (state, actions) => {
                   state.phone = actions.payload
             },
-            patchProfileImage:(state,actions)=>{
- state.ProfileImage =actions.payload
+            patchProfileImage: (state, actions) => {
+                  state.ProfileImage = actions.payload
             },
-            patchValidateImage:(state,actions)=>{
+            patchValidateImage: (state, actions) => {
                   state.ValidateImage = actions.payload
             },
-            patchadharPhoto:(state,actions)=>{
+            patchadharPhoto: (state, actions) => {
                   state.adharPhoto = actions.payload
             },
             SMaddRegisteroneDetails: (state, actions) => {
@@ -178,8 +178,8 @@ const SmSlice = createSlice({
 
             },
             // set full state in successful login
-            [ARTgetMyDetail.fulfilled]:(state,actions)=>{
-                  console.log("EXTAR Red GET MY DETAIL::::",actions)
+            [ARTgetMyDetail.fulfilled]: (state, actions) => {
+                  console.log("EXTAR Red GET MY DETAIL::::", actions)
                   state.phone = actions.payload
                   state.name = actions.payload.name
                   state.email = actions.payload.email
@@ -198,13 +198,13 @@ const SmSlice = createSlice({
                   state.Rstate = actions.payload.residencial.Rstate
                   state.adharNo = actions.payload.adharNo
             }
-           
+
 
       }
 
 })
 
 
-export const { SmwritePhone, SMaddRegisteroneDetails, SMaddRegistertwoDetails,patchValidateImage,patchProfileImage,patchadharPhoto } = SmSlice.actions
+export const { SmwritePhone, SMaddRegisteroneDetails, SMaddRegistertwoDetails, patchValidateImage, patchProfileImage, patchadharPhoto } = SmSlice.actions
 
 export default SmSlice.reducer

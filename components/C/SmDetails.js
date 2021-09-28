@@ -5,12 +5,19 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { ListItem, Button, Icon } from 'react-native-elements'
 import tw from 'tailwind-react-native-classnames';
 import { Rating } from 'react-native-elements';
+import { Input } from 'react-native-elements/dist/input/Input';
+
 
 
 import * as SMS from 'expo-sms';
 import * as Linking from 'expo-linking';
 
+import { useDispatch } from 'react-redux';
+
 const SmDetails = ({ navigation }) => {
+      const dispatch = useDispatch()
+      const [contacted, setcontacted] = useState()
+      const [price, setprice] = useState(null)
       const [selcetedSm, setSelectedSm] = useState({
             id: "11maw1",
             name: "Nobita",
@@ -45,37 +52,38 @@ const SmDetails = ({ navigation }) => {
       })
 
 
-      const CallServiceman=async()=>{
-    
+      const CallServiceman = async () => {
+
             let result = await Linking.openURL(`tel: ${'6260041022'}`)
-            console.log(" :::::::::CALL::::::::::::::::::",result)
+            console.log(" :::::::::CALL::::::::::::::::::", result)
       }
 
-      const SendDeatilsinText=async()=>{
+      const SendDeatilsinText = async () => {
             const isAvailable = await SMS.isAvailableAsync();
             if (isAvailable) {
-                  const { result } = await SMS.sendSMSAsync( ["6260041022"], "Hello ! I'm Suresh and my workdomain matches your requiremnts And I'm ready to owrkout your need. I'm accepting request and will contactyou in second")
+                  const { result } = await SMS.sendSMSAsync(["6260041022"], "Hello ! I'm Suresh and my workdomain matches your requiremnts And I'm ready to owrkout your need. I'm accepting request and will contactyou in second")
 
                   console.log(result)
             } else {
-              Alert.alert("Could not Send message","We didn't find messaging functionality on your device.Therefor you can not use this feature.Try call out")
+                  Alert.alert("Could not Send message", "We didn't find messaging functionality on your device.Therefor you can not use this feature.Try call out")
             }
 
       }
 
       return (
-            <ScrollView style={tw`pt-10 h-full`}>
+            <ScrollView style={tw`pt-10 pb-20 h-full `}>
+            <View>
 
-                  <View style={tw` h-48 flex-row `}>
+                  <View style={tw` flex-row `}>
                         <View style={tw`w-36 h-36  m-2 border-2 border-indigo-600 rounded-full`}>
                               <Image
-                                    style={tw`w-36 h-36  border-2 border-indigo-600 rounded-full`}
+                                    style={tw`w-36 h-36  border-2  rounded-full`}
                                     source={{
                                           uri: selcetedSm.photo,
                                     }} />
                         </View>
-                        <View style={tw`h-auto mb-4`} >
-                              <Text style={tw` px-1  pt-3  leading-loose tracking-wider text-2xl font-semibold`}>{selcetedSm.name}</Text>
+                        <View style={tw` mb-4`} >
+                              <Text style={tw` px-1  pt-3  tracking-wider text-2xl font-semibold`}>{selcetedSm.name}</Text>
                               <Text style={tw`px-1`}>Work Domains -
                                     {selcetedSm.specilisation?.map(i => (
                                           <ListItem.Subtitle>{` ${i}`}</ListItem.Subtitle>
@@ -84,10 +92,10 @@ const SmDetails = ({ navigation }) => {
                               <View style={tw` items-center mx-auto mt-4 mb-2 -ml-2 border-indigo-700 w-full border rounded`}></View>
 
 
-                              <View style={tw`flex-row flex-1  h-auto`}>
+                              <View style={tw`flex-row flex-1 pt-6 -mb-1`}>
                                     <TouchableOpacity onPress={() => CallServiceman()}>
                                           <Icon
-                                                style={tw`h-12 p-2 m-4 mt-1 items-center justify-items-center w-14 rounded-full order-first border-0 flex-col justify-end   bg-green-500`}
+                                                style={tw`h-12 p-2 m-4 mt-1 items-center justify-center w-14 rounded-full  border-0 flex-col justify-end   bg-green-500`}
                                                 name='call'
                                                 type='material-icons'
                                                 color='#ffffff'
@@ -97,7 +105,7 @@ const SmDetails = ({ navigation }) => {
 
                                     <TouchableOpacity onPress={() => (console.log("hey"))}>
                                           <Icon
-                                                style={tw` h-12 p-2 my-4 mt-1 mx-1 items-center justify-items-center w-14 rounded-full border-0 flex-col justify-end  bg-yellow-500`}
+                                                style={tw` h-12 p-2 my-4 mt-1 mx-1 items-center justify-center w-14 rounded-full border-0 flex-col justify-end  bg-yellow-500`}
 
                                                 name='chatbubbles-outline'
                                                 type='ionicon'
@@ -108,7 +116,7 @@ const SmDetails = ({ navigation }) => {
                                     </TouchableOpacity>
                                     <TouchableOpacity onPress={() => SendDeatilsinText()}>
                                           <Icon
-                                                style={tw`h-12 p-2 m-4 mt-1 items-center justify-items-center w-14 rounded-full order-last border-0 flex-col justify-end  bg-blue-500`}
+                                                style={tw`h-12 p-2 m-4 mt-1 items-center justify-center w-14 rounded-full  border-0 flex-col justify-end  bg-blue-500`}
                                                 name='sc-telegram'
                                                 type='evilicon'
                                                 color='#ffffff'
@@ -122,9 +130,12 @@ const SmDetails = ({ navigation }) => {
                         </View>
                   </View>
 
-                  <View style={tw` bg-green-300 items-center mx-auto -mt-2 mb-2 border-gray-400 w-full border rounded`}></View>
 
-                  <View style={tw`h-auto mt-2`}>
+                  <Text style={tw`bg-green-300  text-gray-600 pl-1 `}>WE Recommend you to set the deal with Serveiceman via Phone</Text>
+
+                  <View style={tw` bg-green-300 items-center mx-auto mb-12 mb-2 border-gray-600 w-full border rounded`}></View>
+
+                  <View style={tw` mt-2`}>
                         <Text style={tw`  pt-1 pl-5   text-xl font-semibold`}>Know him</Text>
                         <Text style={tw`px-3 py-5 mb-4`}>{selcetedSm.description}</Text>
 
@@ -132,13 +143,13 @@ const SmDetails = ({ navigation }) => {
 
                   <View style={tw` items-center mx-auto mt-1 mb-2 border-gray-100 w-full border rounded`}></View>
 
-                  <View style={tw``}>
+                  <View style={tw` mt-4`}>
                         <Text style={tw`  pt-1 pl-5   text-xl font-semibold`}>Reviews</Text>
-                        <View style={tw` items-center mx-auto mt-1 mb-1 border-gray-200 w-full border rounded`}></View>
+                        <View style={tw` items-center mx-auto mt-1 mb-1 border-gray-500 w-full border rounded`}></View>
                         {
                               selcetedSm.review?.map(item => (
-                                    <View style={tw`mx-2 border-gray-300 border rounded`}>
-                                          <View style={tw`flex-row`}>
+                                    <View style={tw`mx-2 mt-3 py-2 px-2 border-gray-300 border rounded`}>
+                                          <View style={tw`flex-row justify-between`}>
                                                 <Text style={tw`px-2 text-lg font-medium`}>{item.by}</Text>
                                                 <Rating
                                                       style={tw`py-2 px-8 bg-gray-100`}
@@ -160,10 +171,44 @@ const SmDetails = ({ navigation }) => {
 
 
                   </View>
-                  <Button
-                        title="Search other"
-                        onPress={() => navigation.navigate('AvailSm')}
-                  />
+                  <View style={tw` w-11/12 mx-auto mb-12 mt-12`}>
+
+                        <Button
+                              title="Setted Deal Proceeed Further"
+                              buttonStyle={tw`w-10/12 bg-green-300 mx-auto`}
+
+                              onPress={() => setcontacted(!contacted)}
+                        />
+                        {contacted ? <View>
+                              <Input
+                                    label="Deal price"
+                                    labelStyle={[tw`mt-4 `, { color: "#8f00ff" }]}
+                                    keyboardType="default"
+                                    onChangeText={(text) => setprice(text)}
+
+                                    value={price}
+                              />
+
+                              <Button
+                                    title="Confirm Deal"
+                                    buttonStyle={tw`w-10/12 bg-blue-400 mx-auto`}
+                                    onPress={() => console.log("COnfirm", price)
+                                          // dispatch()
+                                    }
+                              />
+
+                        </View>
+
+                              :
+                              <Button
+                                    title="Search another"
+                                    buttonStyle={tw`w-10/12 bg-red-300 mx-auto`}
+                                    //   containerStyle={{color:"#ff4d4d" ,backgroundColor:"#ff4d4d"}}
+                                    onPress={() => navigation.navigate('AvailSm')}
+                              />}
+                  </View>
+                  </View>
+
             </ScrollView>
       )
 }

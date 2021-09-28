@@ -31,7 +31,8 @@ import DomainScreen from './screensC/DomainScreen';
 
 import WriteNum from './CommonScreens/OtpScreens/WriteNum';
 import VerfiOTP from './CommonScreens/OtpScreens/VerfiOTP';
-
+import WorkUnderway from './screensC/WorkUnderway';
+import PostReview from './screensC/PostReview';
 
 // import MapC from './components/C/MapC'
 
@@ -61,16 +62,13 @@ function App() {
             style={{ flex: 1 }}
           >
 
-            <Stack.Navigator initialRouteName="DomainScreen" screenOptions={{ headerShown: true }} >
+            <Stack.Navigator initialRouteName="WorkUnderway" screenOptions={{ headerShown: true }} >
 
               <Stack.Screen name="HomeScreen" component={HomeScreen} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="WriteNum" component={WriteNum} />
               <Stack.Screen name="VerfiOTP" component={VerfiOTP} />
               <Stack.Screen name="DeclarationSpage" component={DeclarationSpage} />
-
-            
-
 
 
               <Stack.Screen name="RegisterSone" component={RegisterSone} />
@@ -80,11 +78,13 @@ function App() {
               <Stack.Screen name="NewWorkCame" component={NewWorkCame} />
               
 
-
               
               <Stack.Screen name="DomainScreen" component={DomainScreen } />
               <Stack.Screen name="RegisterScreenC" component={RegisterScreenC} />
               <Stack.Screen name="MapScreenC" component={MapScreenC} options={{headerShown:false}} />
+              <Stack.Screen name="WorkUnderway" component={WorkUnderway } />
+              <Stack.Screen name="PostReview" component={PostReview } />
+
 
 
             </Stack.Navigator>

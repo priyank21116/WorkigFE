@@ -53,9 +53,11 @@ const MapScreenS = ({ navigation }) => {
                   }
  
                   let location = await Location.getLastKnownPositionAsync({});
+                  console.log("11:::::::SM LOCATION::::::::::", location)
+
                   // setLocation(location);
                   setlocationDetails({ latitude: location.coords.latitude, longitude: location.coords.longitude })
-                  // console.log(":::::::SM LOCATION::::::::::", location)
+                  console.log("22:::::::SM LOCATION::::::::::", location)
             })();
       }, []);
 

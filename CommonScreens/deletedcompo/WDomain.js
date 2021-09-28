@@ -5,6 +5,50 @@ import { StyleSheet, View,ScrollView } from 'react-native'
 import tw from 'tailwind-react-native-classnames';
 import { TextArea, Center, Text,  Button } from "native-base"
 
+
+const availSm=[
+      {
+            id: "12maw2",
+            name: "Doremon",
+            rating: 5,
+            specilisation: ["Painting,Electrician"],
+            availseens: "12 September 2019",
+            photo: "https://e7.pngegg.com/pngimages/928/614/png-clipart-doraemon-illustration-nobita-nobi-doraemon-youtube-television-doraemon-cartoon-desktop-wallpaper.png"
+      },
+
+      {
+            id: "13maw3",
+            name: "Sizuka",
+            rating: 4.2,
+            specilisation: ["Electrician,Carpenter"],
+            availseens: "12 Aug 2021",
+            photo: "https://w7.pngwing.com/pngs/83/67/png-transparent-doraemon-shizuka-minamoto-shizuka-minamoto-nobita-nobi-doraemon-2-nobita-no-toys-land-daibouken-sewashi-doraemon-child-face-hand-thumbnail.png"
+      },
+      {
+            id: "11maw4",
+            name: "Nobita",
+            rating: 4.2,
+            specilisation: ["Painting,Carpenter"],
+            availseens: "12 Aug 2019",
+            photo: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/21c77039-c68a-4ad9-b6e3-fa31d39a7c4e/d8vtcbc-9f0e08ff-1ab4-43c0-b1f6-9d9347bf95da.png/v1/fill/w_891,h_720,strp/doraemon__nobita_nobi_vector_by_jewel_chanxoxo_d8vtcbc-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvMjFjNzcwMzktYzY4YS00YWQ5LWI2ZTMtZmEzMWQzOWE3YzRlXC9kOHZ0Y2JjLTlmMGUwOGZmLTFhYjQtNDNjMC1iMWY2LTlkOTM0N2JmOTVkYS5wbmciLCJ3aWR0aCI6Ijw9ODkxIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.WlZ1FWYRfaSBPD5Rlh8QNOzMHOkzquDj3UTmSa5ev7k"
+      },
+      {
+            id: "13maw5",
+            name: "Sizuka",
+            rating: 4.2,
+            specilisation: ["Electrician,Carpenter"],
+            availseens: "12 Aug 2021",
+            photo: "https://w7.pngwing.com/pngs/83/67/png-transparent-doraemon-shizuka-minamoto-shizuka-minamoto-nobita-nobi-doraemon-2-nobita-no-toys-land-daibouken-sewashi-doraemon-child-face-hand-thumbnail.png"
+      },
+      {
+            id: "13maw6",
+            name: "Sizuka",
+            rating: 4.2,
+            specilisation: ["Electrician,Carpenter"],
+            availseens: "12 Aug 2021",
+            photo: "https://w7.pngwing.com/pngs/83/67/png-transparent-doraemon-shizuka-minamoto-shizuka-minamoto-nobita-nobi-doraemon-2-nobita-no-toys-land-daibouken-sewashi-doraemon-child-face-hand-thumbnail.png"
+      }
+]
 const WDomain = ({navigation}) => {
       const [selected, setSelected] = useState(null)
 

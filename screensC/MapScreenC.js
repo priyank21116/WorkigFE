@@ -21,17 +21,17 @@ const MapScreenC = ({navigation}) => {
       const Stack = createNativeStackNavigator();
 
       return (
-            <View style={tw` bg-indigo-500 w-full`}>
+            <View style={tw` w-full bg-blue-200`}>
 
-                  <View style={tw`h-3/6  w-full`}>
+                  <View style={tw`h-2/5  w-full `}>
                   {/* <Text style={tw`text-blue-600 `}> MAPppp HERE</Text> */}
                         <MapCurrLoc />
                   </View>
 
-                  <View style={tw`h-3/6 bg-gray-100 w-full rounded-t-3xl  overflow-hidden  z-50`}>
+                  <View style={tw`h-3/5 border-2 border-b-0 bg-gray-50 w-full rounded-t-3xl  overflow-hidden  z-50`}>
                  
                 
-                       <Stack.Navigator initialRouteName="AvailSm" screenOptions={{headerShown: false}} >
+                       <Stack.Navigator initialRouteName="SmDetails" screenOptions={{headerShown: false}} >
                               
                               <Stack.Screen name="AvailSm" component={AvailSm } />
                               <Stack.Screen name="SmDetails" component={SmDetails } />

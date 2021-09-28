@@ -10,6 +10,7 @@ const CmlivService = {
       },
       helpDomain: "",
       SpecifyHelp: "",
+      AvailSMSLocation :[]
 }
 
 export const CmPostHelpSearch = createAsyncThunk(
@@ -20,18 +21,39 @@ export const CmPostHelpSearch = createAsyncThunk(
                   let response = await axios({
                         method: "post",
                         url: "http://10.0.2.2:9000/ctcurrent/ActivateCtforSERACH",
-                        data: body,
+                        body: body,
                         headers: {
                               "Content-Type": "application/json",
                               "Authorization": await AsyncStorage.getItem('Ctoken')
-
                         }
-
                   })
-
                   // console.log("CmPostHelpSearch<<<<<", response)
-                  return body
+                  return response
             } catch (error) {
+                  console.log(" ERROR<<CmPostHelpSearc", error)
+            }
+      })
+
+
+
+export const getSuitableSmbydetails = createAsyncThunk(
+      'getSuitableSmbydetails',
+      async (body) => {
+            console.log("Search SM for deatils", body)
+            try {
+                  let response = await axios({
+                        method: "get",
+                        url: "http://10.0.2.2:9000/ctcurrent/getsuitableSm",
+
+                        headers: {
+                              "Content-Type": "application/json",
+                              "Authorization": await AsyncStorage.getItem('Ctoken')
+                        }
+                  })
+                  console.log("getSuitableSmbydetails<<<<<", response)
+                  return response
+
+            } catch (err) {
                   console.log(" ERROR<<CmPostHelpSearc", error)
             }
       })
@@ -48,7 +70,14 @@ const CmONHelpSearch = createSlice({
                   state.livelocation.lng = lng
                   state.helpDomain = helpDomain
                   state.SpecifyHelp = SpecifyHelp
-            }
+            },
+            addSuitableSmLocation:(state,actions)=>{
+                 state.AvailSMSLocation = [...state.AvailSMSLocation,actions.payload[0]]
+                 console.log("STATE ALL LOCATION",state.AvailSMSLocation)
+            },
+            removeSutableFromList :(state,actions)=>{
+                  state.AvailSMSLocation = []
+             }
 
       },
       extraReducers: {
@@ -62,5 +91,5 @@ const CmONHelpSearch = createSlice({
       }
 })
 
-export const {tempCmlive } = CmONHelpSearch.actions
+export const { tempCmlive, addSuitableSmLocation, removeSutableFromList } = CmONHelpSearch.actions
 export default CmONHelpSearch.reducer

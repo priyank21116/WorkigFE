@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Alert, TextInput } from 'react-native'
-import { StyleSheet, View, ScrollView, Platform } from 'react-native'
+import { StyleSheet, View, ScrollView, Platform, ActivityIndicator } from 'react-native'
 import * as Location from 'expo-location';
 // import SelectDropdown from 'react-native-select-dropdown'
 import tw from 'tailwind-react-native-classnames';
@@ -13,13 +13,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useSelector } from 'react-redux';
 import { CmPostHelpSearch } from '../slices/Cm/CmLivSerSlice';
-
+import { getSuitableSmbydetails } from '../slices/Cm/CmLivSerSlice';
 
 const DomainScreen = ({ navigation }) => {
 
       const dispatch = useDispatch()
 
-      const [selected, setSelected] = useState(null)
+      const [moveahead, setmoveahead] = useState(false)
       // const [location, setLocation] = useState(null);
       const [errorMsg, setErrorMsg] = useState(null);
       const [HelpDetails, setHelpDetails] = useState({
@@ -45,7 +45,7 @@ const DomainScreen = ({ navigation }) => {
 
       useEffect(() => {
             (async () => {
-                 
+
                   let { status } = await Location.requestForegroundPermissionsAsync();
                  
                   if (status !== 'granted') {
@@ -53,12 +53,12 @@ const DomainScreen = ({ navigation }) => {
                         Alert.alert("Allow location access ,its neccesary to proceed further")
                         return;
                   }
-              
+
                   let location = await Location.getLastKnownPositionAsync({});
                   console.log(":::::::MY LOCATION::::::::::", location)
                   // setLocationn(location);
                   setHelpDetails({ ...HelpDetails, lat: location.coords.latitude, lng: location.coords.longitude })
-                  
+
             })();
       }, []);
 
@@ -114,44 +114,47 @@ const DomainScreen = ({ navigation }) => {
 
                   >
                         {selected && <Text>{selected}</Text>}
-                  </SelectDropdown> */}
+                        </SelectDropdown> */}
+                        
 
+                              <View style={tw`w-11/12 h-44 mx-auto my-2`}>
+                                    <Input
+                                          label="Write Help Domain"
+                                          keyboardType="default"
+                                          onChangeText={(e) => setHelpDetails({ ...HelpDetails, helpDomain: e.toString() })}
+                                          name="helpDomain"
+                                    // value={HelpDetails.helpDomain.toString() }
+                                    />
+                                    <Text style={tw`pb-3 text-black font-normal`}> Briefly Descibe Your Work below.</Text>
+                                    {/* <Stack space={8} w="100%" h="%100"> */}
+                                    <TextArea h={40} placeholder="Write here..." onChangeText={(e) => {
+                                          setHelpDetails({ ...HelpDetails, SpecifyHelp: e })
+                                    }} />
+                                    {/* </Stack> */}
+                              </View>
+                              <View style={tw`mt-24 `}>
+                                    {moveahead ?<Text style={tw`mt-2 mb-12`}> <ActivityIndicator size="large" color="#00ff00" /> </Text>: null}
+                                    <Button
+                                          style={tw`mx-auto w-8/12 mt-20 my-10  h-12 border rounded-xl`}
+                                          color="#8f00ff"
+                                          onPress={() => {
+                                                setmoveahead(true)
+                                                dispatch(CmPostHelpSearch(HelpDetails))
+                                                      .unwrap()
+                                                      .then(() => {
+                                                          
+                                                            navigation.navigate('MapScreenC')
+                                                      })
+                                                      .catch((rejectedValueOrSerializedError) => {
+                                                            console.log("ERROR in CCCCM Domain SET", rejectedValueOrSerializedError)
+                                                      })
 
-                        <View style={tw`w-11/12 h-44 mx-auto`}>
-                              <Input
-                                    label="Write Help Domain"
-                                    keyboardType="default"
-                                    onChangeText={(e) => setHelpDetails({ ...HelpDetails, helpDomain: e.toString() })}
-                                    name="helpDomain"
-                              // value={HelpDetails.helpDomain.toString() }
-                              />
-                              <Text style={tw`pb-3 text-black font-normal`}> Briefly Descibe Your Work below.</Text>
-                              {/* <Stack space={8} w="100%" h="%100"> */}
-                              <TextArea h={40} placeholder="Write here..." onChangeText={(e) => {
-                                    setHelpDetails({ ...HelpDetails, SpecifyHelp: e })
-                              }} />
-                              {/* </Stack> */}
-                        </View>
-                        <View style={tw`mt-20 mb-12`}>
-                              <Button
-                                    style={tw`mx-auto w-8/12 my-10 bg-green-300 h-12 border rounded-xl`}
-                                    color="#667eea"
-                                    onPress={() => {
-                                          dispatch(CmPostHelpSearch(HelpDetails))
-                                                .unwrap()
-                                                .then(() => {
-                                                      // console.log(":::::::Helpdetails>>>>>>>>", HelpDetails)
-                                                      navigation.navigate('MapScreenC')
-                                                })
-                                                .catch((rejectedValueOrSerializedError) => {
-                                                      console.log("ERROR in CCCCM Domain SET", rejectedValueOrSerializedError)
-                                                })
-                                       
-                                    }}
-                                    
-                              ><Text>Serach Servicemans</Text></Button>
-                        </View>
-                  </ScrollView>
+                                          }}
+
+                                    ><Text style=" font-bold text-2xl">{!moveahead ? "Serach Servicemans" : "Searching Write around you"} </Text></Button>
+                              </View>
+                        </ScrollView>
+
             </View>
 
 

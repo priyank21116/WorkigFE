@@ -94,6 +94,7 @@ const RegisterSone = ({ navigation }) => {
                         handleUpload(newfile)
                   }
                   const valiImg=".....png"
+                  
                   dispatch(patchValidateImage(valiImg))
             } else {
                   Alert.alert("Camera access is neccesary to get your image")
@@ -135,6 +136,7 @@ const RegisterSone = ({ navigation }) => {
 
 
                                                 <Input
+                                          
                                                       label="Name"
                                                       labelStyle={[tw``, { color: "#8f00ff" }]}
                                                       keyboardType="default"
