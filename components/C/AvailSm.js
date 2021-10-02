@@ -95,7 +95,7 @@ const AvailSm = ({ navigation }) => {
             const photoo="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/21c77039-c68a-4ad9-b6e3-fa31d39a7c4e/d8vtcbc-9f0e08ff-1ab4-43c0-b1f6-9d9347bf95da.png/v1/fill/w_891,h_720,strp/doraemon__nobita_nobi_vector_by_jewel_chanxoxo_d8vtcbc-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvMjFjNzcwMzktYzY4YS00YWQ5LWI2ZTMtZmEzMWQzOWE3YzRlXC9kOHZ0Y2JjLTlmMGUwOGZmLTFhYjQtNDNjMC1iMWY2LTlkOTM0N2JmOTVkYS5wbmciLCJ3aWR0aCI6Ijw9ODkxIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.WlZ1FWYRfaSBPD5Rlh8QNOzMHOkzquDj3UTmSa5ev7k"
            const rating = 3.5
             return (
-                  <View style={tw`border flex-1 rounded-xl mx-1 mt-3 w-full  flex-row`}>
+                  <View style={tw`border flex-1 rounded-xl mr-1 mt-3 w-full  flex-row bg-gray-100`}>
                         <View style={tw`border  w-24 h-24 ml-3 my-4 rounded-full overflow-hidden`}>
                               <Avatar style={tw`border  w-24 h-24 rounded-full `} source={{ uri: photoo }} />
                         </View>
@@ -136,7 +136,7 @@ const AvailSm = ({ navigation }) => {
 
       return (
 
-            <View style={tw`mt-10 rounded`}>
+            <View style={tw`mt-10 rounded bg-white`}>
 
 
                   <View style={tw` items-center mx-auto -mt-6 mb-7 border-gray-300 w-16 border-2 rounded`}></View>

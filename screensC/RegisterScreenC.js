@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, SafeAreaView, TouchableOpacity, Image } from 'react-native'
+import { View, Text,  TouchableOpacity, Image,ScrollView,KeyboardAvoidingView } from 'react-native'
 import { Icon } from 'react-native-elements'
-
+import * as ImagePicker from 'expo-image-picker';
 import tw from 'tailwind-react-native-classnames';
+
 import * as yup from 'yup';
 import { Formik } from 'formik';
-import { ScrollView } from 'react-native';
-import { KeyboardAvoidingView } from 'react-native';
 
-
-import { CMARTpatchFullregister } from '../slices/Cm/CmPerSlice';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { Input } from 'react-native-elements/dist/input/Input';
 
 import { useSelector, useDispatch } from 'react-redux';
-
+import { CMARTpatchFullregister } from '../slices/Cm/CmPerSlice';
 import { patchPhoto } from '../slices/Cm/CmPerSlice';
-import * as ImagePicker from 'expo-image-picker';
+
 
 const registerC = {
       Name: "",
       email: "",
       emergencyNo: 0,
-      password: "",
+      password: ``,
       confirmPassword: "",
       ad1: "",
       ad2: "",
@@ -36,11 +33,10 @@ const registerC = {
 const RegisterValidationSchema = yup.object().shape({
       Name: yup.string().required('Name is required'),
       emergencyNo: yup.number().required('MObile  number is required required ').positive().integer().min(10).min(12),
-      password: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required'),
-      // .matches(
-      //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
-      //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-      // ),
+      password: yup.string().min(8, ({ min }) => `Password must be atleast ${min} characters`).required('Password is required')
+            .matches(
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+                  "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"),
       confirmPassword: yup.string().required('Confirm your password'),
       ad1: yup.string().required('This field is required'),
       email: yup.string().required('Email is required').email("Enter valid email"),
@@ -60,20 +56,18 @@ const RegisterScreenC = ({ navigation }) => {
       const phonee = useSelector(state => state.CmPer.phone)
 
       const OnsubmitClregister = (values) => {
-            // console.log("GIvenvalue", values)
+
             dispatch(CMARTpatchFullregister({ ...values, phone: phonee, perImg: photo }))
                   .unwrap()
                   .then((res) => {
+
                         // console.log("RESP RegisterScreenC DISPATCH", res)
-
                         navigation.navigate('Login')
-
                   })
                   .catch((rejectedValueOrSerializedError) => {
+
                         console.log("DeclarationSpage error", rejectedValueOrSerializedError)
                   })
-
-
 
 
       }
@@ -95,12 +89,12 @@ const RegisterScreenC = ({ navigation }) => {
                         }
                         // handleUpload(newfile)
                         // setphoto(newfile)
-                        console.log("NEW FILE",newfile)
+                        // console.log("NEW FILE",newfile)
                   }
 
                   // dispatch(patchPhoto(photoo))
                   setphoto(data.uri)
-                  console.log("Adhar Camera", data)
+                  // console.log("Adhar", data)
             } else {
                   Alert.alert("Gallery access is neccesary to get your image")
             }
@@ -108,12 +102,7 @@ const RegisterScreenC = ({ navigation }) => {
 
 
 
-      // const { Name, email, emergencyNo, password, confirmPassword, ad1, ad2, landmark, city, pin, sstate } = registerC
-
-console.log("PHOTOS",photo)
-
       return (
-
 
 
             <Formik
@@ -125,21 +114,20 @@ console.log("PHOTOS",photo)
                   {({ handleChange, handleBlur, handleSubmit, values, touched, errors }) => (
                         <View style={tw`bg-indigo-400 w-full h-full`}>
 
-                              <ScrollView style={tw`bg-gray-50 border rounded-t-xl   mt-20 mx-auto  w-11/12 h-full`}>
+                              <ScrollView showsVerticalScrollIndicator={false} style={tw`bg-gray-50 border rounded-t-xl   mt-20 mx-auto  w-11/12 h-full`}>
                                     <KeyboardAvoidingView
 
                                           keyboardVerticalOffset={50}
                                           behavior={'padding'}>
-                                          <View style={tw` my-20 px-6`}>
+                                          <View style={tw` mb-20 mt-8 px-4`}>
 
                                                 {photo ?
                                                       <View>
-                                                            <Text style={[tw`mx-auto mb-2 mt-12 font-bold items-center`, { color: "#8f00ff" }]}> IMage Uploaded Successfully</Text>
+                                                            <Text style={[tw`mx-auto mb-3 mt-12 font-bold items-center`, { color: "#8f00ff" }]}> Image Uploaded Successfully</Text>
 
                                                             <Image
-                                                                    source={{  uri: `${photo}`}}
-                                                                  // source={require(`${photo}`)}
-                                                                  style={tw`h-36 w-9/12 mx-auto`}
+                                                                  source={{ uri: `${photo}` }}
+                                                                  style={tw`h-44 w-11/12 mx-auto border`}
                                                                   resizeMode="contain"
 
                                                             />
@@ -212,7 +200,8 @@ console.log("PHOTOS",photo)
                                                       value={values.confirmPassword}
                                                 />
                                                 {(errors.confirmPassword && touched.confirmPassword) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.confirmPassword}</Text> : null}
-                                                {/* {touched.confirmPassword !== values.password ?  <Text style={tw`text-sm text-red-500  italic font-semibold`}> {console.log("THis")} Passwords do not match</Text> : null} */}
+                                               
+                                                {touched.confirmPassword && (values.confirmPassword !== values.password) ?  <Text style={tw`text-sm text-red-500  italic font-semibold`}> Password do not match</Text> : null}
 
                                                 <Input
                                                       label="Address line 1"
@@ -273,11 +262,6 @@ console.log("PHOTOS",photo)
                                                       value={values.sstate}
                                                 />
                                                 {(errors.sstate && touched.sstate) ? <Text style={tw`text-sm text-red-500  italic font-semibold`}>{errors.sstate}</Text> : null}
-
-
-
-
-
 
 
                                           </View>

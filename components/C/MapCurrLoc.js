@@ -32,26 +32,6 @@ export default function MapCurrLoc({ navigation }) {
    
 
 
-      // const [pin, setpin] = useState({
-      //       latitude: 37.78825,
-      //       longitude: -122.4324,
-      // })
-
-
-      // const markers = [{
-
-      //       latitude: 23.1851724,
-      //       longitude: 79.9122222
-      // }, {
-
-      //       latitude: 23.1851737,
-      //       longitude: 79.9192222
-      // }, {
-
-      //       latitude: 23.1841727,
-      //       longitude: 78.9162222
-      // },]
-
       return (
             <View style={{ marginTop: 5, flex: 1 }}>
 
