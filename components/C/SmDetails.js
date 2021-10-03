@@ -52,13 +52,14 @@ const SmDetails = ({ navigation }) => {
       })
 
 
-      const CallServiceman = async () => {
-
+      const callServiceman = async () => {
+            console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
             let result = await Linking.openURL(`tel: ${'6260041022'}`)
             console.log(" :::::::::CALL::::::::::::::::::", result)
       }
 
-      const SendDeatilsinText = async () => {
+      const sendDeatilsinText = async () => {
+            console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
             const isAvailable = await SMS.isAvailableAsync();
             if (isAvailable) {
                   const { result } = await SMS.sendSMSAsync(["6260041022"], "Hello ! I'm Suresh and my workdomain matches your requiremnts And I'm ready to owrkout your need. I'm accepting request and will contactyou in second")
@@ -71,142 +72,143 @@ const SmDetails = ({ navigation }) => {
       }
 
       return (
-            <ScrollView style={tw`pt-10 pb-20 h-full `}>
-            <View>
+            <ScrollView showsVerticalScrollIndicator={true} style={tw`pt-10 mb-40 pb-20 h-full `}>
+                  <View>
 
-                  <View style={tw` flex-row `}>
-                        <View style={tw`w-36 h-36  m-2 border-2 border-indigo-600 rounded-full`}>
-                              <Image
-                                    style={tw`w-36 h-36  border-2  rounded-full`}
-                                    source={{
-                                          uri: selcetedSm.photo,
-                                    }} />
-                        </View>
-                        <View style={tw` mb-4`} >
-                              <Text style={tw` px-1  pt-3  tracking-wider text-2xl font-semibold`}>{selcetedSm.name}</Text>
-                              <Text style={tw`px-1`}>Work Domains -
-                                    {selcetedSm.specilisation?.map(i => (
-                                          <ListItem.Subtitle>{` ${i}`}</ListItem.Subtitle>
-                                    ))}</Text>
-                              <Text style={tw`px-0`}> Member sinces- {selcetedSm.availseens}</Text>
-                              <View style={tw` items-center mx-auto mt-4 mb-2 -ml-2 border-indigo-700 w-full border rounded`}></View>
-
-
-                              <View style={tw`flex-row flex-1 pt-6 -mb-1`}>
-                                    <TouchableOpacity onPress={() => CallServiceman()}>
-                                          <Icon
-                                                style={tw`h-12 p-2 m-4 mt-1 items-center justify-center w-14 rounded-full  border-0 flex-col justify-end   bg-green-500`}
-                                                name='call'
-                                                type='material-icons'
-                                                color='#ffffff'
-                                                size={35}
-                                          />
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity onPress={() => (console.log("hey"))}>
-                                          <Icon
-                                                style={tw` h-12 p-2 my-4 mt-1 mx-1 items-center justify-center w-14 rounded-full border-0 flex-col justify-end  bg-yellow-500`}
-
-                                                name='chatbubbles-outline'
-                                                type='ionicon'
-                                                color='#ffffff'
-                                                size={35}
-
-                                          />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => SendDeatilsinText()}>
-                                          <Icon
-                                                style={tw`h-12 p-2 m-4 mt-1 items-center justify-center w-14 rounded-full  border-0 flex-col justify-end  bg-blue-500`}
-                                                name='sc-telegram'
-                                                type='evilicon'
-                                                color='#ffffff'
-                                                size={35}
-
-                                          />
-                                    </TouchableOpacity>
-
-
+                        <View style={tw` flex-row `}>
+                              <View style={tw`w-36 h-36  m-2 border-2 border-indigo-600 rounded-full`}>
+                                    <Image
+                                          style={tw`w-36 h-36  border-2  rounded-full`}
+                                          source={{
+                                                uri: selcetedSm.photo,
+                                          }} />
                               </View>
-                        </View>
-                  </View>
+                              <View style={tw` mb-4`} >
+                                    <Text style={tw` px-1  pt-3  tracking-wider text-2xl font-semibold`}>{selcetedSm.name}</Text>
+                                    <Text style={tw`px-1`}>Work Domains -
+                                          {selcetedSm.specilisation?.map(i => (
+                                                <ListItem.Subtitle>{` ${i}`}</ListItem.Subtitle>
+                                          ))}</Text>
+                                    <Text style={tw`px-0`}> Member sinces- {selcetedSm.availseens}</Text>
+                                    <View style={tw` items-center mx-auto mt-4 mb-2 -ml-2 border-indigo-700 w-full border rounded`}></View>
+        
 
+                                    <View onPress={console.log("efdsgvfdsg")} style={tw`flex-row flex-1 pt-6 -mb-1`}>
+                                          <TouchableOpacity onPress={() => sendDeatilsinText()}>
+                                     {/* onPress={() => callServiceman()} */}
+                                                <Icon
+                                                      style={tw`h-12 p-2 m-4 mt-1 items-center justify-center w-14 rounded-full  border-0 flex-col justify-end   bg-green-500`}
+                                                      name='call'
+                                                      type='material-icons'
+                                                      color='#ffffff'
+                                                      size={35}
+                                                />
+                                          </TouchableOpacity>
 
-                  <Text style={tw`bg-green-300  text-gray-600 pl-1 `}>WE Recommend you to set the deal with Serveiceman via Phone</Text>
+                                          <TouchableOpacity onPress={() => (console.log("hey"))}>
+                                                <Icon
+                                                      style={tw` h-12 p-2 my-4 mt-1 mx-1 items-center justify-center w-14 rounded-full border-0 flex-col justify-end  bg-yellow-500`}
 
-                  <View style={tw` bg-green-300 items-center mx-auto mb-12 mb-2 border-gray-600 w-full border rounded`}></View>
-
-                  <View style={tw` mt-2`}>
-                        <Text style={tw`  pt-1 pl-5   text-xl font-semibold`}>Know him</Text>
-                        <Text style={tw`px-3 py-5 mb-4`}>{selcetedSm.description}</Text>
-
-                  </View>
-
-                  <View style={tw` items-center mx-auto mt-1 mb-2 border-gray-100 w-full border rounded`}></View>
-
-                  <View style={tw` mt-4`}>
-                        <Text style={tw`  pt-1 pl-5   text-xl font-semibold`}>Reviews</Text>
-                        <View style={tw` items-center mx-auto mt-1 mb-1 border-gray-500 w-full border rounded`}></View>
-                        {
-                              selcetedSm.review?.map(item => (
-                                    <View style={tw`mx-2 mt-3 py-2 px-2 border-gray-300 border rounded`}>
-                                          <View style={tw`flex-row justify-between`}>
-                                                <Text style={tw`px-2 text-lg font-medium`}>{item.by}</Text>
-                                                <Rating
-                                                      style={tw`py-2 px-8 bg-gray-100`}
-                                                      ratingCount={5}
-                                                      imageSize={17}
-                                                      showRating={false}
-                                                      defaultRating={item.rating}
+                                                      name='chatbubbles-outline'
+                                                      type='ionicon'
+                                                      color='#ffffff'
+                                                      size={35}
 
                                                 />
-                                          </View>
-                                          <Text style={tw`px-2 text-base font-normal`}>{item.comment}</Text>
-                                          <Text style={tw`px-2 text-sm  text-gray-500 font-normal`}>Posted on- {item.date}</Text>
+                                          </TouchableOpacity>
+                                          <TouchableOpacity onPress={() => sendDeatilsinText()}>
+                                                <Icon
+                                                      style={tw`h-12 p-2 m-4 mt-1 items-center justify-center w-14 rounded-full  border-0 flex-col justify-end  bg-blue-500`}
+                                                      name='sc-telegram'
+                                                      type='evilicon'
+                                                      color='#ffffff'
+                                                      size={35}
 
-                                          {/* <View style={tw` px-2  items-center mx-auto mt-1 mb-1 border-gray-200 w-full border rounded`}></View> */}
+                                                />
+                                          </TouchableOpacity>
+
+
                                     </View>
+                              </View>
+                        </View>
 
-                              ))
-                        }
 
+                        <Text style={tw`bg-green-300  text-gray-600 pl-1 `}>WE Recommend you to set the deal with Serveiceman via Phone</Text>
 
-                  </View>
-                  <View style={tw` w-11/12 mx-auto mb-12 mt-12`}>
+                        <View style={tw` bg-green-300 items-center mx-auto mb-12 mb-2 border-gray-600 w-full border rounded`}></View>
 
-                        <Button
-                              title="Setted Deal Proceeed Further"
-                              buttonStyle={tw`w-10/12 bg-green-300 mx-auto`}
-
-                              onPress={() => setcontacted(!contacted)}
-                        />
-                        {contacted ? <View>
-                              <Input
-                                    label="Deal price"
-                                    labelStyle={[tw`mt-4 `, { color: "#8f00ff" }]}
-                                    keyboardType="default"
-                                    onChangeText={(text) => setprice(text)}
-
-                                    value={price}
-                              />
-
-                              <Button
-                                    title="Confirm Deal"
-                                    buttonStyle={tw`w-10/12 bg-blue-400 mx-auto`}
-                                    onPress={() => console.log("COnfirm", price)
-                                          // dispatch()
-                                    }
-                              />
+                        <View style={tw` mt-2`}>
+                              <Text style={tw`  pt-1 pl-5   text-xl font-semibold`}>Know him</Text>
+                              <Text style={tw`px-3 py-5 mb-4`}>{selcetedSm.description}</Text>
 
                         </View>
 
-                              :
+                        <View style={tw` items-center mx-auto mt-1 mb-2 border-gray-100 w-full border rounded`}></View>
+
+                        <View style={tw` mt-4`}>
+                              <Text style={tw`  pt-1 pl-5   text-xl font-semibold`}>Reviews</Text>
+                              <View style={tw` items-center mx-auto mt-1 mb-1 border-gray-500 w-full border rounded`}></View>
+                              {
+                                    selcetedSm.review?.map(item => (
+                                          <View key={item.byid} style={tw`mx-2 mt-3 py-2 px-2 border-gray-300 border rounded`}>
+                                                <View style={tw`flex-row justify-between`}>
+                                                      <Text style={tw`px-2 text-lg font-medium`}>{item.by}</Text>
+                                                      <Rating
+                                                            style={tw`py-2 px-8 bg-gray-100`}
+                                                            ratingCount={5}
+                                                            imageSize={17}
+                                                            showRating={false}
+                                                            defaultRating={item.rating}
+
+                                                      />
+                                                </View>
+                                                <Text style={tw`px-2 text-base font-normal`}>{item.comment}</Text>
+                                                <Text style={tw`px-2 text-sm  text-gray-500 font-normal`}>Posted on- {item.date}</Text>
+
+                                                {/* <View style={tw` px-2  items-center mx-auto mt-1 mb-1 border-gray-200 w-full border rounded`}></View> */}
+                                          </View>
+
+                                    ))
+                              }
+
+
+                        </View>
+                        <View onPress={console.log("here")} style={tw` w-11/12 mx-auto mb-12 mt-12`}>
+
                               <Button
-                                    title="Search another"
-                                    buttonStyle={tw`w-10/12 bg-red-300 mx-auto`}
-                                    //   containerStyle={{color:"#ff4d4d" ,backgroundColor:"#ff4d4d"}}
-                                    onPress={() => navigation.navigate('AvailSm')}
-                              />}
-                  </View>
+                                    title="Setted Deal Proceeed Further"
+                                    buttonStyle={tw`w-10/12 bg-green-300 mx-auto`}
+
+                                    onPress={() => setcontacted(!contacted)}
+                              />
+                              {contacted ? <View>
+                                    <Input
+                                          label="Deal price"
+                                          labelStyle={[tw`mt-4 `, { color: "#8f00ff" }]}
+                                          keyboardType="default"
+                                          onChangeText={(text) => setprice(text)}
+
+                                          value={price}
+                                    />
+
+                                    <Button
+                                          title="Confirm Deal"
+                                          buttonStyle={tw`w-10/12 bg-blue-400 mx-auto`}
+                                          onPress={() => console.log("COnfirm", price)
+                                                // dispatch()
+                                          }
+                                    />
+
+                              </View>
+
+                                    :
+                                    <Button
+                                          title="Search another"
+                                          buttonStyle={tw`w-10/12 bg-red-300 mx-auto`}
+                                          //   containerStyle={{color:"#ff4d4d" ,backgroundColor:"#ff4d4d"}}
+                                          onPress={() => navigation.navigate('AvailSm')}
+                                    />}
+                        </View>
                   </View>
 
             </ScrollView>

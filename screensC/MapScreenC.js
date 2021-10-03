@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, PanResponder, Animated } from 'react-native'
+import { StyleSheet, Text, View, PanResponder, Animated,ScrollView } from 'react-native'
 import tw from 'tailwind-react-native-classnames';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -65,24 +65,25 @@ const MapScreenC = ({ navigation }) => {
 
 
       return (
-            <View style={tw` w-full bg-blue-200`}>
+            <View style={[tw` w-full bg-blue-200`,{flex:1}]}>
 
-                  <View style={[tw` bg-gray-300  w-full `, { height: (pageup) ? 5 : 330 }]}>
+                  <View style={[tw` bg-gray-300  w-full `, { height: (pageup) ? 25 : 330 }]}>
                         {/* <Text style={tw`text-blue-600 `}> MAPppp HERE</Text> */}
                         {/* <MapCurrLoc /> */}
                   </View>
+                  {/* <View style={tw`h-full border-2  border-b-0   w-full rounded-t-3xl overflow-hidden`}> */}
+                        <Animated.View {...pan.panHandlers} style={[tw`h-full border-2  border-b-0   w-full rounded-t-3xl overflow-hidden`,{ transform:[{ translateY: position}] , marginTop: (!pageup) ? 0 : 52, paddingTop: (!pageup) ? 0 : 0 }]}>
 
-                  <Animated.View {...pan.panHandlers} style={[tw`h-full border-2  border-b-0 bg-gray-50  w-full rounded-t-3xl  overflow-hidden items-center justify-center`, { transform: [{ translateY: position }], marginTop: (!pageup) ? 0 : 60, paddingTop: (!pageup) ? 0 : 52 }]}>
-
-                        <View style={{ elevation: 4, zIndex: 4 }}>
-                        <AvailSm />
-                              {/* <Stack.Navigator initialRouteName="AvailSm" screenOptions={{ headerShown: false }} >
-                                    <Stack.Screen name="AvailSm" ><AvailSm /></Stack.Screen>
-                                    <Stack.Screen name="SmDetails"><SmDetails /></Stack.Screen>
-                              </Stack.Navigator> */}
-                        </View>
-
-                  </Animated.View>
+                              {/* <ScrollView> */}
+                              
+                              <Stack.Navigator initialRouteName="AvailSm" screenOptions={{ headerShown: false }} >
+                                    <Stack.Screen name="AvailSm" component={AvailSm} ></Stack.Screen>
+                                    <Stack.Screen name="SmDetails" component={SmDetails}></Stack.Screen>
+                              </Stack.Navigator>
+                              {/* </ScrollView> */}
+        
+                        </Animated.View>     
+                  {/* </View> */}
             </View>
       )
 }
