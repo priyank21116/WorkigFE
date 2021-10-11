@@ -150,6 +150,9 @@ const Clientname = useSelector(state => state.CmPer.Name)
                                     onPress={() => {
                                           console.log(HelpDetails)
                                           setmoveahead(true)
+                                          
+                                          // dispatch(tempCmlive(HelpDetails))
+                                          // navigation.navigate('MapScreenC')
                                           dispatch(CmPostHelpSearch(HelpDetails))
                                                 .unwrap()
                                                 .then(() => {

@@ -69,14 +69,14 @@ const MapScreenC = ({ navigation }) => {
 
                   <View style={[tw` bg-gray-300  w-full `, { height: (pageup) ? 25 : 330 }]}>
                         {/* <Text style={tw`text-blue-600 `}> MAPppp HERE</Text> */}
-                        {/* <MapCurrLoc /> */}
+                        <MapCurrLoc />
                   </View>
                   {/* <View style={tw`h-full border-2  border-b-0   w-full rounded-t-3xl overflow-hidden`}> */}
                         <Animated.View {...pan.panHandlers} style={[tw`h-full border-2  border-b-0   w-full rounded-t-3xl overflow-hidden`,{ transform:[{ translateY: position}] , marginTop: (!pageup) ? 0 : 52, paddingTop: (!pageup) ? 0 : 0 }]}>
 
                               {/* <ScrollView> */}
                               
-                              <Stack.Navigator initialRouteName="AvailSm" screenOptions={{ headerShown: false }} >
+                              <Stack.Navigator initialRouteName="SmDetails" screenOptions={{ headerShown: false }} >
                                     <Stack.Screen name="AvailSm" component={AvailSm} ></Stack.Screen>
                                     <Stack.Screen name="SmDetails" component={SmDetails}></Stack.Screen>
                               </Stack.Navigator>

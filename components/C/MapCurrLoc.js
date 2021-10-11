@@ -13,18 +13,20 @@ export default function MapCurrLoc({ navigation }) {
       const dispatch = useDispatch()
 
       let pin = {
-            latitude: 37.78825,
-            longitude: -122.4324,
+            // "lat": 23.18517262,
+            // "lng": 79.9122236,
+            latitude: 23.18517262,
+            longitude: 79.9122236,
       }
 
       // console.log("1")
-      const getloc = async () => {
-            // console.log("2")
-            const loc = useSelector((state) => state.CmLivSer.livelocation)
-            pin = { latitude: loc.lat, longitude: loc.lng }
-            console.log("INMAP>>>>>", loc)
-      }
-      getloc()
+      // const getloc = async () => {
+      //       // console.log("2")
+      //       const loc = useSelector((state) => state.CmLivSer.livelocation)
+      //       pin = { latitude: loc.lat, longitude: loc.lng }
+      //       console.log("INMAP>>>>>", loc)
+      // }
+      // getloc()
 
      
       const markers = useSelector((state) => state.CmLivSer.AvailSMSLocation)
@@ -45,7 +47,7 @@ export default function MapCurrLoc({ navigation }) {
                         }}
                         provider="google"
                   >
-                        {markers?.map((marker, index) => (<Marker key={index} coordinate={{latitude: marker.latitude, longitude: marker.longitude}}  ></Marker>))}
+                        {/* {markers?.map((marker, index) => (<Marker key={index} coordinate={{latitude: marker.latitude, longitude: marker.longitude}}  ></Marker>))} */}
                         {/* title={marker.title} description={marker.description} */}
                         {/* <Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} ></Marker> */}
                         <Marker

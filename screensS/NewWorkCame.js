@@ -28,7 +28,7 @@ const NewWorkCame = () => {
 
       const discussOnCall = async () => {
            
-           let result = await Linking.openURL(`tel:${'6260041022'}`)
+           let result = await Linking.openURL(`tel:${'6260041765'}`)
            console.log(" :::::::::CALL::::::::::::::::::",result)
       }
 
@@ -41,7 +41,7 @@ const NewWorkCame = () => {
             // console.log(item.by)
             const isAvailable = await SMS.isAvailableAsync();
             if (isAvailable) {
-                  const { result } = await SMS.sendSMSAsync( ["6260041022"], "Hello ! I'm Suresh and my workdomain matches your requiremnts And I'm ready to owrkout your need. I'm accepting request and will contactyou in second")
+                  const { result } = await SMS.sendSMSAsync( ["62600487622"], "Hello ! I'm Suresh and my workdomain matches your requiremnts And I'm ready to owrkout your need. I'm accepting request and will contactyou in second")
 
                   console.log(result)
             } else {

@@ -110,7 +110,7 @@ const RegisterSone = ({ navigation }) => {
 
       const OnsubmitFormone = (values) => {
             
-            dispatch(SMaddRegisteroneDetails(values))
+            // dispatch(SMaddRegisteroneDetails(values))
             // console.log("2222222222222222222",values)
             
             navigation.navigate('RegisterStwo')

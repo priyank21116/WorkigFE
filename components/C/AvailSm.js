@@ -139,9 +139,10 @@ const AvailSm = ({ navigation }) => {
            const rating = 3.5
            console.log("renderd")
             return (
-                  <ScrollView style={tw`border  rounded-xl mr-1 mt-3 w-full  flex-row bg-gray-100`}>
-                        <View style={tw`border  w-24 h-24 ml-3 my-4 rounded-full overflow-hidden`}>
-                              <Avatar style={tw`border  w-24 h-24 rounded-full `} source={{ uri: photoo }} />
+                  <ScrollView style={tw`border  rounded-xl mr-1 mt-3 w-full  flex bg-gray-100`}>
+                  <View style={tw`flex-row`}>
+                        <View style={[tw`border bg-blue-800  w-24 h-24 ml-3 my-4 rounded-full overflow-hidden`,{zIndex:5 ,elevation:5}]}>
+                              <Avatar style={[tw`border  w-24 h-24 rounded-full `,{zIndex:5 ,elevation:5}]} source={{ uri: photoo }} />
                         </View>
                         <View style={tw`ml-3 my-4`}>
                               <Text style={tw`text-xl`}>{item.ServicemanIdentity.name}</Text>
@@ -155,8 +156,8 @@ const AvailSm = ({ navigation }) => {
 
 
 
-                        <View style={[tw`my-auto absolute right-4 top-7 overflow-hidden w-16 h-16  bg-blue-200 rounded-full items-center justify-center`,{flex:1}]}>
-                              <TouchableOpacity style={tw`bg-red-300`} onPress={() =>{ 
+                        <View style={[tw`my-auto absolute right-4 top-7 overflow-hidden w-16 h-16   rounded-full items-center justify-center`,{flex:1}]}>
+                              <TouchableOpacity style={tw`bg-blue-100`} onPress={() =>{ 
                                     // dispatch( (item._id))
                                     console.log("PRESSSSED")
                                     // navigation.navigate('SmDetails')
@@ -174,7 +175,7 @@ const AvailSm = ({ navigation }) => {
                               </TouchableOpacity>
                               {/* <Text style={tw` ml-2  text-gray-400`}>{`Since-${item.availseens}`}</Text> */}
                         </View>
-
+</View>
                   </ScrollView>
             );
       }

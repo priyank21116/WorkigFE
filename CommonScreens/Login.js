@@ -26,11 +26,7 @@ const loginValidationSchema = yup.object().shape({
 
       phone: yup.number().required('Mobile No is required').positive('MObile no Cant be negative').integer('MOble no has to be positive integer'),
       password: yup.string().required('Password is required')
-      // .min(8, ({ min }) => `Password must be atleast ${min} characters`)
-      // .matches(
-      //       "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
-      //       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-      // ),
+     
 
 });
 
@@ -90,7 +86,7 @@ const Login = ({ navigation }) => {
       // }
 
       const CMLogin = (values) => {
-            // console.log("Body Given::::",values)
+            console.log("Body Given::::",values)
             dispatch(CmLoginValidation(values))
                   .unwrap()
                   .then((res) => {

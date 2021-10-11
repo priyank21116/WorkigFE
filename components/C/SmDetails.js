@@ -54,7 +54,7 @@ const SmDetails = ({ navigation }) => {
 
       const callServiceman = async () => {
             console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
-            let result = await Linking.openURL(`tel: ${'6260041022'}`)
+            let result = await Linking.openURL(`tel: ${'6260046543'}`)
             console.log(" :::::::::CALL::::::::::::::::::", result)
       }
 

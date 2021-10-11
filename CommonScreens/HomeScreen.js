@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
                         }}
                         >
                               <View style={[tw`w-10/12 px-4 py-6 my-8 mx-auto  border rounded-2xl`, { backgroundColor: "#8f00ff" }]}>
-                                    <Text style={tw`text-2xl tracking-normal font-bold text-white`} >Work and Start working as Serviceman</Text>
+                                    <Text style={tw`text-2xl tracking-normal font-bold text-white`} >Work and Start serving</Text>
                               </View>
                         </TouchableOpacity>
 

@@ -56,7 +56,7 @@ function App() {
               style={{ flex: 1 }}
             >
 
-              <Stack.Navigator initialRouteName="MapScreenS" screenOptions={{ headerShown: false }} >
+              <Stack.Navigator initialRouteName="NewWorkCame" screenOptions={{ headerShown: true }} >
 
                 <Stack.Screen name="HomeScreen" component={HomeScreen} />
                 <Stack.Screen name="Login" component={Login} />
