@@ -34,20 +34,20 @@ Its a React native mobile application.It  get and provide basic work like Electr
 
 
 ### Demo Screens
-<p width="200" height="300"> ![HOMe](./demogif/1633978491357.gif ) </p>
+![HOMe](./demogif/1633978491357.gif ) 
 
-![Cregister](./demogif/1633978491344.gif | width=100)
+![Cregister](./demogif/1633978491344.gif )
 
-![Clast](./demogif/1633978491304.gif | width=1003)
-![LOgin](./demogif/1633978491350.gif | width=100)
-![C2ndlast](./demogif/1633978491310.gif | width=100)
-![CDOmainselect](./demogif/1633978491333.gif | width=100)
-![SMlast](./demogif/1633978491315.gif | width=1003)
-![SM2ndlast](./demogif/1633978491321.gif | width=100)
-![SMlogin2](./demogif/1633978491327.gif | width=1003)
+![Clast](./demogif/1633978491304.gif )
+![LOgin](./demogif/1633978491350.gif )
+![C2ndlast](./demogif/1633978491310.gif )
+![CDOmainselect](./demogif/1633978491333.gif )
+![SMlast](./demogif/1633978491315.gif )
+![SM2ndlast](./demogif/1633978491321.gif )
+![SMlogin2](./demogif/1633978491327.gif )
 
-![Clogin](./demogif/1633978491338.gif | width=100)
-![SMlogin1](./demogif/1633978491298.gif | width=100)
+![Clogin](./demogif/1633978491338.gif )
+![SMlogin1](./demogif/1633978491298.gif )
 
 ---
 
