@@ -1,7 +1,7 @@
 # About
 ---
 
-Its a React native mobile application.It  get and provide basic work like Electrician, Legal, IT Support ,Housekeeping, Maid ,delivery, etc. in few clicks.
+Solves the problem of daily wage utility workers serving as electrician,plumber etc, not getting work and of common people who could not find accurate servicemen for daily household jobs.
 ---
 
 ##### - This is single app for both serviceman as well as work provider,the user chooses his role either as serviceman or Work Provider, login and thereafter app divides into 2 branches each has different set of screens, functionality,features and UI for a seamless experince to job seeker and job provider.
