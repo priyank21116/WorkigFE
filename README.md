@@ -1,6 +1,10 @@
 # About
 Its a React native mobile application.It  get and provide basic work like Electrician, Legal, IT Support ,Housekeeping, Maid ,delivery, etc. in few clicks.
-This is singal app for both serviceman as well as provider, user select domain when start searching,here app get branched into two, login,have separate , register screen as extra details is taken for serviceman registration, then after both have different set of screens -mapscreen screen ,profile screen , workdomain selection screen ,details, review, checkout ,extra.  
+
+### - This is single app for both serviceman as well as work provider,the user chooses his role either as serviceman or Work Provider, login and thereafter app divides into 2 branches each has different set of screens, functionality,features and UI for a seamless experince to job seeker and job provider.
+
+### - Beside basic functionality like login, registering verification ->i have integrated functionalities like Google map for live location detaction for both client and Servicemanneardy by registering and computing latitude and longitude ,Push notifications. App linking enables animations, Calling through app, mesaaging , camera for face verification and various feature to choose domain ,read reviews,set a deal,Post reviews , If not satisfied with quality, raise a report. Etc
+  
 
 ---
 ## App Demo:-  https://www.youtube.com/watch?v=aN1QZVn3QZw&ab_channel=PriyankGupta
@@ -28,20 +32,20 @@ This is singal app for both serviceman as well as provider, user select domain w
 
 
 ### Demo Screens
+<p>
+![HOMe](./demogif/1633978491357.gif =200x230)
+![Cregister](./demogif/1633978491344.gif =200x23)
 
-![HOMe](./demogif/1633978491357.gif)
-![Cregister](./demogif/1633978491344.gif)
+![Clast](./demogif/1633978491304.gif =200x23)
+![LOgin](./demogif/1633978491350.gif =200x23)
+![C2ndlast](./demogif/1633978491310.gif =200x23)
+![CDOmainselect](./demogif/1633978491333.gif =200x23)
+![SMlast](./demogif/1633978491315.gif =200x23)
+![SM2ndlast](./demogif/1633978491321.gif =200x23)
+![SMlogin2](./demogif/1633978491327.gif =200x23)
 
-![Clast](./demogif/1633978491304.gif)
-![LOgin](./demogif/1633978491350.gif)
-![C2ndlast](./demogif/1633978491310.gif)
-![CDOmainselect](./demogif/1633978491333.gif)
-![SMlast](./demogif/1633978491315.gif)
-![SM2ndlast](./demogif/1633978491321.gif)
-![SMlogin2](./demogif/1633978491327.gif)
-
-![Clogin](./demogif/1633978491338.gif)
-![SMlogin1](./demogif/1633978491298.gif)
+![Clogin](./demogif/1633978491338.gif =200x23)
+![SMlogin1](./demogif/1633978491298.gif =200x23)
 
 ---
 
