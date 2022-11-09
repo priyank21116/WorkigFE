@@ -31,7 +31,7 @@ Solves the problem of daily wage utility workers serving as electrician,plumber 
     -status-bar
 - formik
 - yup
-- react-native-maps-directions
+- react-native-maps-directions.
 
 
 ### Demo Screens
@@ -39,7 +39,7 @@ Solves the problem of daily wage utility workers serving as electrician,plumber 
 
 ![Cregister](./demogif/1633978491344.gif )
 
-![Clast](./demogif/1633978491304.gif )
+![Clast](./demogif/1633978491304.gif)
 ![LOgin](./demogif/1633978491350.gif )
 ![C2ndlast](./demogif/1633978491310.gif )
 ![CDOmainselect](./demogif/1633978491333.gif )
